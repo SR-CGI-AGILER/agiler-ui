@@ -1,0 +1,27 @@
+{{#paper-list}}
+{{#paper-subheader}}Categories{{/paper-subheader}}
+{{#each backlogTasks as |category|}}
+    {{#paper-item class="md-1-line"}}
+    <div class="md-list-item-text">
+        <p>{{category.text}}</p>
+    </div>
+    <div class="md-secondary-container">
+        {{#paper-button iconButton=true onClick=(action "selectCategory" category)}}
+            {{paper-icon "navigate_next"}}
+        {{/paper-button}}
+        
+    </div>
+    
+    {{/paper-item}}
+    {{#if showMultiComp}}
+    {{#paper-item}}
+        {{#multi-task-select}}
+        {{/multi-task-select}}
+    {{/paper-item}}
+    {{/if}}
+
+{{/each}}
+{{/paper-list}}
+
+    
+    

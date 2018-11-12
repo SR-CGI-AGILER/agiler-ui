@@ -6,10 +6,8 @@ export default Component.extend({
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],
     tabIndex: 0,
-    tabSubheading: 'updates',
-    // tabs: ['schedule', 'backlog'],
-    tasks:"",
-    currentTab:"",
+    tabSubheading: 'Updates',
+    currentTab: '', 
     actions: {
         handleTabIndexChanged(newTabIndex) {
             console.log('Tab Index Changed!',newTabIndex);
@@ -17,13 +15,16 @@ export default Component.extend({
             if(newTabIndex === 1){
             this.set('currentTab','schedule')
             this.set('tabSubheading','schedule')
-            // this.set('tasks',latestActivityPlan)
-            }else if(newTabIndex === 0){
-              this.set('currentTab','updates')
-            this.set('tabSubheading','updates')
             }
-            // console.log('Tab Index Changed!',currentTab[newTabIndex]);
-
+            if(newTabIndex  === 2) {
+              this.set('currentTab', 'backlogs');
+              this.set('tabSubheading', 'Backlogs');
+              console.log(this.latestActivityPlan);
+            }
+            else if(newTabIndex === 0) {
+              this.set('currentTab', 'updates');
+              this.set('tabSubheading', 'Updates');
+            }
         },
         handleTabSubheadingChanged(newTabSubheading) {
             this.set('tabSubheading', newTabSubheading);
@@ -33,6 +34,12 @@ export default Component.extend({
       return this.currentTab === 'schedule'
   }),
 
+    showBacklogsView: computed('currentTab', function (){
+      return this.currentTab === 'backlogs'
+    }),
+    selectedTasks: [],
+    latestActivityPlan: [...getTestTasks()],
+    latestTeamCopy: [...getTestTasks()]
 });
 
 function getTestTasks() {
