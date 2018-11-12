@@ -1,20 +1,38 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
+  selectedTasks: [],
+  latestActivityPlan: [...getTestTasks()],
+  latestTeamCopy: [...getTestTasks()],
     tabIndex: 0,
-    tabSubheading: null,
+    tabSubheading: 'updates',
+    // tabs: ['schedule', 'backlog'],
+    tasks:"",
+    currentTab:"",
     actions: {
         handleTabIndexChanged(newTabIndex) {
-            console.log('Tab Index Changed!');
+            console.log('Tab Index Changed!',newTabIndex);
             this.set('tabIndex', newTabIndex);
+            if(newTabIndex === 1){
+            this.set('currentTab','schedule')
+            this.set('tabSubheading','schedule')
+            // this.set('tasks',latestActivityPlan)
+            }else if(newTabIndex === 0){
+              this.set('currentTab','updates')
+            this.set('tabSubheading','updates')
+            }
+            // console.log('Tab Index Changed!',currentTab[newTabIndex]);
+
         },
         handleTabSubheadingChanged(newTabSubheading) {
             this.set('tabSubheading', newTabSubheading);
         }
     },
-    selectedTasks: [],
-    latestActivityPlan: [...getTestTasks()],
-    latestTeamCopy: [...getTestTasks()]
+    showScheduleTab: computed('currentTab', function() {
+      return this.currentTab === 'schedule'
+  }),
+
 });
 
 function getTestTasks() {

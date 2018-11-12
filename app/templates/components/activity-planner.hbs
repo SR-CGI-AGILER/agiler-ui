@@ -1,7 +1,15 @@
+{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex tabSubheading=tabSubheading }}
+{{#liquid-if showScheduleTab class="vehicles"}}
+{{#schedule-task 
+    tasks=latestActivityPlan}}
+{{/schedule-task}}
+
+{{else}}
 {{#activity-planner-updates
     completedTasks=latestActivityPlan
     pendingTasks=latestActivityPlan
     newTasks=latestActivityPlan
     cancelled=latestActivityPlan}}
-    {{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex }}
 {{/activity-planner-updates}}
+{{/liquid-if}}
+
