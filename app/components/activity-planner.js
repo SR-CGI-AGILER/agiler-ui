@@ -1,17 +1,31 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
     tabIndex: 0,
-    tabSubheading: null,
+    tabSubheading: 'Updates',
+    currentTab: '', 
     actions: {
         handleTabIndexChanged(newTabIndex) {
             console.log('Tab Index Changed!');
             this.set('tabIndex', newTabIndex);
+            if(newTabIndex  === 1) {
+              this.set('currentTab', 'backlogs');
+              this.set('tabSubheading', 'Backlogs');
+              console.log(this.latestActivityPlan);
+            }
+            else if(newTabIndex === 0) {
+              this.set('currentTab', 'updates');
+              this.set('tabSubheading', 'Updates');
+            }
         },
         handleTabSubheadingChanged(newTabSubheading) {
             this.set('tabSubheading', newTabSubheading);
         }
     },
+    showBacklogsView: computed('currentTab', function (){
+      return this.currentTab === 'backlogs'
+    }),
     selectedTasks: [],
     latestActivityPlan: [...getTestTasks()],
     latestTeamCopy: [...getTestTasks()]
