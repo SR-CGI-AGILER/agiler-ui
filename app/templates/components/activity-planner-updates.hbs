@@ -1,7 +1,6 @@
-{{yield}}
+{{!-- {{yield}} --}}
 
-{{#if showCategoriesView}}
-  This is the Categories view:
+{{#liquid-if showCategoriesView class="showcategory"}}
   {{#paper-list}}
     {{#paper-subheader}}Categories{{/paper-subheader}}
     {{#each categories as |category|}}
@@ -15,16 +14,15 @@
       {{/paper-item}}
     {{/each}}
   {{/paper-list}}
-{{/if}}
+{{/liquid-if}}
 
-{{#if showTasksView}}
-  This is the Tasks view:
+{{#liquid-if showTasksView class="showcategory"}}
   {{#paper-list}}
-    {{#paper-subheader}}Categories{{/paper-subheader}}
-    {{#each categories as |category|}}
+    {{#paper-subheader}}Tasks{{/paper-subheader}}
+    {{#each completedTasks as |category|}}
       {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
         <div class="md-list-item-text">
-          <p>{{category}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -32,4 +30,5 @@
       {{/paper-item}}
     {{/each}}
   {{/paper-list}}
-{{/if}}
+  {{#paper-button iconButton=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}

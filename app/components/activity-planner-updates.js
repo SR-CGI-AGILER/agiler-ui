@@ -8,6 +8,10 @@ export default Component.extend({
         selectCategory(category) {
             console.log('Updated Category:', category);
             this.set('currentView', 'Tasks');
+        },
+        showCategories() {
+            console.log('Back to Category View');
+            this.set('currentView', 'Categories');
         }
     },
     showCategoriesView: computed('currentView', function() {
