@@ -1,7 +1,19 @@
+{{ activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") 
+        tabIndex=tabIndex tabSubheading=tabSubheading
+}}
+
+
+{{#liquid-if showBacklogsView class='vehicles'}}
+    {{#activity-planner-backlogs 
+        backlogTasks=latestActivityPlan }}
+    {{/activity-planner-backlogs}}
+{{else}}
 {{#activity-planner-updates
     completedTasks=latestActivityPlan
     pendingTasks=latestActivityPlan
     newTasks=latestActivityPlan
     cancelled=latestActivityPlan}}
-    {{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex }}
+    
 {{/activity-planner-updates}}
+{{/liquid-if}}
+
