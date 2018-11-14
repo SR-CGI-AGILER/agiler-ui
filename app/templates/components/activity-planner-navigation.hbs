@@ -1,12 +1,12 @@
 {{#paper-toolbar}}
-  {{#paper-toolbar-tools}}
-    {{#paper-button iconButton=true onClick=(action "decrementTabIndex")}}
-      {{paper-icon "navigate_before"}}
-    {{/paper-button}}
-    <h2>{{tabSubheading}}</h2>
-    <span class="flex"></span>
-    {{#paper-button iconButton=true onClick=(action "incrementTabIndex") }}
-      {{paper-icon "navigate_next"}}
-    {{/paper-button}}
-  {{/paper-toolbar-tools}}
+{{#paper-toolbar-tools}}
+{{#paper-button iconButton=true onClick=(action "decrementTabIndex")}}
+{{paper-icon "navigate_before"}}
+{{/paper-button}}
+<h2>{{tabSubheading}}</h2>
+<span class="flex"></span>
+{{#paper-button iconButton=true onClick=(action "incrementTabIndex") }}
+{{paper-icon "navigate_next"}}
+{{/paper-button}}
+{{/paper-toolbar-tools}}
 {{/paper-toolbar}}

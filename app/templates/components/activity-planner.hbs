@@ -1,26 +1,27 @@
-{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex tabSubheading=tabSubheading }}
+{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex
+tabSubheading=tabSubheading }}
 {{#liquid-if showActivityPlanTab class="showcategory"}}
-{{#activity-plan 
-    tasks=latestActivityPlan}}
+{{#activity-plan
+tasks=latestActivityPlan}}
 {{/activity-plan}}
 
 {{/liquid-if}}
 
 {{#liquid-if showScheduleTab class="showcategory"}}
-{{#schedule-task 
-    tasks=latestActivityPlan}}
+{{#schedule-task
+tasks=latestActivityPlan}}
 {{/schedule-task}}
 
 {{/liquid-if}}
 {{#liquid-if showBacklogsView class='showcategory'}}
-    {{#activity-planner-backlogs 
-        backlogTasks=latestActivityPlan }}
-    {{/activity-planner-backlogs}}
+{{#activity-planner-backlogs
+backlogTasks=latestActivityPlan }}
+{{/activity-planner-backlogs}}
 {{else}}
 {{#activity-planner-updates
-    completedTasks=latestActivityPlan
-    pendingTasks=latestActivityPlan
-    newTasks=latestActivityPlan
-    cancelled=latestActivityPlan}}
+completedTasks=latestActivityPlan
+pendingTasks=latestActivityPlan
+newTasks=latestActivityPlan
+cancelled=latestActivityPlan}}
 {{/activity-planner-updates}}
 {{/liquid-if}}

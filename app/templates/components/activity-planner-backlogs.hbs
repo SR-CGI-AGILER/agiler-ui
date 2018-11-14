@@ -3,7 +3,7 @@
 {{#each backlogTasks as |category|}}
     {{#paper-item class="md-1-line"}}
     <div class="md-list-item-text">
-        <p>{{category.text}}</p>
+        <p>{{category.owner}}</p>
     </div>
     <div class="md-secondary-container">
         {{#paper-button iconButton=true onClick=(action "selectCategory" category)}}
