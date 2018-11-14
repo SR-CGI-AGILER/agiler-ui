@@ -2,18 +2,34 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-    tabIndex: 0,
-    tabSubheading: 'Updates',
-    currentTab: '', 
+  selectedTasks: [],
+  latestActivityPlan: [...getTestTasks()],
+  latestTeamCopy: [...getTestTasks()],  
+  tabIndex: 0,
+    tabSubheading: 'updates',
+    currentTab: '',
     actions: {
         handleTabIndexChanged(newTabIndex) {
-            console.log('Tab Index Changed!');
+            console.log('Tab Index Changed!', newTabIndex);
             this.set('tabIndex', newTabIndex);
-            if(newTabIndex  === 1) {
+           
+
+           
+            if(newTabIndex === 1){
+            this.set('currentTab','schedule')
+            this.set('tabSubheading','schedule')
+            }
+            if(newTabIndex  === 2) {
               this.set('currentTab', 'backlogs');
               this.set('tabSubheading', 'Backlogs');
               console.log(this.latestActivityPlan);
             }
+            if(newTabIndex === 3){
+              this.set('currentTab','ActivityPlan');
+              this.set('tabSubheading','ActivityPlan');
+              
+            }
+            
             else if(newTabIndex === 0) {
               this.set('currentTab', 'updates');
               this.set('tabSubheading', 'Updates');
@@ -21,15 +37,47 @@ export default Component.extend({
         },
         handleTabSubheadingChanged(newTabSubheading) {
             this.set('tabSubheading', newTabSubheading);
-        }
-    },
+        },
+        
+        saveToDb(){
+        console.log(this.latestActivityPlan,"Activity Plan");
+        this.latestActivityPlan.map(eachitem => {
+          console.log(eachitem.projectName)            
+        })
+        // let text = this.latestActivityPlan.text
+        // console.log(this.latestActivityPlan[0])
+        // let project = this.latestActivityPlan.projectName
+        // let owner = this.latestActivityPlan.owner
+        Ember.$.ajax({
+          type: "POST",
+          url: `http://localhost:3000/api/v1/tasks`,
+          contentType : "application/json",
+          data: JSON.stringify(this.latestActivityPlan),
+        })
+    }
+  }, 
+    showActivityPlanTab: computed('currentTab', function(){
+      return this.currentTab === 'ActivityPlan';
+    }),
+   
+    showScheduleTab: computed('currentTab', function() {
+      return this.currentTab === 'schedule'
+  }),
+
     showBacklogsView: computed('currentTab', function (){
       return this.currentTab === 'backlogs'
     }),
-    selectedTasks: [],
-    latestActivityPlan: [...getTestTasks()],
-    latestTeamCopy: [...getTestTasks()]
+    // selectedTasks: [],
+    // latestActivityPlan: [...getTestTasks()],
+    // latestTeamCopy: [...getTestTasks()],
+
+    // setupController(controller,model) {
+    //   this._super(controller,model);
+    //   controller.set('activitydata',this.get('latestActivityPlan'))
+    // }
 });
+
+
 
 function getTestTasks() {
     return [

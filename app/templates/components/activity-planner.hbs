@@ -1,9 +1,18 @@
-{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") 
-        tabIndex=tabIndex tabSubheading=tabSubheading
-}}
+{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex tabSubheading=tabSubheading }}
+{{#liquid-if showActivityPlanTab class="showcategory"}}
+{{#activity-plan 
+    tasks=latestActivityPlan 
+    saveData=(action "saveToDb")}}
+{{/activity-plan}}
+{{/liquid-if}}
 
+{{#liquid-if showScheduleTab class="showcategory"}}
+{{#schedule-task 
+    tasks=latestActivityPlan}}
+{{/schedule-task}}
+{{/liquid-if}}
 
-{{#liquid-if showBacklogsView class='vehicles'}}
+{{#liquid-if showBacklogsView class='showcategory'}}
     {{#activity-planner-backlogs 
         backlogTasks=latestActivityPlan }}
     {{/activity-planner-backlogs}}
@@ -12,7 +21,6 @@
     completedTasks=latestActivityPlan
     pendingTasks=latestActivityPlan
     newTasks=latestActivityPlan
-    cancelled=latestActivityPlan}} 
+    cancelled=latestActivityPlan}}
 {{/activity-planner-updates}}
 {{/liquid-if}}
-

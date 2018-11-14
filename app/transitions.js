@@ -4,12 +4,4 @@ export default function(){
       // this.toValue(true),
       this.use('toLeft', {duration: 500}),
       this.reverse('toRight', {duration: 500})
-    );
-
-  
-  this.transition(
-  
-  this.hasClass('vehicles'),
-  this.use('toLeft', {duration: 500}),
-  this.reverse('toRight', {duration: 500})
 )}
