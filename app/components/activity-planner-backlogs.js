@@ -3,13 +3,11 @@ import { computed } from '@ember/object';
 
 
 export default Component.extend({
-    mutiComp: false,
+    // mutiComp: false,
     actions: {
-        selectCategory(category){
-            this.toggleProperty('mutiComp', true);    
+        selectTask(category){
+            // this.toggleProperty('mutiComp', true);
+            this.selectTask(category.text);    
         }
-    },
-    showMultiComp: computed('mutiComp', function(){
-        return this.mutiComp
-    })
+    }
 });

@@ -28,7 +28,7 @@
     {{#each tasks as |category|}}
       {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
         <div class="md-list-item-text">
-          <p>{{category.owner}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
