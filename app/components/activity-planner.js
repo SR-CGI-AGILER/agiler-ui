@@ -1,12 +1,13 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+// import { Ember } from 'ember';
 
 export default Component.extend({
   selectedTasks: [],
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],  
   tabIndex: 0,
-  tabSubheading: 'Updates',
+  tabSubheading: '(1/4) Updates',
   currentTab: 'updates',
   actions: {
       handleTabIndexChanged(newTabIndex) {
@@ -14,24 +15,33 @@ export default Component.extend({
         
         if(newTabIndex === 1){
         this.set('currentTab','schedule')
-        this.set('tabSubheading','Schedule')
+        this.set('tabSubheading',`(${newTabIndex+1}/4) Scheduled`)
         }
         if(newTabIndex  === 2) {
           this.set('currentTab', 'backlogs');
-          this.set('tabSubheading', 'Backlogs');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Product Backlogs`);
         }
         if(newTabIndex === 3){
           this.set('currentTab','ActivityPlan');
-          this.set('tabSubheading','ActivityPlan');  
+          this.set('tabSubheading',`(${newTabIndex+1}/4) ActivityPlan`);
+          
         }
         
         else if(newTabIndex === 0) {
           this.set('currentTab', 'updates');
-          this.set('tabSubheading', 'Updates');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Updates`);
         }
       },
       handleTabSubheadingChanged(newTabSubheading) {
         this.set('tabSubheading', newTabSubheading);
+      },
+      saveToDb(){
+        Ember.$.ajax({
+          type: 'POST',
+          url: `http://localhost:3000/api/v1/tasks`,
+          contentType: "application/json",
+          data: JSON.stringify(this.latestActivityPlan)
+        })
       },
       selectTask(task) {
         this.get('selectedTasks').pushObject(task);
@@ -53,7 +63,8 @@ export default Component.extend({
 
     showUpdatesView: computed('currentTab', function() {
       return this.currentTab === 'updates'
-    })
+    }),
+
 });
 function getTestTasks() {
     return [

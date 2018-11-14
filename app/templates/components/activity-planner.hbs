@@ -14,7 +14,8 @@
 
 {{#liquid-if showActivityPlanTab class='showcategory'}}
 {{#activity-plan 
-    tasks=latestActivityPlan}}
+    tasks=latestActivityPlan 
+    saveData=(action "saveToDb")}}
 {{/activity-plan}}
 {{/liquid-if}}
 
