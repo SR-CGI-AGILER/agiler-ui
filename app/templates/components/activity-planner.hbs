@@ -1,27 +1,86 @@
-{{activity-planner-navigation onTabIndexChanged=(action "handleTabIndexChanged") tabIndex=tabIndex
-tabSubheading=tabSubheading }}
-{{#liquid-if showActivityPlanTab class="showcategory"}}
-{{#activity-plan
-tasks=latestActivityPlan}}
-{{/activity-plan}}
+{{activity-planner-navigation 
+    onTabIndexChanged=(action "handleTabIndexChanged") 
+    tabIndex=tabIndex 
+    tabSubheading=tabSubheading }}
+{{#swiper-container events=(hash slideChange=(action "handleTabIndexC" tabIndex))}}
 
+   {{#swiper-slide}} 
+   {{#activity-planner-updates
+        completedTasks=latestActivityPlan
+        pendingTasks=latestActivityPlan
+        newTasks=latestActivityPlan
+        cancelled=latestActivityPlan}}
+    {{/activity-planner-updates}}
+    {{/swiper-slide}}
+    {{#swiper-slide}} 
+    {{#schedule-task 
+        tasks=latestActivityPlan
+        selectTask=(action "selectTask")}}
+    {{/schedule-task}}
+    {{/swiper-slide}}
+    {{#swiper-slide}}
+        {{#activity-planner-backlogs 
+        backlogTasks=latestActivityPlan
+        selectTask=(action "selectTask") }}
+    {{/activity-planner-backlogs}}
+    {{/swiper-slide}}
+    {{#swiper-slide}}
+        {{#activity-plan 
+        tasks=latestActivityPlan 
+        saveData=(action "saveToDb")}}
+    {{/activity-plan}}
+    {{/swiper-slide}}
+{{/swiper-container}}
+
+{{#liquid-if showUpdatesView class='showcategory'}}
+   
+   {{#activity-planner-updates
+        completedTasks=latestActivityPlan
+        pendingTasks=latestActivityPlan
+        newTasks=latestActivityPlan
+        cancelled=latestActivityPlan}}
+    {{/activity-planner-updates}}
+{{/liquid-if}}
+    {{!-- {{#swiper-container onChange=(action 'horizontalSlide')}}
+{{#swiper-slide}}Slide 1{{/swiper-slide}}
+    {{#swiper-slide}}Slide 2{{/swiper-slide}}
+    {{#swiper-slide}}Slide 3{{/swiper-slide}}
+    {{#swiper-slide}}Slide 4{{/swiper-slide}}
+    {{#swiper-slide}}Slide 5{{/swiper-slide}}
+  {{/swiper-container}}  --}}
+{{#liquid-if showUpdatesView class='showcategory'}}
+   
+   {{#activity-planner-updates
+        completedTasks=latestActivityPlan
+        pendingTasks=latestActivityPlan
+        newTasks=latestActivityPlan
+        cancelled=latestActivityPlan}}
+    {{/activity-planner-updates}}
+{{/liquid-if}}
+{{#liquid-if showActivityPlanTab class='showcategory'}}
+   {{!-- {{#swiper-slide}}  --}}
+   {{#activity-plan 
+        tasks=latestActivityPlan 
+        saveData=(action "saveToDb")}}
+    {{/activity-plan}}
+    {{!-- {{/swiper-slide}} --}}
 {{/liquid-if}}
 
-{{#liquid-if showScheduleTab class="showcategory"}}
-{{#schedule-task
-tasks=latestActivityPlan}}
-{{/schedule-task}}
-
+{{#liquid-if showScheduleTab class='showcategory'}}
+    {{#schedule-task 
+        tasks=latestActivityPlan
+        selectTask=(action "selectTask")}}
+    {{/schedule-task}}
 {{/liquid-if}}
+
 {{#liquid-if showBacklogsView class='showcategory'}}
-{{#activity-planner-backlogs
-backlogTasks=latestActivityPlan }}
-{{/activity-planner-backlogs}}
-{{else}}
-{{#activity-planner-updates
-completedTasks=latestActivityPlan
-pendingTasks=latestActivityPlan
-newTasks=latestActivityPlan
-cancelled=latestActivityPlan}}
-{{/activity-planner-updates}}
+    {{#activity-planner-backlogs 
+        backlogTasks=latestActivityPlan
+        selectTask=(action "selectTask") }}
+    {{/activity-planner-backlogs}}
 {{/liquid-if}}
+
+{{#activity-planner-selected-tasks
+    selectedTasks=selectedTasks
+    currentTab=currentTab }}
+{{/activity-planner-selected-tasks}}

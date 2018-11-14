@@ -1,0 +1,11 @@
+{{!-- {{taskName}} --}}
+<p>SELECTED TASKS</p>
+    {{#paper-list}}
+
+    {{#each selectedTasks as |tasks|}}
+        {{#paper-item class="md-1-line"}}
+        {{tasks}}
+        {{/paper-item}}
+    {{/each}}
+    {{/paper-list}}
+

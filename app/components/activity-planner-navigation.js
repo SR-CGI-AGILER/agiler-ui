@@ -4,10 +4,20 @@ export default Component.extend({
     
     actions: {
         incrementTabIndex() {
-            this.onTabIndexChanged(this.tabIndex+1);
+            if(this.tabIndex === 3){
+                this.onTabIndexChanged(0);
+            }
+            else{
+                this.onTabIndexChanged(this.tabIndex+1);
+            }
         },
         decrementTabIndex() {
-            this.onTabIndexChanged(this.tabIndex-1);
+            if(this.tabIndex === 0){
+                this.onTabIndexChanged(3);
+            }
+            else {
+                this.onTabIndexChanged(this.tabIndex-1);
+            }
         }
     }
 });

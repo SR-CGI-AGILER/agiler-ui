@@ -1,12 +1,34 @@
 {{yield}}
 
-  This is the schedule view:
+{{#paper-tabs
+  stretch=true
+  
+  selected=selectedBasicTab
+  onChange=(action (mut selectedBasicTab)) as |tabs|}}
+  {{#tabs.tab}}
+    Scheduled Today
+  {{/tabs.tab}}
+
+  {{#tabs.tab}}
+    Scheduled for Today
+  {{/tabs.tab}}
+  
+{{/paper-tabs}}
+
+{{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
+  {{!-- <h1 class="md-display-2">Tab {{current.tab}}</h1> --}}
   {{#paper-list}}
-    {{#paper-subheader}}scheduled tasks{{/paper-subheader}}
+    {{#paper-subheader}}
+      {{#if current.tab}}
+        Scheduled for Today
+      {{else}}
+        Scheduled Today
+      {{/if}}
+    {{/paper-subheader}}
     {{#each tasks as |category|}}
       {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
         <div class="md-list-item-text">
-          <p>{{category.owner}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -14,3 +36,6 @@
       {{/paper-item}}
     {{/each}}
   {{/paper-list}}
+{{/liquid-bind}}
+
+  

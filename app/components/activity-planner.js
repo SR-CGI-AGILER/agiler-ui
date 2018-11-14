@@ -1,43 +1,84 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+// import { Ember } from 'ember';
 
 export default Component.extend({
   selectedTasks: [],
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],  
   tabIndex: 0,
-    tabSubheading: 'updates',
-    currentTab: '',
-    actions: {
-        handleTabIndexChanged(newTabIndex) {
-            console.log('Tab Index Changed!', newTabIndex);
-            this.set('tabIndex', newTabIndex);
-           
-
-           
-            if(newTabIndex === 1){
-            this.set('currentTab','schedule')
-            this.set('tabSubheading','schedule')
-            }
-            if(newTabIndex  === 2) {
-              this.set('currentTab', 'backlogs');
-              this.set('tabSubheading', 'Backlogs');
-              console.log(this.latestActivityPlan);
-            }
-            if(newTabIndex === 3){
-              this.set('currentTab','ActivityPlan');
-              this.set('tabSubheading','ActivityPlan');
-              
-            }
-            
-            else if(newTabIndex === 0) {
-              this.set('currentTab', 'updates');
-              this.set('tabSubheading', 'Updates');
-            }
-        },
-        handleTabSubheadingChanged(newTabSubheading) {
-            this.set('tabSubheading', newTabSubheading);
+  tabSubheading: '(1/4) Updates',
+  currentTab: 'updates',
+  actions: {
+    handleTabIndexC(newTabIndex){
+      this.set('tabIndex', newTabIndex+1);
+        
+        if(newTabIndex === 1){
+          this.set('currentTab','schedule')
+          this.set('tabSubheading',`(${newTabIndex+1}/4) Scheduled`)
         }
+        if(newTabIndex  === 2) {
+          this.set('currentTab', 'backlogs');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Product Backlogs`);
+          // this.set('tabSubheading', '(' + (parseInt(newTabIndex)+1) + '/4) Product Backlogs');
+
+        }
+        if(newTabIndex === 3){
+          this.set('currentTab','ActivityPlan');
+          this.set('tabSubheading',`(${newTabIndex+1}/4) ActivityPlan`);
+          
+        }
+        
+        else if(newTabIndex === 0) {
+          this.set('currentTab', 'updates');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Updates`);
+        }
+    },
+      handleTabIndexChanged(newTabIndex) {
+        // debugger
+        // console.log(newTabIndex, "HERE");
+        this.set('tabIndex', newTabIndex);
+        
+        if(newTabIndex === 1){
+          this.set('currentTab','schedule')
+          this.set('tabSubheading',`(${newTabIndex+1}/4) Scheduled`)
+        }
+        if(newTabIndex  === 2) {
+          this.set('currentTab', 'backlogs');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Product Backlogs`);
+          // this.set('tabSubheading', '(' + (parseInt(newTabIndex)+1) + '/4) Product Backlogs');
+
+        }
+        if(newTabIndex === 3){
+          this.set('currentTab','ActivityPlan');
+          this.set('tabSubheading',`(${newTabIndex+1}/4) ActivityPlan`);
+          
+        }
+        
+        else if(newTabIndex === 0) {
+          this.set('currentTab', 'updates');
+          this.set('tabSubheading', `(${newTabIndex+1}/4) Updates`);
+        }
+      },
+      handleTabSubheadingChanged(newTabSubheading) {
+        this.set('tabSubheading', newTabSubheading);
+      },
+      saveToDb(){
+        Ember.$.ajax({
+          type: 'POST',
+          url: `http://localhost:3000/api/v1/tasks`,
+          contentType: "application/json",
+          data: JSON.stringify(this.latestActivityPlan)
+        })
+      },
+      selectTask(task) {
+        this.get('selectedTasks').pushObject(task);
+        alert(this.get('selectedTasks').length + " tasks selected")
+        console.log(this.get('selectedTasks'));
+      },
+      horizontalSlide(){
+        debugger
+      }
     },
     showActivityPlanTab: computed('currentTab', function(){
       return this.currentTab === 'ActivityPlan';
@@ -45,16 +86,18 @@ export default Component.extend({
    
     showScheduleTab: computed('currentTab', function() {
       return this.currentTab === 'schedule'
-  }),
+    }),
 
     showBacklogsView: computed('currentTab', function (){
       return this.currentTab === 'backlogs'
     }),
-    selectedTasks: [],
-    latestActivityPlan: [...getTestTasks()],
-    latestTeamCopy: [...getTestTasks()]
-});
 
+    showUpdatesView: computed('currentTab', function() {
+      return this.currentTab === 'updates'
+    }),
+
+
+});
 function getTestTasks() {
     return [
         {
@@ -103,38 +146,6 @@ function getTestTasks() {
           "projectName": "Project D",
           "dueDate": "date(new Date(), new Date(2018, 12, 12))",
           "owner": "Robyn Livingston",
-          "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-        },
-        {
-          "_id": "5be92db5c815958a178da1e3",
-          "text": "Id ad cillum voluptate incididunt officia dolore eiusmod anim.",
-          "projectName": "Project C",
-          "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-          "owner": "Powell Singleton",
-          "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-        },
-        {
-          "_id": "5be92db5789e1f98a1e3a870",
-          "text": "Exercitation sint ex esse nostrud.",
-          "projectName": "Project B",
-          "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-          "owner": "Andrea Kirk",
-          "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-        },
-        {
-          "_id": "5be92db522310d4b26daec22",
-          "text": "Incididunt reprehenderit fugiat mollit ullamco magna exercitation.",
-          "projectName": "Project B",
-          "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-          "owner": "Blevins Logan",
-          "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-        },
-        {
-          "_id": "5be92db558f5fb621e0271fd",
-          "text": "Lorem sint ea pariatur sint qui ipsum mollit ipsum nostrud laboris proident in irure.",
-          "projectName": "Project C",
-          "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-          "owner": "Mays Vang",
           "scheduled": "date(new Date(), new Date(2018, 12, 12))"
         }
     ];

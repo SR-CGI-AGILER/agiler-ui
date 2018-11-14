@@ -1,1 +1,24 @@
 @import 'ember-paper';
+
+.fix-toolbar{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    
+    width: 100%;
+    box-sizing: border-box;
+
+    
+}
+
+.fix-toolbar{
+    box-shadow: 0 7px 3px -2px rgba(0,0,0,.6);
+}
+
+// .md-subheader-inner {
+//     padding-top: 20px;
+// }
+
+// .liquid-container {
+//     padding-top: 30px;
+// }

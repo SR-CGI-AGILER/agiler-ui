@@ -4,9 +4,8 @@ import { computed } from '@ember/object';
 export default Component.extend({
     mutiComp: false,
     actions: {
-        selectCategory(category){
-            this.toggleProperty('mutiComp', true);   
-            console.log(document,"qwert"); 
+        saveToDb() {
+            this.saveData();
         }
     },
     showMultiComp: computed('mutiComp', function(){
