@@ -26,13 +26,15 @@
       {{/if}}
     {{/paper-subheader}}
     {{#each tasks as |category|}}
-      {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
+      {{#paper-item class="md-1-line"  as |controls|}}
         <div class="md-list-item-text">
-          <p>{{category.text}}</p>
+          <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
         </div>
-        <div class="md-secondary-container">
-          {{paper-icon "navigate_next"}}
-        </div>
+        {{#if selected}}
+      <div class="md-secondary-container ">
+        {{controls.checkbox value=category.enabled onChange=(action (mut category.enabled))}}
+      </div>
+      {{/if}}
       {{/paper-item}}
     {{/each}}
   {{/paper-list}}
