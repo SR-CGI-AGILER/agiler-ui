@@ -1,9 +1,29 @@
+<br>
+{{#paper-autocomplete
+  
+  placeholder="Type a project name!"
+  options=arrayOfItems
+  selected=selectedItem
+  onSelectionChange=(action (mut selectedItem))
+  as |item term|}}
+  
+  <span class="item-title">
+    {{paper-icon "search"}}
+    <span>
+      {{paper-autocomplete-highlight searchText=term.searchText flags="i" label=item}}
+    </span>
+  </span>
+  {{else}}
+  Whoops! could not find!
+{{/paper-autocomplete}}
+
 {{#paper-list}}
+
 {{#paper-subheader}}Categories{{/paper-subheader}}
 {{#each backlogTasks as |category|}}
     {{#paper-item class="md-1-line"}}
     <div class="md-list-item-text">
-        <p>{{category.text}}</p>
+        <p>{{category.projectName}}</p>
     </div>
     <div class="md-secondary-container">
         {{#paper-button iconButton=true onClick=(action "selectCategory" category)}}

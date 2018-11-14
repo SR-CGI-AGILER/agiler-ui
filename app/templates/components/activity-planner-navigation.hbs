@@ -1,12 +1,14 @@
-{{#paper-toolbar}}
-  {{#paper-toolbar-tools}}
-    {{#paper-button iconButton=true onClick=(action "decrementTabIndex")}}
-      {{paper-icon "navigate_before"}}
-    {{/paper-button}}
-    <h2>{{tabSubheading}}</h2>
-    <span class="flex"></span>
-    {{#paper-button iconButton=true onClick=(action "incrementTabIndex") }}
-      {{paper-icon "navigate_next"}}
-    {{/paper-button}}
-  {{/paper-toolbar-tools}}
-{{/paper-toolbar}}
+{{!-- {{#paper-content flex-layout="column" flex=true}} --}}
+  {{#paper-toolbar class="fix-toolbar"}}
+    {{#paper-toolbar-tools}}
+      {{#paper-button iconButton=true onClick=(action "decrementTabIndex")}}
+        {{paper-icon "navigate_before"}}
+      {{/paper-button}}
+      <h2>{{tabSubheading}}</h2>
+      <span class="flex"></span>
+      {{#paper-button iconButton=true onClick=(action "incrementTabIndex") }}
+        {{paper-icon "navigate_next"}}
+      {{/paper-button}}
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+{{!-- {{/paper-content}} --}}
