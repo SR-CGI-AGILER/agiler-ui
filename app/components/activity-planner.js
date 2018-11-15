@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   selectedTasks: [],
+  projects: [...getTestProjects()],
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],  
   tabIndex: 0,
@@ -98,6 +99,34 @@ export default Component.extend({
 
 
 });
+function getTestProjects() {
+  return [
+    {
+      "projectName": "Project D"
+      ,"tasks": [
+        {
+        "text": "Eiusmod nulla dolore voluptate consequat ut cillum laborum aliquip officia ea sunt proident."
+        },
+        {
+        "text": "Eiusmod excepteur exercitation quis laborum ea aliquip."
+        },
+        {
+        "text": "Dolor culpa reprehenderit ea quis consectetur fugiat."
+        }
+      ],
+    },
+   { "projectName": "Project A",
+      "tasks":[
+        {
+          "text": "Tempor ad minim et eiusmod velit."
+        },
+        {
+          "text": "Amet aliquip consequat reprehenderit sit ea ea ea elit nulla proident adipisicing irure laboris officia."
+        }
+      ]
+  }
+  ]
+ }
 function getTestTasks() {
     return [
         {
