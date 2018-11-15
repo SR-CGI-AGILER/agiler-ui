@@ -1,14 +1,19 @@
 <div id="container">
+    
 {{activity-planner-navigation 
     onTabIndexChanged=(action "handleTabIndexChanged") 
     tabIndex=tabIndex 
     tabSubheading=tabSubheading }}
+
     <div class="view-content">
+        {{#each activityPlan as |ap|}}
+            {{ap.tasks.text}}
+        {{/each}}
 {{#swiper-container events=(hash slideChange=(action "handleTabIndexC" tabIndex))}}
 
    {{#swiper-slide}} 
    {{#activity-planner-updates
-        completedTasks=latestActivityPlan
+        completedTasks=completedTasks
         pendingTasks=latestActivityPlan
         newTasks=latestActivityPlan
         cancelled=latestActivityPlan}}

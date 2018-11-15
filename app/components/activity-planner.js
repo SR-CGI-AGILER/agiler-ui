@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 // import { Ember } from 'ember';
 
 export default Component.extend({
+  
   selectedTasks: [],
   projects: [...getTestProjects()],
   latestActivityPlan: [...getTestTasks()],
@@ -10,11 +11,13 @@ export default Component.extend({
   tabIndex: 0,
   tabSubheading: '(1/4) Updates',
   currentTab: 'updates',
+
   actions: {
     handleTabIndexC(newTabIndex){
       this.set('tabIndex', newTabIndex+1);
         
         if(newTabIndex === 1){
+          // console.log(this.activityPlan,"hello");
           this.set('currentTab','schedule')
           this.set('tabSubheading',`(${newTabIndex+1}/4) Scheduled`)
         }
@@ -83,6 +86,11 @@ export default Component.extend({
     },
     showActivityPlanTab: computed('currentTab', function(){
       return this.currentTab === 'ActivityPlan';
+    }),
+
+    completedTasks: computed('activityPlan', ()=>{
+      // console.log(this.activityPlan);
+      return this.activityPlan;
     }),
    
     showScheduleTab: computed('currentTab', function() {
