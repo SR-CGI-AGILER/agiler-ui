@@ -19,5 +19,8 @@ export default Component.extend({
     }),
     showCompletedTasksView: computed('currentView', function() {
         return this.currentView === 'Completed'
+    }),
+    showNewTasksView: computed('currentView', function() {
+        return this.currentView === 'New'
     })
 });

@@ -11,7 +11,7 @@ export default Component.extend({
             // this.toggleProperty('mutiComp', true);
             this.set('currentView','Backlog');
             // this.selectTask(category.text);
-            this.projectBacklogTasks = this.backlogTasks.filter(task=>task.tasks.projectName===category);
+            this.set('projectBacklogTasks',this.backlogTasks.filter(task=>task.tasks.projectName===category));
         },
         showProjects() {
             this.set('currentView', 'Projects');
