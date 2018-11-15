@@ -17,16 +17,17 @@
   Whoops! could not find!
 {{/paper-autocomplete}}
 
+{{#liquid-if showProjectsView class="showcategory"}}
 {{#paper-list}}
 
-{{#paper-subheader}}Categories{{/paper-subheader}}
-{{#each backlogTasks as |category|}}
-    {{#paper-item class="md-1-line"}}
+{{!-- {{#paper-subheader}}Categories{{/paper-subheader}} --}}
+{{#each backlogProjects as |category|}}
+    {{#paper-item class="md-1-line" onClick=(action "selectTask" category)}}
     <div class="md-list-item-text">
-        <p>{{category.projectName}}</p>
+        <p>{{category}}</p>
     </div>
     <div class="md-secondary-container">
-        {{#paper-button iconButton=true onClick=(action "selectTask" category)}}
+        {{#paper-button iconButton=true}}
             {{paper-icon "navigate_next"}}
         {{/paper-button}}
         
@@ -40,6 +41,32 @@
     {{/liquid-if}}
 {{/each}}
 {{/paper-list}}
+{{/liquid-if}}
+
+{{#liquid-if showBacklogTasksView class="showcategory"}}
+{{#paper-list}}
+
+{{!-- {{#paper-subheader}}Categories{{/paper-subheader}} --}}
+{{#each projectBacklogTasks as |category|}}
+    {{#paper-item class="md-1-line"}}
+    <div class="md-list-item-text">
+        <p>{{category.tasks.text}}</p>
+    </div>
+    <div class="md-secondary-container">
+        
+        
+    </div>
+    {{/paper-item}}
+    {{#liquid-if showMultiComp}}
+        {{#paper-item}}
+            {{#multi-task-select}}
+            {{/multi-task-select}}
+        {{/paper-item}}
+    {{/liquid-if}}
+{{/each}}
+{{/paper-list}}
+      {{#paper-button id="fixedbutton" iconButton=true raised=true fab=true onClick=(action "showProjects")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}
 
     
     

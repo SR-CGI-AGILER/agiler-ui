@@ -342,4 +342,4 @@ function getActivityPlan() {
         }
       }
     ]
-}
+  }    

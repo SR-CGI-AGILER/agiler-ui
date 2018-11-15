@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   
   selectedTasks: [],
-  projects: [...getTestProjects()],
+  projects: new Set(),
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],  
   tabIndex: 0,
@@ -62,6 +62,7 @@ export default Component.extend({
           this.set('currentTab', 'updates');
           this.set('tabSubheading', `(${this.tabIndex+1}/4) Updates`);
         }
+        
     },
     
       handleTabIndexChanged(newTabIndex) {
@@ -94,12 +95,12 @@ export default Component.extend({
         this.set('tabSubheading', newTabSubheading);
       },
       saveToDb(){
-        Ember.$.ajax({
-          type: 'POST',
-          url: `http://localhost:3000/api/v1/tasks`,
-          contentType: "application/json",
-          data: JSON.stringify(this.latestActivityPlan)
-        })
+        // Ember.$.ajax({
+        //   type: 'POST',
+        //   url: `http://localhost:3000/api/v1/tasks`,
+        //   contentType: "application/json",
+        //   data: JSON.stringify(this.latestActivityPlan)
+        // })
       },
       selectTask(task) {
         this.get('selectedTasks').pushObject(task);
@@ -118,6 +119,12 @@ export default Component.extend({
       // console.log(this.activityPlan);
       return this.activityPlan.filter(activityPlan => activityPlan.tasks.status==="Cancelled");
     }),
+    
+    newTasks: computed('activityPlan', function(){
+      console.log(this.activityPlan);
+      return this.activityPlan.filter(task =>task.tasks.status === "New");
+    }),
+
    
     showScheduleTab: computed('currentTab', function() {
       return this.currentTab === 'schedule'
@@ -131,7 +138,27 @@ export default Component.extend({
       return this.currentTab === 'updates'
     }),
 
+    completedTasks: computed('activityPlan', function () {
+      return this.activityPlan.filter(task => task.tasks.status === "Completed")
+    }),
 
+    backlogProjects: computed('activityPlan', function() {
+      this.activityPlan.forEach(element => {
+        this.projects.add(element.tasks.projectName)
+        
+      });
+      console.log(this.get('projects'));
+      return this.projects;
+      
+    // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
+    
+    }),
+
+    backlogTasks: computed('activityPlan', function() {
+    // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
+      return this.activityPlan.filter(task=>task.tasks.backlog);
+    })
+  
 });
 function getTestProjects() {
   return [

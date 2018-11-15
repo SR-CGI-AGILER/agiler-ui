@@ -18,6 +18,26 @@
     flex: 1;
     overflow: auto;
 }
-// .layout-row layout-align-start-end{
-//     margin-top:5vh
-// }
+
+#fixedbutton{
+    position: fixed;
+    left: 8vw;
+    bottom: 10vh;
+}
+
+.dd {
+    height: 55vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .md-1-line {
+    
+        height: 150px;
+        width: 45%;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+    
+    
+}
