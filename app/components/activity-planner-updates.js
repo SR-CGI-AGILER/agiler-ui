@@ -7,7 +7,7 @@ export default Component.extend({
     actions: {
         selectCategory(category) {
             console.log('Updated Category:', category);
-            this.set('currentView', 'Tasks');
+            this.set('currentView', 'CancelledTasks');
         },
         showCategories() {
             console.log('Back to Category View');
@@ -17,7 +17,7 @@ export default Component.extend({
     showCategoriesView: computed('currentView', function() {
         return this.currentView === 'Categories'
     }),
-    showTasksView: computed('currentView', function() {
-        return this.currentView === 'Tasks'
+    showCancelledTasks: computed('currentView', function(){
+        return this.currentView === 'CancelledTasks'
     })
 });

@@ -9,14 +9,14 @@
         {{!-- {{#each activityPlan as |ap|}}
             {{ap.tasks.text}}
         {{/each}} --}}
-{{#swiper-container events=(hash slideChange=(action "handleTabIndexC" tabIndex))}}
+{{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}}
 
    {{#swiper-slide}} 
    {{#activity-planner-updates
         completedTasks=latestActivityPlan
         pendingTasks=latestActivityPlan
         newTasks=latestActivityPlan
-        cancelled=latestActivityPlan}}
+        cancelledTasks=cancelledTasks}}
     {{/activity-planner-updates}}
     {{/swiper-slide}}
     {{#swiper-slide}} 

@@ -18,6 +18,7 @@ export default Component.extend({
             event.enable 
          const selectedBands = Ember.$(event.text.target).val();
          this.set('selectedBands', selectedBands || []);
+         console.log(selectedBands)
        },   
        unselectBand(item) {
            
