@@ -1,28 +1,30 @@
 {{!-- {{yield}} --}}
 
 {{#liquid-if showCategoriesView class="showcategory"}}
-  {{#paper-list}}
-    {{#paper-subheader}}Categories{{/paper-subheader}}
+  {{!-- {{#paper-list}}
+    {{#paper-subheader}}Categories{{/paper-subheader}} --}}
+     <div class="dd">
     {{#each categories as |category|}}
-      {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
-        <div class="md-list-item-text">
-          <p>{{category}}</p>
-        </div>
-        <div class="md-secondary-container">
+      {{#paper-card class="md-1-line"}}
+        {{!-- <div class="md-list-item-text"> --}}
+          <p onclick={{action "selectCategory" category}}>{{category}}</p>
+        {{!-- </div> --}}
+        {{!-- <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
-        </div>
-      {{/paper-item}}
+        </div> --}}
+      {{/paper-card}}
     {{/each}}
-  {{/paper-list}}
+      </div>
+  {{!-- {{/paper-list}} --}}
 {{/liquid-if}}
 
 {{#liquid-if showTasksView class="showcategory"}}
   {{#paper-list}}
     {{#paper-subheader}}Tasks{{/paper-subheader}}
-    {{#each completedTasks as |category|}}
+    {{#each newTasks as |category|}}
       {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
         <div class="md-list-item-text">
-          <p>{{category.text}}</p>
+          <p>{{category.tasks.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -32,3 +34,4 @@
   {{/paper-list}}
   {{#paper-button iconButton=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
 {{/liquid-if}}
+

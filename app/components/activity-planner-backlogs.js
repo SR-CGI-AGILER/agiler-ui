@@ -9,5 +9,7 @@ export default Component.extend({
             // this.toggleProperty('mutiComp', true);
             this.selectTask(category.text);    
         }
+        
     }
+
 });
