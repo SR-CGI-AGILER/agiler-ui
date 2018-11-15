@@ -5,23 +5,23 @@
     tabIndex=tabIndex 
     tabSubheading=tabSubheading }}
 
-    <div class="view-content">
-        {{!-- {{#each activityPlan as |ap|}}
-            {{ap.tasks.text}}
-        {{/each}} --}}
+<div class="view-content">
+        
 {{#swiper-container events=(hash slideChange=(action "handleTabIndexC" tabIndex))}}
 
    {{#swiper-slide}} 
    {{#activity-planner-updates
         completedTasks=latestActivityPlan
-        pendingTasks=latestActivityPlan
+        pendingTasks=pendingTasks
         newTasks=latestActivityPlan
         cancelled=latestActivityPlan}}
     {{/activity-planner-updates}}
     {{/swiper-slide}}
     {{#swiper-slide}} 
     {{#activity-planner-scheduled
-        tasks=latestActivityPlan
+        selectedTasks=selectedTasks
+        futureTasks=scheduledFutureTasks
+        todayTasks=scheduledTodayTasks
         selectTask=(action "selectTask")}}
     {{/activity-planner-scheduled}}
     {{/swiper-slide}}
@@ -33,7 +33,7 @@
     {{/swiper-slide}}
     {{#swiper-slide}}
         {{#activity-planner-activity-plan 
-        tasks=latestActivityPlan
+        selectedTasks=selectedTasks
         projects=projects 
         saveData=(action "saveToDb")}}
     {{/activity-planner-activity-plan}}

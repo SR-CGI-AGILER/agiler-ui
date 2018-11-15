@@ -88,12 +88,30 @@ export default Component.extend({
       return this.currentTab === 'ActivityPlan';
     }),
 
-    // completedTasks: computed('activityPlan', ()=>{
-    //   // console.log(this.activityPlan);
-    //   return this.activityPlan;
-    // }),
+    pendingTasks: computed('activityPlan', function(){
+      return this.activityPlan.filter(task => task.tasks.status === "Pending");
+    }),
+
+    scheduledFutureTasks: computed('activityPlan', function(){
+      var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+      // console.log(today);
+      return this.activityPlan.filter(task => task.tasks.scheduled === today);
+    }),
+
+    scheduledTodayTasks: computed('activityPlan', function(){
+      var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+      // console.log(today);
+      return this.activityPlan.filter(task => task.tasks.scheduled_On === today);
+    }),
+
    
-    showScheduleTab: computed('currentTab', function() {
+    showScheduleTab: computed('activityPlan', function() {
       return this.currentTab === 'schedule'
     }),
 

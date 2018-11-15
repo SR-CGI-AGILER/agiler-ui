@@ -16,13 +16,13 @@
   {{/paper-list}}
 {{/liquid-if}}
 
-{{#liquid-if showTasksView class="showcategory"}}
+{{#liquid-if showPendingTasks class="showcategory"}}
   {{#paper-list}}
     {{#paper-subheader}}Tasks{{/paper-subheader}}
-    {{#each completedTasks as |category|}}
+    {{#each pendingTasks as |category|}}
       {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
         <div class="md-list-item-text">
-          <p>{{category.text}}</p>
+          <p>{{category.tasks.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}

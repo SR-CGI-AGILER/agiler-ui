@@ -6,11 +6,11 @@
   selected=selectedBasicTab
   onChange=(action (mut selectedBasicTab)) as |tabs|}}
   {{#tabs.tab}}
-    Scheduled Today
+    Future Tasks
   {{/tabs.tab}}
 
   {{#tabs.tab}}
-    Scheduled for Today
+    Today's Tasks
   {{/tabs.tab}}
   
 {{/paper-tabs}}
@@ -20,15 +20,11 @@
   {{#paper-list}}
     {{#paper-subheader}}
       {{#if current.tab}}
-        Scheduled for Today
-      {{else}}
-        Scheduled Today
-      {{/if}}
-    {{/paper-subheader}}
-    {{#each tasks as |category|}}
-      {{#paper-item class="md-1-line"  as |controls|}}
+        {{!-- Scheduled for Today --}}
+        {{#each todayTasks as |category|}}
+      {{#paper-item ontouchStart=(action "selectBand" category) onpress=(action "unselectBand" category) class="md-1-line"  as |controls|}}
         <div class="md-list-item-text">
-          <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
+          <p>{{category.tasks.text}}</p>
         </div>
         {{#if selected}}
       <div class="md-secondary-container ">
@@ -37,6 +33,25 @@
       {{/if}}
       {{/paper-item}}
     {{/each}}
+        
+      {{else}}
+        {{!-- Scheduled Today --}}
+        {{#each futureTasks as |category|}}
+      {{#paper-item class="md-1-line"  as |controls|}}
+        <div class="md-list-item-text">
+          <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+        </div>
+        {{#if selected}}
+      <div class="md-secondary-container ">
+        {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
+      </div>
+      {{/if}}
+      {{/paper-item}}
+    {{/each}}
+        
+      {{/if}}
+    {{/paper-subheader}}
+    
   {{/paper-list}}
 {{/liquid-bind}}
 

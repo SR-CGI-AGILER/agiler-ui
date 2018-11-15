@@ -1,7 +1,7 @@
 {{yield}}
   {{#paper-list}}
 
-   {{#each projects as |project|}}
+   {{!-- {{#each projects as |project|}}
    {{#paper-subheader}}{{project.projectName}}{{/paper-subheader}}
      {{#each project.tasks as |task|}}
        {{#paper-item class="md-1-line"}}
@@ -13,7 +13,11 @@
        </div>
      {{/paper-item}}
      {{/each}}
-   {{/each}}
+   {{/each}} --}}
+
+  {{#each selectedTasks as |tasks|}}
+    <p>{{tasks.text}}</p>
+  {{/each}}
 
  {{/paper-list}}
  {{#paper-button iconButton=true onClick = (action "saveToDb")}}
