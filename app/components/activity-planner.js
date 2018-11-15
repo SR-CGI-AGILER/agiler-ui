@@ -89,10 +89,15 @@ export default Component.extend({
       return this.currentTab === 'ActivityPlan';
     }),
 
-    // completedTasks: computed('activityPlan', ()=>{
-    //   // console.log(this.activityPlan);
-    //   return this.activityPlan;
-    // }),
+    completedTasks: computed('activityPlan', function(){
+      console.log(this.activityPlan);
+      return this.activityPlan;
+    }),
+    newTasks: computed('activityPlan', function(){
+      console.log(this.activityPlan);
+      return this.activityPlan.filter(task =>task.tasks.status === "New");
+    }),
+
    
     showScheduleTab: computed('currentTab', function() {
       return this.currentTab === 'schedule'
