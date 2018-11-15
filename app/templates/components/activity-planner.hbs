@@ -15,10 +15,10 @@
     {{/activity-planner-updates}}
     {{/swiper-slide}}
     {{#swiper-slide}} 
-    {{#schedule-task 
+    {{#activity-planner-scheduled
         tasks=latestActivityPlan
         selectTask=(action "selectTask")}}
-    {{/schedule-task}}
+    {{/activity-planner-scheduled}}
     {{/swiper-slide}}
     {{#swiper-slide}}
         {{#activity-planner-backlogs 
@@ -27,11 +27,11 @@
     {{/activity-planner-backlogs}}
     {{/swiper-slide}}
     {{#swiper-slide}}
-        {{#activity-plan 
+        {{#activity-planner-activity-plan 
         tasks=latestActivityPlan
         projects=projects 
         saveData=(action "saveToDb")}}
-    {{/activity-plan}}
+    {{/activity-planner-activity-plan}}
     {{/swiper-slide}}
 {{/swiper-container}}
 
