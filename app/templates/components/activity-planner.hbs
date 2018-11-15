@@ -13,10 +13,10 @@
 
    {{#swiper-slide}} 
    {{#activity-planner-updates
-        completedTasks=latestActivityPlan
-        pendingTasks=latestActivityPlan
-        newTasks=latestActivityPlan
-        cancelled=latestActivityPlan}}
+        completedTasks=completedTasks
+        pendingTasks=pendingTasks
+        newTasks=newTasks
+        cancelledTasks=cancelledTasks}}
     {{/activity-planner-updates}}
     {{/swiper-slide}}
     {{#swiper-slide}} 
@@ -26,8 +26,9 @@
     {{/activity-planner-scheduled}}
     {{/swiper-slide}}
     {{#swiper-slide}}
-        {{#activity-planner-backlogs 
-        backlogTasks=latestActivityPlan
+        {{#activity-planner-backlogs
+        backlogProjects=backlogProjects 
+        backlogTasks=backlogTasks
         selectTask=(action "selectTask") }}
     {{/activity-planner-backlogs}}
     {{/swiper-slide}}
@@ -41,9 +42,9 @@
 {{/swiper-container}}
 
 
-{{#activity-planner-selected-tasks
+{{!-- {{#activity-planner-selected-tasks
     selectedTasks=selectedTasks
     currentTab=currentTab }}
-{{/activity-planner-selected-tasks}}
+{{/activity-planner-selected-tasks}} --}}
 </div>
 </div>
