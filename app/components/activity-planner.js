@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   
   selectedTasks: [],
-  projects: [...getTestProjects()],
+  projects: new Set(),
   latestActivityPlan: [...getTestTasks()],
   latestTeamCopy: [...getTestTasks()],  
   tabIndex: 0,
@@ -14,30 +14,57 @@ export default Component.extend({
 
   actions: {
     handleTabIndexC(newTabIndex){
+      
       this.set('tabIndex', newTabIndex+1);
-        
-        if(newTabIndex === 1){
-          // console.log(this.activityPlan,"hello");
+        if(this.tabIndex === 1){
           this.set('currentTab','schedule')
-          this.set('tabSubheading',`(${newTabIndex+1}/4) Scheduled`)
+          this.set('tabSubheading',`(${this.tabIndex+1}/4) Scheduled`)
         }
-        if(newTabIndex  === 2) {
+        if(this.tabIndex  === 2) {
           this.set('currentTab', 'backlogs');
-          this.set('tabSubheading', `(${newTabIndex+1}/4) Product Backlogs`);
+          this.set('tabSubheading', `(${this.tabIndex+1}/4) Product Backlogs`);
           // this.set('tabSubheading', '(' + (parseInt(newTabIndex)+1) + '/4) Product Backlogs');
 
         }
-        if(newTabIndex === 3){
+        if(this.tabIndex === 3){
           this.set('currentTab','ActivityPlan');
-          this.set('tabSubheading',`(${newTabIndex+1}/4) ActivityPlan`);
+          this.set('tabSubheading',`(${this.tabIndex+1}/4) Activity Plan`);
           
         }
         
-        else if(newTabIndex === 0) {
+        else if(this.tabIndex === 0) {
           this.set('currentTab', 'updates');
-          this.set('tabSubheading', `(${newTabIndex+1}/4) Updates`);
+          this.set('tabSubheading', `(${this.tabIndex+1}/4) Updates`);
         }
     },
+
+    handleTabIndexB(newTabIndex){
+      this.set('tabIndex', newTabIndex-1);
+      
+        
+        if(this.tabIndex === 1){
+          this.set('currentTab','schedule')
+          this.set('tabSubheading',`(${this.tabIndex+1}/4) Scheduled`)
+        }
+        if(this.tabIndex  === 2) {
+          this.set('currentTab', 'backlogs');
+          this.set('tabSubheading', `(${this.tabIndex+1}/4) Product Backlogs`);
+          // this.set('tabSubheading', '(' + (parseInt(newTabIndex)+1) + '/4) Product Backlogs');
+
+        }
+        if(this.tabIndex === 3){
+          this.set('currentTab','ActivityPlan');
+          this.set('tabSubheading',`(${this.tabIndex+1}/4) Activity Plan`);
+          
+        }
+        
+        else if(this.tabIndex === 0) {
+          this.set('currentTab', 'updates');
+          this.set('tabSubheading', `(${this.tabIndex+1}/4) Updates`);
+        }
+        
+    },
+    
       handleTabIndexChanged(newTabIndex) {
         // debugger
         // console.log(newTabIndex, "HERE");
@@ -68,12 +95,12 @@ export default Component.extend({
         this.set('tabSubheading', newTabSubheading);
       },
       saveToDb(){
-        Ember.$.ajax({
-          type: 'POST',
-          url: `http://localhost:3000/api/v1/tasks`,
-          contentType: "application/json",
-          data: JSON.stringify(this.latestActivityPlan)
-        })
+        // Ember.$.ajax({
+        //   type: 'POST',
+        //   url: `http://localhost:3000/api/v1/tasks`,
+        //   contentType: "application/json",
+        //   data: JSON.stringify(this.latestActivityPlan)
+        // })
       },
       selectTask(task) {
         this.get('selectedTasks').pushObject(task);
@@ -109,7 +136,15 @@ export default Component.extend({
       // console.log(today);
       return this.activityPlan.filter(task => task.tasks.scheduled_On === today);
     }),
-
+    cancelledTasks: computed('activityPlan', function(){
+      // console.log(this.activityPlan);
+      return this.activityPlan.filter(activityPlan => activityPlan.tasks.status==="Cancelled");
+    }),
+    
+    newTasks: computed('activityPlan', function(){
+      console.log(this.activityPlan);
+      return this.activityPlan.filter(task =>task.tasks.status === "New");
+    }),
    
     showScheduleTab: computed('activityPlan', function() {
       return this.currentTab === 'schedule'
@@ -123,7 +158,27 @@ export default Component.extend({
       return this.currentTab === 'updates'
     }),
 
+    completedTasks: computed('activityPlan', function () {
+      return this.activityPlan.filter(task => task.tasks.status === "Completed")
+    }),
 
+    backlogProjects: computed('activityPlan', function() {
+      this.activityPlan.forEach(element => {
+        this.projects.add(element.tasks.projectName)
+        
+      });
+      console.log(this.get('projects'));
+      return this.projects;
+      
+    // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
+    
+    }),
+
+    backlogTasks: computed('activityPlan', function() {
+    // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
+      return this.activityPlan.filter(task=>task.tasks.backlog);
+    })
+  
 });
 function getTestProjects() {
   return [

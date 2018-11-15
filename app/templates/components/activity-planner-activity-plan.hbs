@@ -1,5 +1,5 @@
 {{yield}}
-  {{#paper-list}}
+  {{!-- {{#paper-list}}
 
    {{!-- {{#each projects as |project|}}
    {{#paper-subheader}}{{project.projectName}}{{/paper-subheader}}
@@ -19,7 +19,16 @@
     <p>{{tasks.text}}</p>
   {{/each}}
 
- {{/paper-list}}
- {{#paper-button iconButton=true onClick = (action "saveToDb")}}
-   {{paper-icon "publish"}}
+ {{!-- {{/paper-list}} --}}
+ <div style="height:80vh"></div>
+
+<div class="layout-row layout-align-end-end">
+ {{#paper-button fab=true iconButton=true}}
+   {{paper-icon "add"}}
  {{/paper-button}}
+ </div>
+ <div class="layout-row layout-align-start-end">
+   {{#paper-button iconButton=true onClick = (action "saveToDb")}}
+   {{paper-icon "add"}}
+   {{/paper-button}}
+ </div>

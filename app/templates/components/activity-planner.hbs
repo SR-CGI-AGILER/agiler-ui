@@ -5,16 +5,18 @@
     tabIndex=tabIndex 
     tabSubheading=tabSubheading }}
 
-<div class="view-content">
-        
-{{#swiper-container events=(hash slideChange=(action "handleTabIndexC" tabIndex))}}
+    <div class="view-content">
+        {{!-- {{#each activityPlan as |ap|}}
+            {{ap.tasks.text}}
+        {{/each}} --}}
+{{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}}
 
    {{#swiper-slide}} 
    {{#activity-planner-updates
-        completedTasks=latestActivityPlan
+        completedTasks=completedTasks
         pendingTasks=pendingTasks
-        newTasks=latestActivityPlan
-        cancelled=latestActivityPlan}}
+        newTasks=newTasks
+        cancelledTasks=cancelledTasks}}
     {{/activity-planner-updates}}
     {{/swiper-slide}}
     {{#swiper-slide}} 
@@ -26,8 +28,9 @@
     {{/activity-planner-scheduled}}
     {{/swiper-slide}}
     {{#swiper-slide}}
-        {{#activity-planner-backlogs 
-        backlogTasks=latestActivityPlan
+        {{#activity-planner-backlogs
+        backlogProjects=backlogProjects 
+        backlogTasks=backlogTasks
         selectTask=(action "selectTask") }}
     {{/activity-planner-backlogs}}
     {{/swiper-slide}}
@@ -41,9 +44,9 @@
 {{/swiper-container}}
 
 
-{{#activity-planner-selected-tasks
+{{!-- {{#activity-planner-selected-tasks
     selectedTasks=selectedTasks
     currentTab=currentTab }}
-{{/activity-planner-selected-tasks}}
+{{/activity-planner-selected-tasks}} --}}
 </div>
 </div>
