@@ -4,10 +4,12 @@
   {{!-- {{#paper-list}}
     {{#paper-subheader}}Categories{{/paper-subheader}} --}}
      <div class="dd">
-    {{#each categories as |category|}}
+    {{#each newCategories as |category|}}
       {{#paper-card class="md-1-line"}}
         {{!-- <div class="md-list-item-text"> --}}
-          <p onclick={{action "selectCategory" category}}>{{category}}</p>
+          <p onclick={{action "selectCategory" category.name}}>{{category.name}}
+            ({{category.number}})
+          </p>
         {{!-- </div> --}}
         {{!-- <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -22,7 +24,7 @@
   {{#paper-list}}
     {{#paper-subheader}}Tasks{{/paper-subheader}}
     {{#each cancelledTasks as |category|}}
-     {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
+     {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
           <p>{{category.tasks.text}}</p>
         </div>
@@ -39,10 +41,15 @@
       {{#paper-list}}
         {{#paper-subheader}}Tasks{{/paper-subheader}}
         {{#each completedTasks as |category|}}
-          {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
+          {{#paper-item class="md-1-line" as |controls|}}
             <div class="md-list-item-text">
-              <p>{{category.tasks.text}}</p>
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
             </div>
+            {{#if selected}}
+              <div class="md-secondary-container">
+                {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
+              </div>
+            {{/if}}
             {{!-- <div class="md-secondary-container">
               {{paper-icon "navigate_next"}}
             </div> --}}
@@ -56,7 +63,7 @@
   {{#paper-list}}
     {{#paper-subheader}}Tasks{{/paper-subheader}}
     {{#each pendingTasks as |category|}}
-{{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
+{{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
           <p>{{category.tasks.text}}</p>
         </div>
@@ -73,7 +80,7 @@
   {{#paper-list}}
     {{#paper-subheader}}Tasks{{/paper-subheader}}
     {{#each newTasks as |category|}}
-      {{#paper-item class="md-1-line" onClick=(action "selectCategory" category)}}
+      {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
           <p>{{category.tasks.text}}</p>
         </div>

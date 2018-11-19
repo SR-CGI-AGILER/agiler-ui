@@ -2,10 +2,14 @@
 <p>SELECTED TASKS</p>
     {{#paper-list}}
 
-    {{#each selectedTasks as |tasks|}}
+    {{!-- {{#each selectedTasks as |tasks|}}
         {{#paper-item class="md-1-line"}}
             {{tasks.text}}
         {{/paper-item}}
-    {{/each}}
+    {{/each}} --}}
+
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO ACTIVITY PLAN
+    {{/paper-button}}
     {{/paper-list}}
 

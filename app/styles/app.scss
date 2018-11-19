@@ -1,9 +1,8 @@
 @import 'ember-paper';
 
-#container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+body{
+    margin: 0;
+    padding: 0;
 }
 
 .fix-toolbar{
@@ -25,6 +24,17 @@
     bottom: 10vh;
 }
 
+.footer {
+    height: 5vh;
+    bottom: 0;
+    padding: 0;
+}
+
+.fix-toolbar{
+    box-shadow: 0px 2.5px 2.5px rgba(1,1,1,1);
+}    
+
+
 .dd {
     height: 55vh;
     display: flex;
@@ -35,8 +45,12 @@
     
         height: 150px;
         width: 45%;
-        align-items: flex-end;
+        align-items: center;
         flex-direction: row;
+        justify-content: center;
+        justify-self: center;
+        flex-direction: row;
+        font-size: 17px;
     }
     
     

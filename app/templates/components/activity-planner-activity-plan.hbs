@@ -14,10 +14,18 @@
      {{/paper-item}}
      {{/each}}
    {{/each}} --}}
-
-  {{#each selectedTasks as |tasks|}}
+  {{#paper-list}}
+    {{#each todayTeamCopy as |tasks|}}
+      {{#paper-item class="md-1-line"}}
+        <div class="md-list-item-text">
+         <p>{{tasks.text}}</p>
+       </div>
+      {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
+  {{!-- {{#each todayTeamCopy as |tasks|}}
     <p>{{tasks.text}}</p>
-  {{/each}}
+  {{/each}} --}}
 
  {{!-- {{/paper-list}} --}}
  <div style="height:80vh"></div>
