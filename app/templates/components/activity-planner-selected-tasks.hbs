@@ -1,5 +1,5 @@
 {{!-- {{taskName}} --}}
-<p>SELECTED TASKS</p>
+<p>SELECTED TASKS {{tabIndex}} {{actionComponent}} {{renderView}}</p>
     {{#paper-list}}
 
     {{!-- {{#each selectedTasks as |tasks|}}
@@ -8,8 +8,41 @@
         {{/paper-item}}
     {{/each}} --}}
 
+    {{#if showUpdatesAction}}
     {{#paper-button raised=true onClick=(action "raisedButton")}}
         ADD TO ACTIVITY PLAN
     {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO COMPLETED
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO SCHEDULED
+    {{/paper-button}}
+    {{/if}}
+
+    {{#if showScheduledAction}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO ACTIVITY PLAN
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO COMPLETED
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO BACKLOGS
+    {{/paper-button}}
+    {{/if}}
+    
+    {{#if showBacklogsAction}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO ACTIVITY PLAN
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO SCHEDULED
+    {{/paper-button}}
+    {{/if}}
+    
+    {{!-- {{!-- {{#paper-button raised=true onClick=(action "raisedButton")}}
+        ADD TO ACTIVITY PLAN
+    {{/paper-button}} --}}
     {{/paper-list}}
 
