@@ -1,3 +1,9 @@
 <div id="container">
+    {{#if isMobile}}
 {{activity-planner activityPlan = activityPlan }}
+        <p>MOBILE</p>
+    {{else}}
+    {{activity-planner-desktop activityPlan = activityPlan}}
+        <p>DESKTOP</p>
+    {{/if}}
 </div>

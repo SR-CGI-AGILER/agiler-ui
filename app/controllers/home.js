@@ -1,7 +1,21 @@
 import Controller from '@ember/controller';
+// import Ember from '@ember/jquery';
+import {computed} from '@ember/object';
 
 export default Controller.extend({
-  activityPlan: [...getActivityPlan()]
+  activityPlan: [...getActivityPlan()],
+  yes: true,
+
+  isMobile: computed('yes', function(){
+    let x = window.screen.availWidth;
+    // console.log(window.screen.availWidth);
+    if(x > 760){
+      return false
+    }
+    else{
+      return true
+    }
+  })
 });
 
 function getActivityPlan() {
@@ -14,7 +28,7 @@ function getActivityPlan() {
         "dueDate": "2014-12-02",
         "owner": "Nieves Hanson",
         "backlog": true,
-        "scheduled": "2018-11-16",
+        "scheduled": "2018-11-21",
         "scheduled_On": "2018-01-20",
         "status": "Pending"
       }
@@ -29,7 +43,7 @@ function getActivityPlan() {
         "owner": "Hodge Thompson",
         "backlog": false,
         "scheduled": "2018-11-21",
-        "scheduled_On": "2018-11-16",
+        "scheduled_On": "2018-11-23",
         "status": "Cancelled"
       }
     },
@@ -42,8 +56,8 @@ function getActivityPlan() {
         "dueDate": "2017-08-24",
         "owner": "Jackson Willis",
         "backlog": false,
-        "scheduled": "2018-11-16",
-        "scheduled_On": "2018-09-06",
+        "scheduled": "2018-11-21",
+        "scheduled_On": "2018-11-23",
         "status": "New"
       }
     },
@@ -56,8 +70,8 @@ function getActivityPlan() {
         "dueDate": "2016-01-09",
         "owner": "Nash Blake",
         "backlog": false,
-        "scheduled": "2018-11-19",
-        "scheduled_On": "2018-11-16",
+        "scheduled": "2018-11-23",
+        "scheduled_On": "2018-11-21",
         "status": "Pending"
       }
     },
@@ -224,7 +238,7 @@ function getActivityPlan() {
         "dueDate": "2015-06-21",
         "owner": "Sherry Burton",
         "backlog": true,
-        "scheduled": "2018-11-19",
+        "scheduled": "2018-11-23",
         "scheduled_On": "2018-01-10",
         "status": "New"
       }

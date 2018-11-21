@@ -1,0 +1,21 @@
+{{#paper-card class="a" as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Today's Tasks{{/text.headline}}
+         {{paper-divider}}
+        {{#paper-list}}
+        <div style="height:200px; width:200px;">
+                    {{#ember-scrollable}}
+
+        {{#each scheduledTodayTasks as |category|}}
+{{#draggable-item  remove=(action 'removeTask') content=category}}
+            {{#paper-item}}{{category.tasks.text}}{{/paper-item}}
+            {{/draggable-item}}
+            {{paper-divider}}
+            {{/each}}
+        {{/ember-scrollable}}
+        </div>
+        {{/paper-list}}
+        {{/title.text}}
+      {{/card.title}}
+    {{/paper-card}}
