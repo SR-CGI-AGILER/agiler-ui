@@ -1,3 +1,14 @@
 <div id="container">
-{{activity-planner activityPlan = activityPlan }}
+{{activity-planner 
+    activityPlan = model.teamCopy.tasks
+    backlogs = model.productBacklogs
+}}
+{{!-- {{#each model.teamCopy.responseJSON.payload.data.tasks as |as|}}
+    {{as}}
+{{/each}} --}}
+{{!-- {{model.teamCopy}} --}}
+{{!-- {{model.teamCopy}}
+{{#each model.teamCopy.tasks as |task| }}
+    {{task.text}}
+{{/each}} --}}
 </div>

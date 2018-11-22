@@ -1,7 +1,19 @@
 import Controller from '@ember/controller';
+import Ember from 'ember';
 
 export default Controller.extend({
-  activityPlan: [...getActivityPlan()]
+  teamCopy: Ember.inject.service(),
+
+  // async init(){
+  //   this._super(...arguments);
+  //   await this.teamCopy.getTeamCopy("2018-11-21","default").then(data=>{
+  //     console.log(data.payload.data.tasks);
+  //     this.set('activityPlan',data.payload.data.tasks)
+  //   });
+  // },
+  
+  activityPlan: []
+
 });
 
 function getActivityPlan() {

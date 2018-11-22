@@ -26,7 +26,7 @@
     {{#each cancelledTasks as |category|}}
      {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
-          <p>{{category.tasks.text}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -43,7 +43,7 @@
         {{#each completedTasks as |category|}}
           {{#paper-item class="md-1-line" as |controls|}}
             <div class="md-list-item-text">
-              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
             </div>
             {{#if selected}}
               <div class="md-secondary-container">
@@ -65,7 +65,7 @@
     {{#each pendingTasks as |category|}}
 {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
-          <p>{{category.tasks.text}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
@@ -82,7 +82,7 @@
     {{#each newTasks as |category|}}
       {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
-          <p>{{category.tasks.text}}</p>
+          <p>{{category.text}}</p>
         </div>
         <div class="md-secondary-container">
           {{paper-icon "navigate_next"}}
