@@ -10,8 +10,6 @@ export default Component.extend(RecognizerMixin, {
 
   selectedTasks: [],
   projects: new Set(),
-  latestActivityPlan: [...getTestTasks()],
-  latestTeamCopy: [...getTestTasks()],
   todayTeamCopy: [],
   tabIndex: 0,
   tabSubheading: '(1/4) Updates',
@@ -279,84 +277,8 @@ export default Component.extend(RecognizerMixin, {
 
 });
 
-function getTestProjects() {
-  return [{
-      "projectName": "Project D",
-      "tasks": [{
-          "text": "Eiusmod nulla dolore voluptate consequat ut cillum laborum aliquip officia ea sunt proident."
-        },
-        {
-          "text": "Eiusmod excepteur exercitation quis laborum ea aliquip."
-        },
-        {
-          "text": "Dolor culpa reprehenderit ea quis consectetur fugiat."
-        }
-      ],
-    },
-    {
-      "projectName": "Project A",
-      "tasks": [{
-          "text": "Tempor ad minim et eiusmod velit."
-        },
-        {
-          "text": "Amet aliquip consequat reprehenderit sit ea ea ea elit nulla proident adipisicing irure laboris officia."
-        }
-      ]
-    }
-  ]
-}
 
-function getTestTasks() {
-  return [{
-      "_id": "5be92db58610e2792a6cdf86",
-      "text": "Eiusmod nulla dolore voluptate consequat ut cillum laborum aliquip officia ea sunt proident.",
-      "projectName": "Project D",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Nixon Beach",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    },
-    {
-      "_id": "5be92db5ccd82283e84f8e8b",
-      "text": "Tempor ad minim et eiusmod velit.",
-      "projectName": "Project A",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Renee Peters",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    },
-    {
-      "_id": "5be92db587aed30896c058a6",
-      "text": "Amet aliquip consequat reprehenderit sit ea ea ea elit nulla proident adipisicing irure laboris officia.",
-      "projectName": "Project A",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Dorothy Romero",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    },
-    {
-      "_id": "5be92db539ae6155028f7df2",
-      "text": "Dolor adipisicing occaecat aute dolor culpa cupidatat dolore id.",
-      "projectName": "Project B",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Geneva Washington",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    },
-    {
-      "_id": "5be92db50f1a6441005059cb",
-      "text": "Eiusmod excepteur exercitation quis laborum ea aliquip.",
-      "projectName": "Project D",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Ratliff Montgomery",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    },
-    {
-      "_id": "5be92db596f8d2ba46281be4",
-      "text": "Dolor culpa reprehenderit ea quis consectetur fugiat.",
-      "projectName": "Project D",
-      "dueDate": "date(new Date(), new Date(2018, 12, 12))",
-      "owner": "Robyn Livingston",
-      "scheduled": "date(new Date(), new Date(2018, 12, 12))"
-    }
-  ];
-}
+
 
 /*
 

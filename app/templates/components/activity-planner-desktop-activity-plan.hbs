@@ -1,0 +1,39 @@
+{{yield}}
+
+<div style="width:1500px">
+
+{{#paper-card class="a" as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Activity Plan{{/text.headline}}
+         {{paper-divider}}
+        {{#paper-list}}
+        
+        {{#each activityPlanTasks as |task|}}
+          {{#paper-item}}
+          {{task.tasks.text}}
+          {{/paper-item}}
+          {{#draggable-dropzone dropped="addTask"}}
+       <div style="height:40px; background-color:pink">
+  Drop here
+       </div>
+  {{/draggable-dropzone}}
+          {{/each}}
+        
+<div style="height:230px">
+{{#draggable-dropzone dropped="addTask"}}
+       <div style="height:40px; background-color:pink">
+  Drop here
+       </div>
+  {{/draggable-dropzone}}
+</div>
+        {{/paper-list}}
+{{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5)
+  value=input onChange=(action (mut input))}}
+  {{#paper-button iconButton=true onClick=(action "add")}}
+  {{paper-icon "send"}}
+  {{/paper-button}}
+        {{/title.text}}
+      {{/card.title}}
+    {{/paper-card}}
+</div>
