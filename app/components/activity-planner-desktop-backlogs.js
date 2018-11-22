@@ -9,12 +9,14 @@ export default Component.extend({
     // backlogTasks:['Task 1','Task 2', 'Task 3'],
     // removeTask: "this is check string",
     actions : {
-        removeTask (taskObject) {
+        removeBacklogTask (taskObject) {
             
-            
-            // console.log(taskObject, "is this getting triggered ??")
+            debugger
+            console.log(taskObject.that.backlogTasks, "is this getting triggered backlogTasks ??")
         let arr = taskObject.that.backlogTasks.filter(task=> task._id !== taskObject.data._id);
-        console.log(arr,"what is this?")
+        let arr1 = taskObject.that.backlogTasks.filter(task=> task._id === taskObject.data._id);
+
+        console.log(arr1,"backlog tasks array")
         // taskObject.that.backlogTasks = arr.splice(0);
         set(taskObject.that,'backlogTasks',arr);
             // taskObject.that.backlogTasks.removeObject(taskObject.data);
@@ -25,10 +27,10 @@ export default Component.extend({
         this._super(...arguments)
         let that = this
         
-        this.get('taskData').on('data-comming', function(data) {
+        this.get('taskData').on('data-commingBacklogs', function(data) {
             // console.log(data,"init data")
             // console.log("sdfsdfsdf",that.backlogTasks,"this has reached the parent")
-            that.actions.removeTask({that: that, data: data})
+            that.actions.removeBacklogTask({that: that, data: data})
             
             
         })
