@@ -183,24 +183,24 @@ export default Component.extend(RecognizerMixin, {
   }),
 
   pendingTasks: computed('activityPlan', function () {
-    return this.activityPlan.filter(task => task.tasks.status === "Pending");
+    return this.activityPlan.filter(task => task.status === "Pending");
   }),
 
   ptasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.tasks.status === "Pending").length;
+    return this.activityPlan.filter(task => task.status === "Pending").length;
   }),
   ntasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.tasks.status === "New").length;
+    return this.activityPlan.filter(task => task.status === "New").length;
   }),
   ctasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.tasks.status === "Cancelled").length;
+    return this.activityPlan.filter(task => task.status === "Cancelled").length;
   }),
   catasks: computed('activityPlan', function () {
-    // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.tasks.status === "Completed").length;
+    console.log(this.activityPlan.filter(task => task.status === "Completed").length, "BLABLA");
+    return this.activityPlan.filter(task => task.status === "Completed").length;
   }),
 
   scheduledFutureTasks: computed('activityPlan', function () {
@@ -209,7 +209,7 @@ export default Component.extend(RecognizerMixin, {
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     // console.log(today);
-    return this.activityPlan.filter(task => task.tasks.scheduled === today);
+    return this.activityPlan.filter(task => task.scheduled === today);
   }),
 
   scheduledTodayTasks: computed('activityPlan', function () {
@@ -218,17 +218,17 @@ export default Component.extend(RecognizerMixin, {
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     // console.log(today);
-    return this.activityPlan.filter(task => task.tasks.scheduled_On === today);
+    return this.activityPlan.filter(task => task.scheduled_On === today);
   }),
 
   cancelledTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
-    return this.activityPlan.filter(activityPlan => activityPlan.tasks.status === "Cancelled");
+    return this.activityPlan.filter(activityPlan => activityPlan.status === "Cancelled");
   }),
 
   newTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
-    return this.activityPlan.filter(task => task.tasks.status === "New");
+    return this.activityPlan.filter(task => task.status === "New");
   }),
 
   showScheduleTab: computed('currentTab', function () {
@@ -244,24 +244,35 @@ export default Component.extend(RecognizerMixin, {
   }),
 
   completedTasks: computed('activityPlan', function () {
-    return this.activityPlan.filter(task => task.tasks.status === "Completed")
+    // console.log(this.activityPlan.filter(task => task.status === "Completed"))
+    return this.activityPlan.filter(task => task.status === "Completed")
   }),
 
-  backlogProjects: computed('activityPlan', function () {
-    this.activityPlan.forEach(element => {
-      this.projects.add(element.tasks.projectName)
-
+  backlogProjects: computed('backlogs', function () {
+    
+    this.backlogs.forEach(element => {
+      element.tasks.forEach(task=>{
+        this.get('projects').add(task.projectName);
+      })
     });
-    // console.log(this.get('projects'));
     return this.projects;
 
     // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
 
   }),
 
-  backlogTasks: computed('activityPlan', function () {
+  backlogTasks: computed('backlogs', function () {
+    let btasks = [];
+    this.backlogs.forEach(element => {
+      console.log(element.tasks, "hhgugh");
+      element.tasks.forEach(task=>{
+        btasks.pushObject(task);  
+      });
+    })
+    console.log(btasks,"I AM BTASKS");
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
-    return this.activityPlan.filter(task => task.tasks.backlog);
+    // return this.activityPlan.filter(task => task.backlog);
+    return btasks;
   })
 
 });

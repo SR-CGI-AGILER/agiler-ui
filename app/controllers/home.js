@@ -1,18 +1,21 @@
 import Controller from '@ember/controller';
-// import Ember from '@ember/jquery';
-import {computed} from '@ember/object';
+import Ember from 'ember';
+import {
+  computed
+} from '@ember/object';
+
 
 export default Controller.extend({
-  activityPlan: [...getActivityPlan()],
+  teamCopy: Ember.inject.service(),
+  activityPlan1: [...getActivityPlan()],
   yes: true,
 
-  isMobile: computed('yes', function(){
+  isMobile: computed('yes', function () {
     let x = window.screen.availWidth;
     // console.log(window.screen.availWidth);
-    if(x > 760){
+    if (x > 760) {
       return false
-    }
-    else{
+    } else {
       return true
     }
   })

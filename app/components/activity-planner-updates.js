@@ -85,7 +85,7 @@ export default Component.extend({
 
     return [{
       name: this.get('categories')[0],
-      number: this.get('ctasks')
+      number: this.get('catasks')
     }, {
       name: this.get('categories')[1],
       number: this.get('ptasks')
@@ -94,7 +94,7 @@ export default Component.extend({
       number: this.get('ntasks')
     }, {
       name: this.get('categories')[3],
-      number: this.get('catasks')
+      number: this.get('ctasks')
     }];
   }),
 

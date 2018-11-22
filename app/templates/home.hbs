@@ -1,9 +1,13 @@
 <div id="container">
+
     {{#if isMobile}}
-{{activity-planner activityPlan = activityPlan }}
+        {{activity-planner 
+            activityPlan = model.teamCopy.tasks
+            backlogs = model.productBacklogs
+        }}
         <p>MOBILE</p>
     {{else}}
-    {{activity-planner-desktop activityPlan = activityPlan}}
+    {{activity-planner-desktop activityPlan = activityPlan1}}
         <p>DESKTOP</p>
     {{/if}}
 </div>
