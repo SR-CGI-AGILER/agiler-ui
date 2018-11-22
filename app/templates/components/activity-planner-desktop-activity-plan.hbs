@@ -13,14 +13,19 @@
           {{#paper-item}}
           {{task.tasks.text}}
           {{/paper-item}}
-          {{/each}}
-        
-<div style="height:230px">
-{{#draggable-item dropped="addTask"}}
+          {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px; background-color:pink">
   Drop here
        </div>
-  {{/draggable-item}}
+  {{/draggable-dropzone}}
+          {{/each}}
+        
+<div style="height:230px">
+{{#draggable-dropzone dropped="addTask"}}
+       <div style="height:40px; background-color:pink">
+  Drop here
+       </div>
+  {{/draggable-dropzone}}
 </div>
         {{/paper-list}}
 {{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5)
