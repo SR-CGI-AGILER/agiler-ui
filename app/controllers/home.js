@@ -6,7 +6,7 @@ import {
 
 
 export default Controller.extend({
-  teamCopy: Ember.inject.service(),
+  activityPlan: Ember.inject.service(),
   activityPlan1: [...getActivityPlan()],
   yes: true,
 
@@ -18,7 +18,16 @@ export default Controller.extend({
     } else {
       return true
     }
-  })
+  }),
+
+  actions: {
+    publish(todayTeamCopy) {
+      this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
+        console.log(data);
+      })
+      this.transitionToRoute('sprintView');
+    }
+  }
 });
 
 function getActivityPlan() {

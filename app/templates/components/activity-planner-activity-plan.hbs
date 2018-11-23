@@ -15,10 +15,11 @@
      {{/each}}
    {{/each}} --}}
   {{#paper-list}}
-    {{#each todayTeamCopy as |tasks|}}
+    {{#each task as |tasks|}}
       {{#paper-item class="md-1-line"}}
         <div class="md-list-item-text">
          <p>{{tasks.text}}</p>
+         {{paper-divider}}
        </div>
       {{/paper-item}}
     {{/each}}
@@ -31,10 +32,32 @@
  <div style="height:80vh"></div>
 
 <div class="layout-row layout-align-end-end">
- {{#paper-button fab=true iconButton=true}}
+ {{#paper-button fab=true iconButton=true onClick=(action "newTask")}}
    {{paper-icon "add"}}
  {{/paper-button}}
  </div>
+
+{{#if showPromptDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") clickOutsideToClose=true origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">New Task</h2>
+      
+      {{paper-input placeholder="Project Name" autofocus=true value=projectName onChange=(action (mut projectName))}}
+      {{paper-input placeholder="Enter Task" value=taskName onChange=(action (mut taskName))}}
+
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closePromptDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "ok")}}Ok{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+
 {{!-- <div class="layout layout-sm-column">
   {{#paper-input
   class="flex"
@@ -49,7 +72,7 @@
   {{#paper-button onClick=(action 'addTask')}}Send{{/paper-button}}
 </div>  --}}
  <div class="layout-row layout-align-start-end">
-   {{#paper-button iconButton=true onClick = (action "saveToDb")}}
-   {{paper-icon "add"}}
+   {{#paper-button iconButton=true onClick = (action "publish")}}
+    {{paper-icon "eject"}}
    {{/paper-button}}
  </div>

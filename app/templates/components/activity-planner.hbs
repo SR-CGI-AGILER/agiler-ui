@@ -45,18 +45,21 @@
 {{#activity-planner-activity-plan 
     todayTeamCopy=todayTeamCopy
     projects=projects 
-    saveData=(action "saveToDb")}}
+    publish=(action "publish")
+}}
 {{/activity-planner-activity-plan}}
 {{/liquid-if}}
 {{!-- {{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}} --}}
 
-
-
+{{#if sprint}}
+    {{activity-planner-sprint-view}}
+{{/if}}
 
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
     todayTeamCopy=todayTeamCopy
     selectedTasks=selectedTasks
-    currentTab=currentTab }}
+    currentTab=currentTab
+     }}
 {{/activity-planner-selected-tasks}}
 

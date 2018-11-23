@@ -4,10 +4,11 @@
         {{activity-planner 
             activityPlan = model.teamCopy.tasks
             backlogs = model.productBacklogs
+            publish = (action "publish")
         }}
-        <p>MOBILE</p>
+        
     {{else}}
     {{activity-planner-desktop activityPlan = activityPlan1}}
-        <p>DESKTOP</p>
+        
     {{/if}}
 </div>
