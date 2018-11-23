@@ -9,7 +9,7 @@
           {{#ember-scrollable}}
         {{#each pendingTasks as |category|}}
    {{#draggable-item  remove=(action 'removePendingTask') content=category}}
-            {{#paper-item}}{{category.tasks.text}}{{/paper-item}}
+            {{#paper-item}}{{category.text}}{{/paper-item}}
       {{/draggable-item}}
       {{paper-divider}}
             {{/each}}

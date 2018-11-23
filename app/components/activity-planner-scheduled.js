@@ -130,6 +130,7 @@ export default Component.extend({
       
     //     this.get('model').projects.pushObject(data)
     // })
+    this.get('scheduledfor').pushObject(newdata);
     this.toggleProperty('showPromptDialog');
 
      
