@@ -9,9 +9,9 @@ export default Route.extend({
         await this.teamCopy.getTeamCopy("2018-11-21","default").then(function(data) {
             model.teamCopy = data.payload.data
         })
-        await this.productBacklogs.getProductBacklog().then(function (data) {
-           model.productBacklogs = data.payload.data
-        })
+        // await this.productBacklogs.getProductBacklog().then(function (data) {
+        //    model.productBacklogs = data.payload.data
+        // })
         return model;
     }
 });
