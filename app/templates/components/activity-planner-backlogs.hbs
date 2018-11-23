@@ -1,46 +1,53 @@
 <br>
-{{#paper-autocomplete
-  
-  placeholder="Type a project name!"
-  options=arrayOfItems
-  selected=selectedItem
-  onSelectionChange=(action (mut selectedItem))
-  as |item term|}}
-  
-  <span class="item-title">
-    {{paper-icon "search"}}
-    <span>
-      {{paper-autocomplete-highlight searchText=term.searchText flags="i" label=item}}
-    </span>
-  </span>
-  {{else}}
-  Whoops! could not find!
-{{/paper-autocomplete}}
-
 {{#liquid-if showProjectsView class="showcategory"}}
-{{#paper-list}}
-
-{{!-- {{#paper-subheader}}Categories{{/paper-subheader}} --}}
-{{#each backlogProjects as |category|}}
-    {{#paper-item class="md-1-line" onClick=(action "selectTask" category)}}
-    <div class="md-list-item-text">
-        <p>{{category}}</p>
-    </div>
-    <div class="md-secondary-container">
-        {{#paper-button iconButton=true}}
-            {{paper-icon "navigate_next"}}
-        {{/paper-button}}
-        
-    </div>
-    {{/paper-item}}
-    {{#liquid-if showMultiComp}}
-        {{#paper-item}}
-            {{#multi-task-select}}
-            {{/multi-task-select}}
+    {{#paper-autocomplete
+        placeholder="Type a project name!"
+        options=arrayOfItems
+        selected=selectedItem
+        onSelectionChange=(action (mut selectedItem))
+        as |item term|}}
+        <span class="item-title">
+            {{paper-icon "search"}}
+                <span>
+                    {{paper-autocomplete-highlight searchText=term.searchText flags="i" label=item}}
+                </span>
+        </span>
+    {{/paper-autocomplete}}
+    {{#paper-list}}
+    {{#each backlogProjects as |category|}}
+        {{#paper-item class="md-1-line" onClick=(action "selectTask" category)}}
+        <div class="md-list-item-text">
+            <p>{{category}}</p>
+        </div>
+        <div class="md-secondary-container">
+            {{#paper-button iconButton=true}}
+                {{paper-icon "navigate_next"}}
+            {{/paper-button}}  
+        </div>
         {{/paper-item}}
-    {{/liquid-if}}
-{{/each}}
-{{/paper-list}}
+        {{#liquid-if showMultiComp}}
+            {{#paper-item}}
+                {{#multi-task-select}}
+                {{/multi-task-select}}
+            {{/paper-item}}
+        {{/liquid-if}}
+    {{/each}}
+    {{/paper-list}}
+
+    {{#if showDialog}}
+        {{#paper-dialog class="flex-77"  onClose=(action "closeDialog")  origin=dialogOrigin clickOutsideToClose=true}}
+            {{#paper-dialog-content}}
+
+                {{paper-input placeholder="Enter project name" autofocus=true value=projectName onChange=(action (mut projectName))}}
+                {{paper-input placeholder="Enter task name" value=taskName onChange=(action (mut taskName))}}
+            
+            {{/paper-dialog-content}}
+            {{#paper-dialog-actions class="layout-row"}}
+            {{#paper-button primary=true onClick=(action "add")}}Add{{/paper-button}}
+            {{/paper-dialog-actions}}
+        {{/paper-dialog}}
+    {{/if}}  
+    {{#paper-button class="fixedbuttonright" iconButton=true raised=true fab=true onClick=(action "showDialogToAdd")}}{{paper-icon "add"}}{{/paper-button}}
 {{/liquid-if}}
 
 {{#liquid-if showBacklogTasksView class="showcategory"}}
@@ -66,6 +73,7 @@
 {{/each}}
 {{/paper-list}}
       {{#paper-button id="fixedbutton" iconButton=true raised=true fab=true onClick=(action "showProjects")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+      {{#paper-button class="fixedbuttonright" iconButton=true raised=true fab=true onClick=(action "showDialogToAdd" )}}{{paper-icon "add"}}{{/paper-button}}
 {{/liquid-if}}
 
     

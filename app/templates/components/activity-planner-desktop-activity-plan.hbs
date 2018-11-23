@@ -12,14 +12,17 @@
         {{#each activityPlanTasks as |task|}}
           {{#paper-item}}
           {{task.text}}
+          <p>@{{task.owner}}</p>
           {{/paper-item}}
+          {{#if notPublished}}
           {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px; background-color:pink">
   Drop here
        </div>
   {{/draggable-dropzone}}
+  {{/if}}
           {{/each}}
-        
+        {{#if notPublished}}
 <div style="height:230px">
 {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px; background-color:pink">
@@ -27,8 +30,9 @@
        </div>
   {{/draggable-dropzone}}
 </div>
+{{/if}}
         {{/paper-list}}
-{{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5)
+{{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5) disabled=isPublished
   value=input onChange=(action (mut input))}}
   {{#paper-button iconButton=true onClick=(action "add")}}
   {{paper-icon "send"}}

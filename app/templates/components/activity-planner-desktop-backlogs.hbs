@@ -9,7 +9,7 @@
           {{#ember-scrollable}}
        {{#each backlogTasks as |category|}}
         {{#draggable-item  remove=(action 'removeBacklogTask') content=category}}
-            {{#paper-item}}{{category.tasks.text}}{{/paper-item}}
+            {{#paper-item}}{{category.text}}{{/paper-item}}
               {{/draggable-item}}
               {{paper-divider}}
             {{/each}}
