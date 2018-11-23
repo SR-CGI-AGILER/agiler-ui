@@ -8,19 +8,19 @@ export default Component.extend({
     taskData: Ember.inject.service(),
     // scheduledFutureTasks:['Task 1','Task 2', 'Task 3'],
     // removeTask: "this is check string",
-    actions : {
-        removeTask (taskObject) {
+    // actions : {
+    //     removeTask (taskObject) {
             
             
-            // console.log(taskObject, "is this getting triggered ??")
-        let arr = taskObject.that.scheduledFutureTasks.filter(task=> task._id !== taskObject.data._id);
-        console.log(arr,"what is this?")
-        // taskObject.that.scheduledFutureTasks = arr.splice(0);
-        set(taskObject.that,'scheduledFutureTasks',arr);
-            // taskObject.that.scheduledFutureTasks.removeObject(taskObject.data);
+    //         // console.log(taskObject, "is this getting triggered ??")
+    //     let arr = taskObject.that.scheduledFutureTasks.filter(task=> task._id !== taskObject.data._id);
+    //     console.log(arr,"what is this?")
+    //     // taskObject.that.scheduledFutureTasks = arr.splice(0);
+    //     set(taskObject.that,'scheduledFutureTasks',arr);
+    //         // taskObject.that.scheduledFutureTasks.removeObject(taskObject.data);
         
-        }
-    },
+    //     }
+    // },
     init(){
         this._super(...arguments)
         let that = this

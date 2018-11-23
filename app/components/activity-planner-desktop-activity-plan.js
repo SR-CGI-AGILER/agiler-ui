@@ -8,7 +8,19 @@ export default Component.extend({
             return true;
         }
     }),
+    activityPlan: Ember.inject.service('activity-plan'),
     actions: {
+        publishActivityPlan(){
+            let self = this;
+            let data = {
+                createdAt:"2018-11-17",
+                initiatives:"default",
+                tasks: []
+            };
+            data.tasks=this.activityPlanTasks;
+            console.log(data,"published data");
+           this.activityPlan.postActivityPlan(data);
+        },
         addTask(x){
             console.log("addTask action")
             console.log(this.activityPlanTasks);
@@ -53,10 +65,13 @@ export default Component.extend({
                                     }
                                     else if(x==="new"){
                                         let y = {
-                                            tasks:{
-                                                text: taskName[0]
-                                            }
+                                            createdAt:"2018-11-17",
+                                            initiatives:"default",
+                                            tasks: []
                                         }
+                                        let z = taskName[0];
+                                        console.log(z,"new task z")
+                                        y.tasks.pushObject(z);
                                         that.newTasks.pushObject(y);
                                     }
                                     else if(x==="pending"){
@@ -71,14 +86,22 @@ export default Component.extend({
                         
                         else {
                             let newTask = {
-                                tasks:{
-                                  // text:this.getProperties('input').input
-                                  text: taskName[0],
-                                  owner: taskName[1]
-                                } 
-                              }
+                                createdAt:"2018-11-17",
+                                initiatives:"default",
+                                // tasks:{
+                                //   // text:this.getProperties('input').input
+                                //   text: taskName[0],
+                                //   owner: taskName[1]
+                                // }
+                                tasks:[] 
+                              };
+                            let data = {
+                                text : taskName[0],
+                                owner : taskName[1]
+                            };
+                            newTask.tasks.pushObject(data);
                               console.log(newTask,"ASDF")
-                            that.activityPlanTasks.pushObject(newTask);
+                            that.activityPlanTasks = newTask.tasks
                         }
                       }  
                           else
@@ -140,12 +163,15 @@ add1(){
                                     that.backlogTasks.pushObject(newTask);
                                 }
                                 else if(x==="new"){
-                                    let y = {
-                                        tasks:{
-                                            text: taskName[0],
-                                            status:x
-                                        }
+                                    let z ={
+                                        text: taskName[0],
+                                    status:x
                                     }
+                                    let y = {
+                                        tasks:[]
+                                            
+                                    }
+                                    y.tasks.push(z);
                                     that.newTasks.pushObject(y);
                                 }
                                 else if(x==="pending"){
@@ -194,6 +220,7 @@ add1(){
         let self = this;
         let a = this.getProperties('input');
         let c =a.input;
+        // console.log(c,"c")
         if (event.keyCode === 13) {
             console.log(a,"keystroke");
             let b = {

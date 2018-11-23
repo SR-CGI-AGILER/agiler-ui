@@ -38,18 +38,18 @@ export default Component.extend({
         let rawData = JSON.parse(data);
         console.log(rawData,"rawData in drop");
         this.sendAction('dropped', rawData);
-        let a = rawData.tasks.status;
-        let b = rawData.tasks.backlog;
-        console.log(a,b,"statsu")
+        let a = rawData.status;
+        // let b = rawData.backlog;
+        console.log(a,"statsu")
         // this.actions.some_action(data)
         // this.sendAction('dragged', rawData);
         // console.log(JSON.stringify(data),data,"drop");
-        if(a=="new")
+        if(a==="new" || a==="New" || a==="NEW")
         this.taskData.sendDataNew(rawData);
-        else if(a=="pending")
+        else if(a==="pending" || a==="Pending" || a==="PENDING")
         this.taskData.sendDataPending(rawData);
-        else if(b)
-        this.taskData.sendDataBacklogs(rawData);
+        // else if(b)
+        // this.taskData.sendDataBacklogs(rawData);
         // this.newTasks.removeObject(data);
         // console.log(this.actions.some_action(data),data, "which we are getting from the events")
         set(this, 'dragClass', 'deactivated');

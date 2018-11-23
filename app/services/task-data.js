@@ -4,7 +4,7 @@ export default Service.extend(Ember.Evented, {
     sendDataNew(data){
          console.log(data)
          
-        this.trigger('data-comming', data);
+        this.trigger('data-commingNew', data);
     },
     sendDataPending(data){
         this.trigger('data-commingPending', data);
