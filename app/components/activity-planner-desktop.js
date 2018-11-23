@@ -40,5 +40,17 @@ export default Component.extend({
       //   // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
       //   return this.activityPlan.filter(task => task.tasks.backlog);
       // })
-    
+      backlogTasks: computed('backlogs', function () {
+        let btasks = [];
+        this.backlogs.forEach(element => {
+          console.log(element.tasks, "hhgugh");
+          element.tasks.forEach(task=>{
+            btasks.pushObject(task);  
+          });
+        })
+        console.log(btasks,"I AM BTASKS");
+        // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
+        // return this.activityPlan.filter(task => task.backlog);
+        return btasks;
+      })
 });

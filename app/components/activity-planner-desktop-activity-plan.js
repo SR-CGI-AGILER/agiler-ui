@@ -8,18 +8,22 @@ export default Component.extend({
             return true;
         }
     }),
+    isPublished: false,
+    notPublished: true,
     activityPlan: Ember.inject.service('activity-plan'),
     actions: {
         publishActivityPlan(){
             let self = this;
             let data = {
-                createdAt:"2018-11-17",
+                createdAt:"2018-09-17",
                 initiatives:"default",
                 tasks: []
             };
             data.tasks=this.activityPlanTasks;
             console.log(data,"published data");
            this.activityPlan.postActivityPlan(data);
+           this.set('isPublished',true);
+           this.set('notPublished', false);
         },
         addTask(x){
             console.log("addTask action")
@@ -53,65 +57,64 @@ export default Component.extend({
                                     let x = taskName[1].substring(0);
                                     // console.log(z,"asdadj")
                                     console.log(x,"x")
-                                    if(x==="backlogs"){
+                                    if(x==="backlogs" || x==="Backlogs" || x==="BACKLOGS"){
                                         let newTask = {
-                                            tasks:{
+                                            
                                                 // text:this.getProperties('input').input,
                                                 text: taskName[0]
-                                            } 
+                     
                                         }
                                         console.log(this,"this Backlogs in activity plan js file");
                                         that.backlogTasks.pushObject(newTask);
                                     }
-                                    else if(x==="new"){
-                                        let y = {
-                                            createdAt:"2018-11-17",
-                                            initiatives:"default",
-                                            tasks: []
-                                        }
-                                        let z = taskName[0];
+                                    else if(x==="new" || x==="NEW" || x==="New"){
+                                        
+                                        let z = {
+                                            text: taskName[0],
+                                            status: x
+                                        };
                                         console.log(z,"new task z")
-                                        y.tasks.pushObject(z);
-                                        that.newTasks.pushObject(y);
+                                        // y.tasks.pushObject(z);
+                                        that.newTasks.pushObject(z);
+                                        console.log(that.newTasks,"that.newTasks")
                                     }
-                                    else if(x==="pending"){
+                                    else if(x==="pending" || x==="PENDING" || x==="Pending"){
                                         let newTask = {
-                                    
-                                tasks: {
-                                    text: taskName[0]
-                                }
+                                    text: taskName[0],
+                                    status: x
                             }
                             that.pendingTasks.pushObject(newTask);
                         }
                         
                         else {
-                            let newTask = {
-                                createdAt:"2018-11-17",
-                                initiatives:"default",
-                                // tasks:{
-                                //   // text:this.getProperties('input').input
-                                //   text: taskName[0],
-                                //   owner: taskName[1]
-                                // }
-                                tasks:[] 
-                              };
+                            let now = new Date();
+                            let day = ("0" + now.getDate()).slice(-2);
+        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+        let today = now.getFullYear() + "-" + (month) + "-" + (day);
                             let data = {
                                 text : taskName[0],
-                                owner : taskName[1]
+                                owner : taskName[1],
+                                due_date: today,
+                                status:"Standup"
                             };
-                            newTask.tasks.pushObject(data);
-                              console.log(newTask,"ASDF")
-                            that.activityPlanTasks = newTask.tasks
+                            // newTask.tasks.pushObject(data);
+                            that.activityPlanTasks.pushObject(data);
+                            console.log(that.activityPlanTasks,"ASDF")
                         }
                       }  
                           else
                         {
+                            let now = new Date();
+        let day = ("0" + now.getDate()).slice(-2);
+        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+        let today = now.getFullYear() + "-" + (month) + "-" + (day);
                           let newTask = {
-                              tasks:{
+                              
                                 // text:this.getProperties('input').input,
                                 text: taskName[0],
-                                owner: taskName[1]
-                              } 
+                                owner: taskName[1],
+                                due_date: today,
+                                status: "Standup"
                             }
                             console.log(newTask,"ASD")
                           that.activityPlanTasks.pushObject(newTask);
@@ -153,11 +156,11 @@ add1(){
                                 console.log(x,"x")
                                 if(x==="backlogs"){
                                     let newTask = {
-                                        tasks:{
+                                        
                                             // text:this.getProperties('input').input,
-                                            text: taskName[0],
-                                            backlog:true
-                                        } 
+                                            text: taskName[0]
+                                            
+                                     
                                     }
                                     console.log(that,"this add1 backlogs");
                                     that.backlogTasks.pushObject(newTask);
@@ -167,44 +170,54 @@ add1(){
                                         text: taskName[0],
                                     status:x
                                     }
-                                    let y = {
-                                        tasks:[]
+                                    // let y = {
+                                    //     tasks:[]
                                             
-                                    }
-                                    y.tasks.push(z);
-                                    that.newTasks.pushObject(y);
+                                    // }
+                                    // y.tasks.push(z);
+                                    that.newTasks.pushObject(z);
                                 }
                                 else if(x==="pending"){
                                     let newTask = {
                                 
-                            tasks: {
+                            
                                 text: taskName[0],
                                 status:x
-                            }
+                        
                         }
                         that.pendingTasks.pushObject(newTask);
                     }
                     
                     else if(x!==""){
+                        let now = new Date();
+                        let day = ("0" + now.getDate()).slice(-2);
+                        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                        let today = now.getFullYear() + "-" + (month) + "-" + (day);
                         let newTask = {
-                            tasks:{
+                            
                               // text:this.getProperties('input').input
                               text: taskName[0],
-                              owner: taskName[1]
-                            } 
+                              owner: taskName[1],
+                              due_date: today,
+                              status: "Standup"
                           }
-                          console.log(newTask,"ASDF")
-                        that.activityPlanTasks.pushObject(newTask);
+                          that.activityPlanTasks.pushObject(newTask);
+                          console.log(that.activityPlanTasks,"ASDF")
                     }
                   }  
                       else
                     {
+                        let now = new Date();
+                        let day = ("0" + now.getDate()).slice(-2);
+                        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                        let today = now.getFullYear() + "-" + (month) + "-" + (day);
                       let newTask = {
-                          tasks:{
+                        
                             // text:this.getProperties('input').input,
                             text: taskName[0],
-                            owner: taskName[1]
-                          } 
+                            owner: taskName[1],
+                            due_date: today,
+                            status: "Standup"
                         }
                         console.log(newTask,"ASD")
                       that.activityPlanTasks.pushObject(newTask);

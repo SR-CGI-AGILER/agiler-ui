@@ -7,7 +7,7 @@
         }}
         <p>MOBILE</p>
     {{else}}
-    {{activity-planner-desktop activityPlan = model.teamCopy.tasks}}
+    {{activity-planner-desktop activityPlan = model.teamCopy.tasks backlogs = model.productBacklogs}}
         <p>DESKTOP</p>
     {{/if}}
 </div>
