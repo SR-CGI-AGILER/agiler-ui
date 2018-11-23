@@ -48,7 +48,7 @@ export default Component.extend({
                                                 text: taskName[0]
                                             } 
                                         }
-                                        console.log(this,"this");
+                                        console.log(this,"this Backlogs in activity plan js file");
                                         that.backlogTasks.pushObject(newTask);
                                     }
                                     else if(x==="new"){
@@ -123,24 +123,27 @@ add1(){
                             let taskName = e.split('@');
                             console.log(taskName,"taskName");
                             if(taskName.length>1){
-                                let x = taskName[1].substring(0);
-                                let y = taskName[0].substring(0);
+                                let y = taskName[1].substring(0);
+                                // let y = taskName[0].substring(0);
+                                let x = y.trim();
                                 // console.log(z,"asdadj")
                                 console.log(x,"x")
                                 if(x==="backlogs"){
                                     let newTask = {
                                         tasks:{
                                             // text:this.getProperties('input').input,
-                                            text: taskName[0]
+                                            text: taskName[0],
+                                            backlog:true
                                         } 
                                     }
-                                    console.log(this,"this");
+                                    console.log(that,"this add1 backlogs");
                                     that.backlogTasks.pushObject(newTask);
                                 }
                                 else if(x==="new"){
                                     let y = {
                                         tasks:{
-                                            text: taskName[0]
+                                            text: taskName[0],
+                                            status:x
                                         }
                                     }
                                     that.newTasks.pushObject(y);
@@ -149,7 +152,8 @@ add1(){
                                     let newTask = {
                                 
                             tasks: {
-                                text: taskName[0]
+                                text: taskName[0],
+                                status:x
                             }
                         }
                         that.pendingTasks.pushObject(newTask);

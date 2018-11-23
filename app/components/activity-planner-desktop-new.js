@@ -11,20 +11,20 @@ export default Component.extend({
     actions : {
         removeTask (taskObject) {
             
-            
-            // console.log(taskObject, "is this getting triggered ??")
+            debugger
+            console.log(taskObject.that.newTasks, "is this getting triggered newTasks??")
         let arr = taskObject.that.newTasks.filter(task=> task._id !== taskObject.data._id);
-        console.log(arr,"what is this?")
+        let arr1 = taskObject.that.newTasks.filter(task=> task._id === taskObject.data._id);
+
+        console.log(arr1,"newTasks")
         // taskObject.that.newTasks = arr.splice(0);
         set(taskObject.that,'newTasks',arr);
             // taskObject.that.newTasks.removeObject(taskObject.data);
-        
         }
     },
     init(){
         this._super(...arguments)
         let that = this
-        
         this.get('taskData').on('data-comming', function(data) {
             // console.log(data,"init data")
             // console.log("sdfsdfsdf",that.newTasks,"this has reached the parent")
