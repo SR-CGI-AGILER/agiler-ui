@@ -11,7 +11,7 @@
         
         {{#each activityPlanTasks as |task|}}
           {{#paper-item}}
-          {{task.tasks.text}}
+          {{task.text}}
           {{/paper-item}}
           {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px; background-color:pink">
@@ -32,6 +32,9 @@
   value=input onChange=(action (mut input))}}
   {{#paper-button iconButton=true onClick=(action "add")}}
   {{paper-icon "send"}}
+  {{/paper-button}}
+  {{#paper-button iconButton=true onClick=(action "publishActivityPlan")}}
+  {{paper-icon "publish"}}
   {{/paper-button}}
         {{/title.text}}
       {{/card.title}}

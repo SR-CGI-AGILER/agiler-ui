@@ -8,7 +8,19 @@ export default Component.extend({
             return true;
         }
     }),
+    activityPlan: Ember.inject.service('activity-plan'),
     actions: {
+        publishActivityPlan(){
+            let self = this;
+            let data = {
+                createdAt:"2018-11-17",
+                initiatives:"default",
+                tasks: []
+            };
+            data.tasks=this.activityPlanTasks;
+            console.log(data,"published data");
+           this.activityPlan.postActivityPlan(data);
+        },
         addTask(x){
             console.log("addTask action")
             console.log(this.activityPlanTasks);
@@ -48,15 +60,18 @@ export default Component.extend({
                                                 text: taskName[0]
                                             } 
                                         }
-                                        console.log(this,"this");
+                                        console.log(this,"this Backlogs in activity plan js file");
                                         that.backlogTasks.pushObject(newTask);
                                     }
                                     else if(x==="new"){
                                         let y = {
-                                            tasks:{
-                                                text: taskName[0]
-                                            }
+                                            createdAt:"2018-11-17",
+                                            initiatives:"default",
+                                            tasks: []
                                         }
+                                        let z = taskName[0];
+                                        console.log(z,"new task z")
+                                        y.tasks.pushObject(z);
                                         that.newTasks.pushObject(y);
                                     }
                                     else if(x==="pending"){
@@ -71,14 +86,22 @@ export default Component.extend({
                         
                         else {
                             let newTask = {
-                                tasks:{
-                                  // text:this.getProperties('input').input
-                                  text: taskName[0],
-                                  owner: taskName[1]
-                                } 
-                              }
+                                createdAt:"2018-11-17",
+                                initiatives:"default",
+                                // tasks:{
+                                //   // text:this.getProperties('input').input
+                                //   text: taskName[0],
+                                //   owner: taskName[1]
+                                // }
+                                tasks:[] 
+                              };
+                            let data = {
+                                text : taskName[0],
+                                owner : taskName[1]
+                            };
+                            newTask.tasks.pushObject(data);
                               console.log(newTask,"ASDF")
-                            that.activityPlanTasks.pushObject(newTask);
+                            that.activityPlanTasks = newTask.tasks
                         }
                       }  
                           else
@@ -123,33 +146,40 @@ add1(){
                             let taskName = e.split('@');
                             console.log(taskName,"taskName");
                             if(taskName.length>1){
-                                let x = taskName[1].substring(0);
-                                let y = taskName[0].substring(0);
+                                let y = taskName[1].substring(0);
+                                // let y = taskName[0].substring(0);
+                                let x = y.trim();
                                 // console.log(z,"asdadj")
                                 console.log(x,"x")
                                 if(x==="backlogs"){
                                     let newTask = {
                                         tasks:{
                                             // text:this.getProperties('input').input,
-                                            text: taskName[0]
+                                            text: taskName[0],
+                                            backlog:true
                                         } 
                                     }
-                                    console.log(this,"this");
+                                    console.log(that,"this add1 backlogs");
                                     that.backlogTasks.pushObject(newTask);
                                 }
                                 else if(x==="new"){
-                                    let y = {
-                                        tasks:{
-                                            text: taskName[0]
-                                        }
+                                    let z ={
+                                        text: taskName[0],
+                                    status:x
                                     }
+                                    let y = {
+                                        tasks:[]
+                                            
+                                    }
+                                    y.tasks.push(z);
                                     that.newTasks.pushObject(y);
                                 }
                                 else if(x==="pending"){
                                     let newTask = {
                                 
                             tasks: {
-                                text: taskName[0]
+                                text: taskName[0],
+                                status:x
                             }
                         }
                         that.pendingTasks.pushObject(newTask);
@@ -190,6 +220,7 @@ add1(){
         let self = this;
         let a = this.getProperties('input');
         let c =a.input;
+        // console.log(c,"c")
         if (event.keyCode === 13) {
             console.log(a,"keystroke");
             let b = {

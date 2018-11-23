@@ -9,6 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('home');
   this.route('test');
+  this.route('sprintView');
 });
 
 export default Router;

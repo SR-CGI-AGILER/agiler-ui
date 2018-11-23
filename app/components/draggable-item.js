@@ -27,10 +27,6 @@ export default Component.extend({
     console.log(data,"dragStart");
     console.log(this.content,"content")
     return data
-  },
-  dragLeave(event) {
-    event.preventDefault();
-    set(this, 'dragClass', 'deactivated');
   }
 
  

@@ -43,7 +43,7 @@ export default Component.extend({
       // isChecked = true, 
       // selected: false,
       selectedCount: Ember.computed.reads('selectedBands.length'),
-    
+      scheduleds: Ember.inject.service('scheduled'),
       actions: {
           
         selectBand(event) {
@@ -95,7 +95,46 @@ export default Component.extend({
            x.checked = true;
            return x
         
-      }
+      },
+      showPromptDialogAction(){
+        this.toggleProperty('showPromptDialog');
+    },
+    closePromptDialog(){
+
+        this.toggleProperty('showPromptDialog');
+    },
+    cancel() {
+
+    },
+    ok(){
+      console.log(this.getProperties('initiative'),this.getProperties('task'),this.getProperties('projectName'),this.getProperties('scheduled_For'),"jjjjjj")
+      let d =new Date((this.getProperties('scheduled_For')).scheduled_For)
+      let date =d.getTime()
+      console.log(date)
+      let newdata = {
+        initiative: this.getProperties('initiative').initiative,
+        tasks: [{text:(this.getProperties('text')).text,projectName:(this.getProperties('projectName')).projectName,scheduled_For:date}]
+    
+      };
+    
+      // newdata.tasks=this.activityPlanTasks;
+      console.log(newdata,"published data");
+      console.log(this,"what is this?")
+     this.scheduleds.postScheduled(newdata);
+    // let createProject = {
+    // projectName : newdata.projectName.projectName,
+    // assignTo: [{teamId:this.get('teamId')}]
+    // }
+
+    // this.store.createRecord('project', createProject).save().then(data => {
+      
+    //     this.get('model').projects.pushObject(data)
+    // })
+    this.get('scheduledfor').pushObject(newdata);
+    this.toggleProperty('showPromptDialog');
+
+     
+    }
        
      }
    });
