@@ -10,7 +10,8 @@
         
         
     {{else}}
-    {{activity-planner-desktop activityPlan = model.teamCopy.tasks}}
     
+    {{activity-planner-desktop activityPlan = model.teamCopy.tasks backlogs = model.productBacklogs}}
+        
     {{/if}}
 </div>
