@@ -4,11 +4,11 @@
   
   selected=selectedBasicTab
   onChange=(action (mut selectedBasicTab)) as |tabs|}}
-  {{#tabs.tab}}
+  {{#tabs.tab }}
     Future Tasks
   {{/tabs.tab}}
 
-  {{#tabs.tab}}
+  {{#tabs.tab }}
     Today's Tasks
   {{/tabs.tab}}
   
@@ -20,10 +20,13 @@
     {{#paper-subheader}}
       {{#if current.tab}}
         {{!-- Scheduled for Today --}}
-        {{#each todayTasks as |category|}}
+        {{#each scheduled as |category|}}
       {{#paper-item class="md-1-line"  as |controls|}}
         <div class="md-list-item-text">
-          <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+          <p ontouchStart={{action "selectBand" category}} 
+            ontouchEnd={{action "unselectBand" category}}>
+            {{category.text}}
+          </p>
         </div>
         {{#if selected}}
         <div class="md-secondary-container ">
@@ -35,18 +38,40 @@
         
       {{else}}
         {{!-- Scheduled Today --}}
-        {{#each futureTasks as |category|}}
+        {{#each scheduledfor as |category|}}
           {{#paper-item class="md-1-line"  as |controls|}}
             <div class="md-list-item-text">
-              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
             </div>
             {{#if selected}}
               <div class="md-secondary-container ">
                 {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
               </div>
             {{/if}}
+
           {{/paper-item}}
         {{/each}}
+
+            <div class="layout-row layout-align-center-end">
+{{#paper-button primary=true fab=true onClick=(action "showPromptDialogAction")}}+{{/paper-button}}
+{{#if showPromptDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
+    {{#paper-dialog-content}}
+      {{paper-input placeholder="initiative" autofocus=true value=initiative onChange=(action (mut initiative))}}
+      {{paper-input placeholder="text"  value=text onChange=(action (mut text))}}
+      {{paper-input placeholder="projectName"  value=projectName onChange=(action (mut projectName))}}
+      {{paper-input class="flex" label="scheduled_For" type="date" value=scheduled_For onChange=(action (mut scheduled_For))}}
+
+    {{/paper-dialog-content}}
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closePromptDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "ok")}}Ok{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+</div>
       {{/if}}
     {{/paper-subheader}}
   {{/paper-list}}
