@@ -8,19 +8,19 @@ export default Component.extend({
     taskData: Ember.inject.service(),
     // scheduledTodayTasks:['Task 1','Task 2', 'Task 3'],
     // removeTask: "this is check string",
-    actions : {
-        removeTask (taskObject) {
+    // actions : {
+    //     removeScheduledTask (taskObject) {
             
             
-            // console.log(taskObject, "is this getting triggered ??")
-        let arr = taskObject.that.scheduledTodayTasks.filter(task=> task._id !== taskObject.data._id);
-        console.log(arr,"what is this?")
-        // taskObject.that.scheduledTodayTasks = arr.splice(0);
-        set(taskObject.that,'scheduledTodayTasks',arr);
-            // taskObject.that.scheduledTodayTasks.removeObject(taskObject.data);
+    //         // console.log(taskObject, "is this getting triggered ??")
+    //     let arr = taskObject.that.scheduledTodayTasks.filter(task=> task._id !== taskObject.data._id);
+    //     console.log(arr,"what is this?")
+    //     // taskObject.that.scheduledTodayTasks = arr.splice(0);
+    //     set(taskObject.that,'scheduledTodayTasks',arr);
+    //         // taskObject.that.scheduledTodayTasks.removeObject(taskObject.data);
         
-        }
-    },
+    //     }
+    // },
     init(){
         this._super(...arguments)
         let that = this
@@ -28,7 +28,7 @@ export default Component.extend({
         this.get('taskData').on('data-comming', function(data) {
             // console.log(data,"init data")
             // console.log("sdfsdfsdf",that.scheduledTodayTasks,"this has reached the parent")
-            that.actions.removeTask({that: that, data: data})
+            that.actions.removeScheduledTask({that: that, data: data})
             
             
         })
