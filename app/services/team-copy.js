@@ -8,5 +8,12 @@ export default Service.extend({
             type: 'GET',
             contentType: 'application/json'
         })
+    },
+    updateTeamCopy(data) {
+        return Ember.$.ajax({
+            url: `http://localhost:3000/api/v1/teamCopy/${data.createdAt}/tasks/${data.taskId}`,
+            type: 'PATCH',
+            contentType: 'application/json'
+            })
     }
 });
