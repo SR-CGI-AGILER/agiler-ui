@@ -21,7 +21,12 @@ body{
 #fixedbutton{
     position: fixed;
     left: 8vw;
-    bottom: 0vh;
+    bottom: 0.5vh;
+}
+
+.fixedbuttonright{
+    left: 80vw;
+    bottom: 0.5vh;
 }
 
 .footer {
