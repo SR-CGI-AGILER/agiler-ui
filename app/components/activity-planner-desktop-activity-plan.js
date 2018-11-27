@@ -29,7 +29,9 @@ export default Component.extend({
             console.log("addTask action")
             console.log(this.activityPlanTasks);
             
-            this.activityPlanTasks.pushObject(x);
+            // this.activityPlanTasks.pushObject(x);
+            this.activityPlanTasks.addObject(x);
+
             console.log(this.activityPlanTasks);
         },
         add() {
@@ -242,7 +244,6 @@ add1(){
                 }
             }
             console.log(b,"b")
-            console.log(this,"thisasdasdfmkciopxpobnniubiux sywbijnsdoncnxdoisemwjkopspokakwipqowasoq[olas[")
             // self.send('submitform');
             // let data = event.dataTransfer.setData('some_Object', JSON.stringify(this.content));
             // Ember.run.debounce(self,self.get('add1'),400);

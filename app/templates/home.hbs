@@ -8,9 +8,12 @@
             scheduledfor =  model.scheduledfor
         }}
         
-        <p>MOBILE</p>
     {{else}}
-    {{activity-planner-desktop activityPlan = model.teamCopy.tasks backlogs = model.productBacklogs}}
-        <p>DESKTOP</p>
+    {{activity-planner-desktop 
+    activityPlan = model.teamCopy.tasks 
+    backlogs = model.productBacklogs 
+    scheduled =  model.scheduled
+    scheduledfor =  model.scheduledfor
+    }}
     {{/if}}
 </div>
