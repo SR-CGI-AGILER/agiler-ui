@@ -4,7 +4,7 @@ import Ember from 'ember';
 export default Service.extend({
     getScheduledOn(){
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduled/task`,
+            url: `http://localhost:3000/api/v1/scheduledy/task`,
             type: 'GET',
             contentType: 'application/json'
         })

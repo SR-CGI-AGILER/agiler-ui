@@ -48,10 +48,10 @@ export default Component.extend({
           
         selectBand(event) {
 
-          console.log('selectBand', this.get('category'));
+          console.log('selectBand', this.get('category'),event);
           this.set('startTime', new Date().getTime())
           if(!event.checked){
-            this.selectedTasks.pushObject(event.tasks);
+            this.selectedTasks.pushObject(event);
             console.log(this.selectedTasks, "on touch staart ..!!!");
           }
           else{

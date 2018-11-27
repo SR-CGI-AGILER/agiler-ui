@@ -8,7 +8,7 @@ export default Route.extend({
     productBacklogs: Ember.inject.service(), 
     async model(){
         let model = {};
-        await this.teamCopy.getTeamCopy("2018-11-21","default").then(function(data) {
+        await this.teamCopy.getTeamCopy("2018-10-21","default").then(function(data) {
             model.teamCopy = data.payload.data
         })
         // await this.productBacklogs.getProductBacklog().then(function (data) {
