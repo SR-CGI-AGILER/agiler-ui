@@ -5,14 +5,14 @@ import ENV from '../config/environment'
 export default Service.extend({
     getScheduledOn(){
         return Ember.$.ajax({
-            url: `http://${ENV.serverhost}/api/v1/scheduled/task`,
+            url: `http://localhost:3000/api/v1/scheduledy/task`,
             type: 'GET',
             contentType: 'application/json'
         })
     },
     getScheduledFor(){
         return Ember.$.ajax({
-            url: `http://${ENV.serverhost}/api/v1/scheduledx/task`,
+            url: `http://localhost:3000/api/v1/scheduledx/task`,
             type: 'GET',
             contentType: 'application/json'
         })

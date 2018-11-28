@@ -32,7 +32,11 @@
 
 {{#liquid-if showBacklogsView}}
 {{#activity-planner-backlogs
-    backlogs = backlogs
+    backlogs=backlogs
+    selected=selected
+    selectedTasks=selectedTasks
+    backlogProjects=backlogProjects 
+    backlogTasks=backlogTasks
     selectTask=(action "selectTask") }}
 {{/activity-planner-backlogs}}
 {{/liquid-if}}
@@ -40,6 +44,7 @@
 {{#liquid-if showActivityPlanTab}}
 {{#activity-planner-activity-plan 
     todayTeamCopy=todayTeamCopy
+    task=task
     projects=projects 
     publish=(action "publish")
 }}
@@ -53,9 +58,11 @@
 
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
+    task=task
     todayTeamCopy=todayTeamCopy
     selectedTasks=selectedTasks
     currentTab=currentTab
+
      }}
 {{/activity-planner-selected-tasks}}
 

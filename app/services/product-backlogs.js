@@ -5,7 +5,7 @@ import ENV from '../config/environment';
 export default Service.extend({
     getProductBacklog(){
         return Ember.$.ajax({
-            url: `http://${ENV.serverhost}/api/v1/backlog`,
+            url: `http://172.23.238.186:3000/api/v1/backlog/defaultInitiative`,
             type: 'GET',
             contentType: 'application/json'
         })

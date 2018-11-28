@@ -24,8 +24,9 @@ export default Controller.extend({
 
   actions: {
     publish(todayTeamCopy) {
+      console.log(todayTeamCopy,"todayTeamCopy in home controller")
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
-        console.log(data);
+        // console.log(data,"ohjkuhilhopj;huyfigkh@@@@@@@@@@@");
       })
       this.transitionToRoute('sprintView');
     },

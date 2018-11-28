@@ -40,12 +40,12 @@ export default Route.extend({
                model.productBacklogs = data.payload.data
             })
             
-            // await this.scheduled.getScheduledOn().then(function (data) {
-            //     model.scheduled = data.payload.data
-            // })
-            //  await this.scheduled.getScheduledFor().then(function (data) {
-            //     model.scheduledfor = data.payload.data
-            // })
+            await this.scheduled.getScheduledOn().then(function (data) {
+                model.scheduled = data.payload.data
+            })
+             await this.scheduled.getScheduledFor().then(function (data) {
+                model.scheduledfor = data.payload.data
+            })
         }
         // else {
             

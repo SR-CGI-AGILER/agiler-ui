@@ -10,7 +10,8 @@ export default Component.extend(RecognizerMixin, {
   sprint: false,
   selectedTasks: [],
   projects: new Set(),
-  todayTeamCopy: {},
+  todayTeamCopy: [],
+  task: [],
   initiatives: "default",
   tabIndex: 3,
   tabSubheading: '(4/4) Activity Plan',
@@ -342,16 +343,22 @@ export default Component.extend(RecognizerMixin, {
 
   backlogTasks: computed('backlogs', function () {
     let btasks = [];
-    this.backlogs.forEach(element => {
-      console.log(element.tasks, "hhgugh");
-      element.tasks.forEach(task=>{
-        btasks.pushObject(task);  
-      });
-    })
-    console.log(btasks,"I AM BTASKS");
+    if(this.get('backlogs')) {
+
+      this.backlogs.forEach(element => {
+        console.log(element.tasks, "hhgugh");
+        element.tasks.forEach(task=>{
+          btasks.pushObject(task);  
+        });
+      })
+      console.log(btasks,"I AM BTASKS");
+      return btasks;
+    }
+    else {
+      this.gotoSprint();
+    }
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
     // return this.activityPlan.filter(task => task.backlog);
-    return btasks;
   })
 
 });
