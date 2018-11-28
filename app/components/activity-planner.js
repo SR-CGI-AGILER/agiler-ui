@@ -251,7 +251,6 @@ export default Component.extend(RecognizerMixin, {
   }),
 
   completedTasks: computed('activityPlan', function () {
-    // console.log(this.activityPlan.filter(task => task.status === "Completed"))
     return this.activityPlan.filter(task => task.status === "Completed")
   }),
 
