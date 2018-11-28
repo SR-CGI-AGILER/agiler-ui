@@ -6,11 +6,14 @@
             backlogs = model.productBacklogs
             scheduled =  model.scheduled
             scheduledfor =  model.scheduledfor
+            publish = (action "publish")
         }}
         
-        <p>MOBILE</p>
+        
     {{else}}
-    {{activity-planner-desktop activityPlan = model.teamCopy.tasks}}
-        <p>DESKTOP</p>
+    
+    {{activity-planner-desktop activityPlan = model.teamCopy.tasks 
+    backlogs = model.productBacklogs}}
+        
     {{/if}}
 </div>

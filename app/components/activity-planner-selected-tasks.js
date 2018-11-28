@@ -38,9 +38,10 @@ export default Component.extend({
     }),
 
     actions: {
-        raisedButton() {
-            console.log(this.get('todayTeamCopy'));
-            this.get('todayTeamCopy').pushObjects(this.get('selectedTasks'));
+        addToActivityPlan() {
+            console.log(this.get('task'),"I am tasks array in child component");
+            console.log(this.get('selectedTasks'),"selected tasks in child")
+            this.get('task').pushObjects(this.get('selectedTasks'));
             // console.log(this.get('todayTeamCopy'));
         }
     }

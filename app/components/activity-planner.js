@@ -7,10 +7,12 @@ import {
 // import { Ember } from 'ember';
 
 export default Component.extend(RecognizerMixin, {
-
+  sprint: false,
   selectedTasks: [],
   projects: new Set(),
   todayTeamCopy: [],
+  task: [],
+  initiatives: "default",
   tabIndex: 0,
   tabSubheading: '(1/4) Updates',
   currentTab: 'updates',
@@ -161,13 +163,19 @@ export default Component.extend(RecognizerMixin, {
     handleTabSubheadingChanged(newTabSubheading) {
       this.set('tabSubheading', newTabSubheading);
     },
-    saveToDb() {
-      // Ember.$.ajax({
-      //   type: 'POST',
-      //   url: `http://localhost:3000/api/v1/tasks`,
-      //   contentType: "application/json",
-      //   data: JSON.stringify(this.latestActivityPlan)
-      // })
+    publish(task) {
+      
+      let obj = {
+        initiatives: this.get('initiatives'),
+        createdAt: "2018-10-24",
+        tasks: task
+      }
+      
+      this.set('todayTeamCopy',obj);
+      console.log(this.get('todayTeamCopy'));
+      // this.set('sprint',true);
+      this.publish(this.get('todayTeamCopy'));
+
     },
     selectTask(task) {
       this.get('selectedTasks').pushObject(task);

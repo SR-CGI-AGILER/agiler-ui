@@ -56,7 +56,7 @@ export default Component.extend({
           }
           else{
 
-            this.selectedTasks.removeObject(event.tasks);
+            this.selectedTasks.removeObject(event);
             console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
           }
 

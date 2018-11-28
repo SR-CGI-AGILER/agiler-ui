@@ -36,6 +36,8 @@
 
 {{#liquid-if showBacklogsView}}
 {{#activity-planner-backlogs
+    selected=selected
+    selectedTasks=selectedTasks
     backlogProjects=backlogProjects 
     backlogTasks=backlogTasks
     selectTask=(action "selectTask") }}
@@ -45,19 +47,25 @@
 {{#liquid-if showActivityPlanTab}}
 {{#activity-planner-activity-plan 
     todayTeamCopy=todayTeamCopy
+    task=task
     projects=projects 
-    saveData=(action "saveToDb")}}
+    publish=(action "publish")
+}}
 {{/activity-planner-activity-plan}}
 {{/liquid-if}}
 {{!-- {{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}} --}}
 
-
-
+{{#if sprint}}
+    {{activity-planner-sprint-view}}
+{{/if}}
 
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
+    task=task
     todayTeamCopy=todayTeamCopy
     selectedTasks=selectedTasks
-    currentTab=currentTab }}
+    currentTab=currentTab
+
+     }}
 {{/activity-planner-selected-tasks}}
 

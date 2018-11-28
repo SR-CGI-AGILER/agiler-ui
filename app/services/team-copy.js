@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import Ember from 'ember';
+import ENV from '../config/environment'
 
 export default Service.extend({
     getTeamCopy(date, initiatives){
@@ -8,5 +9,12 @@ export default Service.extend({
             type: 'GET',
             contentType: 'application/json'
         })
+    },
+    updateTeamCopy(data) {
+        return Ember.$.ajax({
+            url: `http://${ENV.serverhost}/api/v1/teamCopy/${data.createdAt}/tasks/${data.taskId}`,
+            type: 'PATCH',
+            contentType: 'application/json'
+            })
     }
 });
