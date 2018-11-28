@@ -6,9 +6,9 @@ import {
 export default Component.extend({
   init() {
     this._super(...arguments);
-    this.completedTasks.setEach('checked', false)
-    this.newTasks.setEach('checked', false)
-    this.pendingTasks.setEach('checked', false)
+    // this.completedTasks.setEach('checked', false)
+    // this.newTasks.setEach('checked', false)
+    // this.pendingTasks.setEach('checked', false)
   },
 
   willDestroyElement() {

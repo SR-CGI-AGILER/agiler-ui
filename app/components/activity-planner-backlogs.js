@@ -3,30 +3,32 @@ import { computed } from '@ember/object';
 
 
 export default Component.extend({
+    // mutiComp: false,
+
+    init(){
+        this._super(...arguments);
+        console.log(this.backlogs,"ahs");
+
+        if(this.backlogs) {
+
+            this.backlogs.forEach(element => {
+                element.tasks.forEach(tasks => {
+                    this.get('backlogProjects').pushObject(tasks.projectName);
+                })
+                
+            })
+            let allProjects = this.get('backlogProjects').filter((v,i)=>this.get('backlogProjects').indexOf(v) === i);
+            // console.log(x);
+            this.set('backlogProjects',allProjects);
+        }
+    },
+
   
-      // didReceiveAttrs() {
-      //   this._super(...arguments);
-      //   console.log(this.futureTasks, "this is rendered after reciving attrs")
-      // //   this.set('futureTasks-altered',this.futureTasks.map(function (e) {
-      // //       e.checked = false 
-      // //       return e;
-      // //   })
-      // // )
-      // //   console.log(this.futureTasks)
-      // this.futureTasks.map(function(e) {
-      //   e.checked = true;
-      //   return e
-      // })
-      // },
+
       willDestroyElement(){
         console.log("COMPONENET DESTROYED")
         console.log(this.get('todayTeamCopy'));
-        // this.futureTasks.map(function (e) {
-        //   e.checked = false
-        //   return e
-        // });
-        // this.futureTasks.setEach('checked',false);
-        // console.log(this.get('futureTasks'));
+       
         this._super(...arguments);
       },
     
@@ -39,22 +41,36 @@ export default Component.extend({
       scheduleds: Ember.inject.service('scheduled'),
     currentView: 'Projects',
     projectBacklogTasks: [],
+    projects: new Set(),
+    backlogProjects: [],
     backlog: Ember.inject.service('product-backlogs'),
     actions: {
         selectBand(event) {
 
+<<<<<<< HEAD
             console.log('selectBand', this.get('category'));
+=======
+            console.log('selectBand', this.get('category'),event);
+>>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
             this.set('startTime', new Date().getTime())
             if(!event.checked){
               this.selectedTasks.pushObject(event);
               console.log(this.selectedTasks, "on touch staart ..!!!");
             }
             else{
+<<<<<<< HEAD
       
               this.selectedTasks.removeObject(event);
               console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
             }
       
+=======
+  
+              this.selectedTasks.removeObject(event);
+              console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
+            }
+  
+>>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
          },   
          unselectBand(item) {
               console.log('unselect Band', "on touch end ");
@@ -64,24 +80,43 @@ export default Component.extend({
                   if(this.selected) {
                     this.set('selected',false)
                       
+<<<<<<< HEAD
       
+=======
+  
+>>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
                   }
                   else{
                     this.set('selected', true)
                     console.log(this.selected);
+<<<<<<< HEAD
       
                   }
                     
       
+=======
+  
+                  }
+                    
+  
+>>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
               }
               else{
                 console.log('else', "happened on the touch end!!!");
                 if(!this.selected){
+<<<<<<< HEAD
       
                   console.log('NOT SELECTED', "checkbox not invoked!!");
                   this.set('selectedTasks',[]);
                 }
       
+=======
+  
+                  console.log('NOT SELECTED', "checkbox not invoked!!");
+                  this.set('selectedTasks',[]);
+                }
+  
+>>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
               }
               console.log(this.selectedTasks, "end state of the arr on touch end");
          },
@@ -124,7 +159,16 @@ export default Component.extend({
             }
             this.backlog.postBacklog(newData)            
             console.log(this.backlogTasks,"backlogtasksfromparent")
-            this.backlogTasks.pushObject(newData)
+            this.backlogTasks.pushObject({
+                text: this.get('taskName'),
+                projectName: this.get('projectName'),
+                due_date:"2018-11-30",
+                owner:"Owner",
+                status:"Status"
+            })
+            if(this.get('backlogProjects').indexOf(project) === -1) {
+                this.get('backlogProjects').pushObject(project);
+            }
             console.log(this.backlogTasks,"computed property in child.js")
             this.toggleProperty('showDialog')
 
@@ -137,6 +181,33 @@ export default Component.extend({
     showBacklogTasksView: computed('currentView', function() {
         return this.currentView === 'Backlog'
     }),
+    // backlogProjects: computed('backlogs', function () {
+    
+    //     this.backlogs.forEach(element => {
+    //       element.tasks.forEach(task=>{
+    //         this.get('projects').add(task.projectName);
+    //       })
+    //     });
+    //     return this.projects;
+    
+    //     // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
+    
+    //   }),
+    
+    
+      backlogTasks: computed('backlogs', function () {
+        let btasks = [];
+        this.backlogs.forEach(element => {
+          console.log(element.tasks, "hhgugh");
+          element.tasks.forEach(task=>{
+            btasks.pushObject(task);  
+          });
+        })
+        console.log(btasks,"I AM BTASKS");
+        // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
+        // return this.activityPlan.filter(task => task.backlog);
+        return btasks;
+      })
 
 });
 

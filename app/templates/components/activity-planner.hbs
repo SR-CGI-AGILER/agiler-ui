@@ -3,10 +3,6 @@
     tabIndex=tabIndex 
     tabSubheading=tabSubheading}}
 
-    
-        {{!-- {{#each activityPlan as |ap|}}
-            {{ap.tasks.text}}
-        {{/each}} --}}
 
 {{#liquid-if showUpdatesView}}
     {{#activity-planner-updates
@@ -36,6 +32,9 @@
 
 {{#liquid-if showBacklogsView}}
 {{#activity-planner-backlogs
+    backlogs=backlogs
+    selected=selected
+    selectedTasks=selectedTasks
     backlogProjects=backlogProjects 
     backlogTasks=backlogTasks
     selectTask=(action "selectTask") }}
@@ -45,6 +44,7 @@
 {{#liquid-if showActivityPlanTab}}
 {{#activity-planner-activity-plan 
     todayTeamCopy=todayTeamCopy
+    task=task
     projects=projects 
     publish=(action "publish")
 }}
@@ -58,9 +58,11 @@
 
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
+    task=task
     todayTeamCopy=todayTeamCopy
     selectedTasks=selectedTasks
     currentTab=currentTab
+
      }}
 {{/activity-planner-selected-tasks}}
 

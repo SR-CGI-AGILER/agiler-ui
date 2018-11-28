@@ -15,6 +15,6 @@ export default Service.extend({
             url: `http://172.23.238.243:4000/api/v1/teamCopy/${data.createdAt}/tasks/${data.taskId}`,
             type: 'PATCH',
             contentType: 'application/json'
-            })
+        })
     }
 });

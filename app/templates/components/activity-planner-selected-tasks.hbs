@@ -12,34 +12,34 @@
     {{#if showUpdatesAction}}
     {{!-- <p>SELECTED TASKS {{tabIndex}} {{actionComponent}} {{renderView}}</p> --}}
     
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO COMPLETED
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO SCHEDULED
     {{/paper-button}}
     {{/if}}
 
     {{#if showScheduledAction}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO COMPLETED
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO BACKLOGS
     {{/paper-button}}
     {{/if}}
     
     {{#if showBacklogsAction}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
+    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO SCHEDULED
     {{/paper-button}}
     {{#paper-button raised=true onClick=(action "assignOwners")}}
