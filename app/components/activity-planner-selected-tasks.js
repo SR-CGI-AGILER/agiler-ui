@@ -44,5 +44,8 @@ export default Component.extend({
             this.get('task').pushObjects(this.get('selectedTasks'));
             // console.log(this.get('todayTeamCopy'));
         }
+        // reschedule(){
+
+        // }
     }
 });

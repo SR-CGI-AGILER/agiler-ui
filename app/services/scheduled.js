@@ -20,10 +20,18 @@ export default Service.extend({
    
     postScheduled(x){
         return Ember.$.ajax({
-            url: `http://${ENV.serverhost}/api/v1/scheduled/task`,
+            url: `http://localhost:3000/api/v1/scheduled/task`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(x)
         })
+    },
+    patchscheduled(x){
+        return Ember.$.ajax({
+        url: `http://localhost:3000/api/v1/scheduled/task/:initiative/:taskId`,
+        type: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify(x)
+    })
     }
 });
