@@ -5,6 +5,13 @@ body{
     padding: 0;
 }
 
+.content {
+    display: flex;
+    // flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
 .fix-toolbar{
     // display: flex;
     // flex-direction: column;

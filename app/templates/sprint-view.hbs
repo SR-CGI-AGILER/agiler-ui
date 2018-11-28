@@ -5,6 +5,7 @@
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 {{#paper-list}}
+
     {{#each model.payload.data.tasks as |task|}}
         {{#paper-item class="md-1-line" onClick=(action 'markComplete' task)}}
             <div class="md-list-item-text">

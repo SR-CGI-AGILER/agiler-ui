@@ -27,7 +27,17 @@ module.exports= function(environment) {
       touchActionSelectors: ['button', 'input', 'a', 'textarea'],
       touchActionProperties: 'touch-action: manipulation; -ms-touch-action: manipulation; cursor: pointer;'
     },
-    serverhost:""
+    serverhost:"",
+    torii: {
+      sessionServiceName: 'session',
+      providers: {
+        'google-oauth2': {
+            apiKey: '1053797418071-cb49noe362osfv37v0jc25bkvqbum5qp.apps.googleusercontent.com',
+            redirectUri: 'http://localhost:4200/torii/redirect.html',
+            scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+          }
+      }
+    }
   };
 
   if (environment === 'development') {
@@ -36,7 +46,7 @@ module.exports= function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.serverhost = "localhost:3000"
+    ENV.serverhost = "localhost:4000"
   }
 
   if (environment === 'test') {

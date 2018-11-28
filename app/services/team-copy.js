@@ -15,6 +15,6 @@ export default Service.extend({
             url: `http://${ENV.serverhost}/api/v1/teamCopy/${data.createdAt}/tasks/${data.taskId}`,
             type: 'PATCH',
             contentType: 'application/json'
-            })
+        })
     }
 });

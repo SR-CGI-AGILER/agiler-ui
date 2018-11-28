@@ -7,9 +7,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('home');
+  this.route('home', {path: '/home/:ifPublished'});
   this.route('test');
   this.route('sprintView');
+  this.route('login');
+  this.route('standups');
 });
 
 export default Router;
