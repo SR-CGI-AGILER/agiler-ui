@@ -38,10 +38,13 @@ export default Component.extend({
     }),
 
     actions: {
-        raisedButton() {
-            console.log(this.get('todayTeamCopy'));
-            this.get('todayTeamCopy').pushObjects(this.get('selectedTasks'));
+        addToActivityPlan() {
             // console.log(this.get('todayTeamCopy'));
+            this.get('task').pushObjects(this.get('selectedTasks'));
+            // console.log(this.get('todayTeamCopy'));
+        },
+        assignOwners(){
+
         }
     }
 });

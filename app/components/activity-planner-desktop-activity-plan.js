@@ -29,7 +29,11 @@ export default Component.extend({
            this.activityPlan.postActivityPlan(data);
            this.set('isPublished',true);
            this.set('notPublished', false);
+        // this.get('publishActivityPlan')(activityPlanTasks)
         },
+        submit() {
+            this.get('submit')();
+          },
         addTask(x){
             console.log("addTask action")
             console.log(this.activityPlanTasks);

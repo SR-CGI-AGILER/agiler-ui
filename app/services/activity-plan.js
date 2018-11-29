@@ -6,7 +6,7 @@ import Ember from 'ember';
 export default Service.extend({
     createActivityPlanMobile(plan){
         return Ember.$.ajax({
-            url: `172.23.238.187:3000/api/v1/activityplan`,
+            url: `http://172.23.238.187:3000/api/v1/activityplan`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(plan)

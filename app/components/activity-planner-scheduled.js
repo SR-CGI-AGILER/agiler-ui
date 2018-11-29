@@ -4,27 +4,11 @@ export default Component.extend({
   
       init () {
         this._super(...arguments);
-        this.futureTasks.setEach('checked',false)
-        // this.futureTasks.map(function (e) {
-        //     e.checked = false
-        //     return e
-        // })
-        // console.log(this.futureTasks)
+        if(this.futureTasks) {
+          this.futureTasks.setEach('checked',false)
+        }
+
       },
-      // didReceiveAttrs() {
-      //   this._super(...arguments);
-      //   console.log(this.futureTasks, "this is rendered after reciving attrs")
-      // //   this.set('futureTasks-altered',this.futureTasks.map(function (e) {
-      // //       e.checked = false 
-      // //       return e;
-      // //   })
-      // // )
-      // //   console.log(this.futureTasks)
-      // this.futureTasks.map(function(e) {
-      //   e.checked = true;
-      //   return e
-      // })
-      // },
       willDestroyElement(){
         console.log("COMPONENET DESTROYED")
         console.log(this.get('todayTeamCopy'));
@@ -48,15 +32,15 @@ export default Component.extend({
           
         selectBand(event) {
 
-          console.log('selectBand', this.get('category'));
+          console.log('selectBand', this.get('category'),event);
           this.set('startTime', new Date().getTime())
           if(!event.checked){
-            this.selectedTasks.pushObject(event.tasks);
+            this.selectedTasks.pushObject(event);
             console.log(this.selectedTasks, "on touch staart ..!!!");
           }
           else{
 
-            this.selectedTasks.removeObject(event.tasks);
+            this.selectedTasks.removeObject(event);
             console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
           }
 

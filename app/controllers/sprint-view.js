@@ -46,7 +46,7 @@ export default Controller.extend({
             return e
         }
       });
-      console.log(this.isCompleted, this.isNew, this.isPending, "markComplete");
+    //   console.log(this.isCompleted, this.isNew, this.isPending, "markComplete");
     },
 
     markNew(task) {
@@ -65,7 +65,7 @@ export default Controller.extend({
         // console.log(this.isNew,"isNew");
 
       })
-      console.log(this.isCompleted, this.isNew, this.isPending, "markNew");
+    //   console.log(this.isCompleted, this.isNew, this.isPending, "markNew");
     },
 
     markPending(task) {
@@ -96,7 +96,7 @@ export default Controller.extend({
         }
       });
       
-      console.log(this.isCompleted, this.isNew, this.isPending, "markPending");
+    //   console.log(this.isCompleted, this.isNew, this.isPending, "markPending");
     }
   }
 });

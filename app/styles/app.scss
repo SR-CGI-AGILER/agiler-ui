@@ -5,6 +5,13 @@ body{
     padding: 0;
 }
 
+.content {
+    display: flex;
+    // flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
 .fix-toolbar{
     // display: flex;
     // flex-direction: column;
@@ -25,7 +32,7 @@ body{
 }
 
 .fixedbuttonright{
-    left: 80vw;
+    left: 50vw;
     bottom: 0.5vh;
 }
 
@@ -34,6 +41,10 @@ body{
     bottom: 0;
     padding: 0;
 }
+
+// .dropdown{
+//     right: 50vw;
+// }
 
 .fix-toolbar{
     box-shadow: 0px 2.5px 2.5px rgba(1,1,1,1);
@@ -60,3 +71,9 @@ body{
     
     
 }
+// .md-list-item-text .nav-route{
+// .md-avatar{
+//     width: 100px;
+//     height : 100px
+// }
+// }

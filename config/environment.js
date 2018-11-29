@@ -27,7 +27,17 @@ module.exports= function(environment) {
       touchActionSelectors: ['button', 'input', 'a', 'textarea'],
       touchActionProperties: 'touch-action: manipulation; -ms-touch-action: manipulation; cursor: pointer;'
     },
-    serverhost:""
+    serverhost:"",
+    torii: {
+      sessionServiceName: 'session',
+      providers: {
+        'google-oauth2': {
+            apiKey: '1053797418071-cb49noe362osfv37v0jc25bkvqbum5qp.apps.googleusercontent.com',
+            redirectUri: 'http://localhost:4200/torii/redirect.html',
+            scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+          }
+      }
+    }
   };
 
   if (environment === 'development') {
