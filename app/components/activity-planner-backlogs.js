@@ -7,9 +7,9 @@ export default Component.extend({
 
     init(){
         this._super(...arguments);
-        console.log(this.backlogs,"ahs");
-
+        
         if(this.backlogs) {
+            console.log(this.backlogs,"ahs");
 
             this.backlogs.forEach(element => {
                 element.tasks.forEach(tasks => {
@@ -47,30 +47,18 @@ export default Component.extend({
     actions: {
         selectBand(event) {
 
-<<<<<<< HEAD
             console.log('selectBand', this.get('category'));
-=======
-            console.log('selectBand', this.get('category'),event);
->>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
             this.set('startTime', new Date().getTime())
             if(!event.checked){
               this.selectedTasks.pushObject(event);
               console.log(this.selectedTasks, "on touch staart ..!!!");
             }
             else{
-<<<<<<< HEAD
       
               this.selectedTasks.removeObject(event);
               console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
             }
       
-=======
-  
-              this.selectedTasks.removeObject(event);
-              console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
-            }
-  
->>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
          },   
          unselectBand(item) {
               console.log('unselect Band', "on touch end ");
@@ -80,43 +68,25 @@ export default Component.extend({
                   if(this.selected) {
                     this.set('selected',false)
                       
-<<<<<<< HEAD
       
-=======
   
->>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
                   }
                   else{
                     this.set('selected', true)
                     console.log(this.selected);
-<<<<<<< HEAD
-      
-                  }
-                    
-      
-=======
   
                   }
                     
   
->>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
               }
               else{
                 console.log('else', "happened on the touch end!!!");
                 if(!this.selected){
-<<<<<<< HEAD
       
                   console.log('NOT SELECTED', "checkbox not invoked!!");
                   this.set('selectedTasks',[]);
                 }
       
-=======
-  
-                  console.log('NOT SELECTED', "checkbox not invoked!!");
-                  this.set('selectedTasks',[]);
-                }
-  
->>>>>>> 258ed1849dc7f171b7c2a1c8af396b1313382938
               }
               console.log(this.selectedTasks, "end state of the arr on touch end");
          },

@@ -38,7 +38,7 @@ export default Component.extend({
     }),
 
     actions: {
-        raisedButton() {
+        addToActivityPlan() {
             // console.log(this.get('todayTeamCopy'));
             this.get('task').pushObjects(this.get('selectedTasks'));
             // console.log(this.get('todayTeamCopy'));
