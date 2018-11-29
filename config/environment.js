@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports= function(environment) {
   let ENV = {
     modulePrefix: 'agiler',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -26,6 +26,17 @@ module.exports = function(environment) {
       touchActionAttributes: ['onclick'],
       touchActionSelectors: ['button', 'input', 'a', 'textarea'],
       touchActionProperties: 'touch-action: manipulation; -ms-touch-action: manipulation; cursor: pointer;'
+    },
+    serverhost:"",
+    torii: {
+      sessionServiceName: 'session',
+      providers: {
+        'google-oauth2': {
+            apiKey: '1053797418071-cb49noe362osfv37v0jc25bkvqbum5qp.apps.googleusercontent.com',
+            redirectUri: 'http://localhost:4200/torii/redirect.html',
+            scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+          }
+      }
     }
   };
 
@@ -35,6 +46,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.serverhost = "localhost:4000"
   }
 
   if (environment === 'test') {
@@ -51,6 +63,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.serverhost = "agiler.stackroute.in"
   }
 
   return ENV;

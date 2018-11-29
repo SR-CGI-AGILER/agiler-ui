@@ -13,21 +13,34 @@
 
         <p ontouchStart={{action "selectBand" task}} 
             ontouchEnd={{action "unselectBand" task}}>
-                {{task.text}}
-        </p>
-
-        
-        {{#if selected}}
+                {{!-- {{task.text}} --}}
+                 {{#if selected}}
           <div class="md-secondary-container ">
             {{controls.checkbox value=task.checked onChange=(action (mut task.checked))}}
           </div>
         {{/if}}
-       
-        
-        
+       {{#if task.isComplete}}
+       <div class="layout-row layout-align-space-around-center">
+       <del>{{task.text}}</del>
+       </div>
 
-            {{paper-divider}}
+        {{else if task.isNew}}
+        <div class="layout-row layout-align-space-around-center">
+        <span>{{task.text}} {{paper-icon "fiber_new"}}</span>
         </div>
+
+        {{else if task.isPending}}
+        <div class="layout-row layout-align-space-around-center">
+        <span>{{task.text}} {{paper-icon "av_timer"}}</span>
+        </div>
+        
+        {{/if}}
+            {{paper-divider}}
+        </p>
+        </div>
+
+        
+       
 
     {{/paper-item}}
 
@@ -46,8 +59,8 @@
     {{#paper-button raised=true onClick=(action "raisedButtonPending")}}
         MARK AS PENDING
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButtonNew")}}
+    {{!-- {{#paper-button raised=true onClick=(action "raisedButtonNew")}}
         MARK AS NEW
-    {{/paper-button}}   
+    {{/paper-button}}    --}}
     {{/if}}
         {{/paper-list}}

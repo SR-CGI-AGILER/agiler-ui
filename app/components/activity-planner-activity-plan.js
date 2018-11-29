@@ -7,10 +7,11 @@ export default Component.extend({
   mutiComp: false,
 //   projectName: "default",
   initiatives: "default",
-  task: [],
+  
   showPromptDialog: false,
   actions: {
     publish() {
+      console.log(this.get('task'));
       this.publish(this.get('task'));
     },
     newTask() {

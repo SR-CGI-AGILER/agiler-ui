@@ -3,15 +3,19 @@
     {{#if isMobile}}
         {{activity-planner 
             activityPlan = model.teamCopy.tasks
+            gotoSprint = (action "gotoSprint")
+            publish = (action "publish")                
             backlogs = model.productBacklogs
             scheduled =  model.scheduled
             scheduledfor =  model.scheduledfor
+            publish = (action "publish")
         }}
         
         
     {{else}}
     
-    {{activity-planner-desktop activityPlan = model.teamCopy.tasks backlogs = model.productBacklogs}}
+    {{activity-planner-desktop activityPlan = model.teamCopy.tasks 
+    backlogs = model.productBacklogs}}
         
     {{/if}}
 </div>

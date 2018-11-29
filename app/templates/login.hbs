@@ -1,0 +1,29 @@
+{{outlet}}
+
+{{#paper-toolbar class="fix-toolbar"}}
+    {{#paper-toolbar-tools}}
+      <h2>Agiler</h2>
+    {{/paper-toolbar-tools}}
+  {{/paper-toolbar}}
+
+<div class="content">
+
+    {{#paper-button raised=true warn=true onClick=(action "authenticateSession")}}
+        {{paper-icon "chevron_right"}}
+            Login With Google
+    {{/paper-button}}
+
+</div>
+
+{{#if visible}}
+<div style="margin:70px">
+
+    
+<img src="{{image}}" alt="YOUR PIC" style="width:200px;height:200px;">
+<p>Welcome {{name}}</p>
+{{!-- <p>EMAIL:{{email}}</p> --}}
+
+  {{#paper-button raised=true primary=true onClick=(action "gotoStandUp")}}GO TO STANDUPS{{/paper-button}}
+
+</div>
+{{/if}}

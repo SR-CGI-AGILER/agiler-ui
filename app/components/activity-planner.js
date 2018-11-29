@@ -10,11 +10,12 @@ export default Component.extend(RecognizerMixin, {
   sprint: false,
   selectedTasks: [],
   projects: new Set(),
-  todayTeamCopy: {},
+  todayTeamCopy: [],
+  task: [],
   initiatives: "default",
-  tabIndex: 0,
-  tabSubheading: '(1/4) Updates',
-  currentTab: 'updates',
+  tabIndex: 3,
+  tabSubheading: '(4/4) Activity Plan',
+  currentTab: 'ActivityPlan',
   selected: false,
   
   recognizers: 'swipe',
@@ -164,9 +165,15 @@ export default Component.extend(RecognizerMixin, {
     },
     publish(task) {
       
+      var d = new Date();
+      // d.setDate(d.getDate() - 1);
+      var day = ("0" + d.getDate()).slice(-2);
+      var month = ("0" + (d.getMonth()+ 1)).slice(-2);
+      var today = d.getFullYear() + "-" + (month) + "-" + (day);
+
       let obj = {
         initiatives: this.get('initiatives'),
-        createdAt: "2018-09-01",
+        createdAt: today,
         tasks: task
       }
       
@@ -190,52 +197,109 @@ export default Component.extend(RecognizerMixin, {
   }),
 
   pendingTasks: computed('activityPlan', function () {
-    return this.activityPlan.filter(task => task.status === "Pending");
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "Pending");
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   ptasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.status === "Pending").length;
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "Pending").length;
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
   ntasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.status === "New").length;
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "New").length;
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
   ctasks: computed('activityPlan', function () {
     // console.log(this.pendingTasks.length, "BLABLA");
-    return this.activityPlan.filter(task => task.status === "Cancelled").length;
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "Cancelled").length;
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
   catasks: computed('activityPlan', function () {
-    console.log(this.activityPlan.filter(task => task.status === "Completed").length, "BLABLA");
-    return this.activityPlan.filter(task => task.status === "Completed").length;
+    // console.log(this.activityPlan.filter(task => task.status === "Completed").length, "BLABLA");
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "Completed").length;
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   scheduledFutureTasks: computed('activityPlan', function () {
-    var now = new Date();
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var today = now.getFullYear() + "-" + (month) + "-" + (day);
-    // console.log(today);
-    return this.activityPlan.filter(task => task.scheduled === today);
+    if(this.get('activityPlan')) {
+
+      var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var today = now.getFullYear() + "-" + (month) + "-" + (day);
+      // console.log(today);
+  
+      return this.activityPlan.filter(task => task.scheduled === today);
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   scheduledTodayTasks: computed('activityPlan', function () {
-    var now = new Date();
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var today = now.getFullYear() + "-" + (month) + "-" + (day);
-    // console.log(today);
-    return this.activityPlan.filter(task => task.scheduled_On === today);
+    if(this.get('activityPlan')) {
+
+      var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var today = now.getFullYear() + "-" + (month) + "-" + (day);
+      // console.log(today);
+  
+      return this.activityPlan.filter(task => task.scheduled_On === today);
+
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   cancelledTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
-    return this.activityPlan.filter(activityPlan => activityPlan.status === "Cancelled");
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(activityPlan => activityPlan.status === "Cancelled");
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   newTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
-    return this.activityPlan.filter(task => task.status === "New");
+    if(this.get('activityPlan')) {
+      // return this.activityPlan.filter(task => task.status === "Completed");
+      return this.activityPlan.filter(task => task.status === "New");
+    }
+    else{
+      this.gotoSprint();
+    }
   }),
 
   showScheduleTab: computed('currentTab', function () {
@@ -251,18 +315,27 @@ export default Component.extend(RecognizerMixin, {
   }),
 
   completedTasks: computed('activityPlan', function () {
-    // console.log(this.activityPlan.filter(task => task.status === "Completed"))
-    return this.activityPlan.filter(task => task.status === "Completed")
+    if(this.get('activityPlan')) {
+      return this.activityPlan.filter(task => task.status === "Completed");
+    }
+    else{
+      this.gotoSprint();    
+    }
   }),
 
   backlogProjects: computed('backlogs', function () {
-    
-    this.backlogs.forEach(element => {
-      element.tasks.forEach(task=>{
-        this.get('projects').add(task.projectName);
-      })
-    });
-    return this.projects;
+    if(this.get('backlogs')) {
+
+      this.backlogs.forEach(element => {
+        element.tasks.forEach(task=>{
+          this.get('projects').add(task.projectName);
+        })
+      });
+      return this.projects;
+    }
+    else {
+      this.gotoSprint();
+    }
 
     // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
 
@@ -270,16 +343,22 @@ export default Component.extend(RecognizerMixin, {
 
   backlogTasks: computed('backlogs', function () {
     let btasks = [];
-    this.backlogs.forEach(element => {
-      console.log(element.tasks, "hhgugh");
-      element.tasks.forEach(task=>{
-        btasks.pushObject(task);  
-      });
-    })
-    console.log(btasks,"I AM BTASKS");
+    if(this.get('backlogs')) {
+
+      this.backlogs.forEach(element => {
+        console.log(element.tasks, "hhgugh");
+        element.tasks.forEach(task=>{
+          btasks.pushObject(task);  
+        });
+      })
+      console.log(btasks,"I AM BTASKS");
+      return btasks;
+    }
+    else {
+      this.gotoSprint();
+    }
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
     // return this.activityPlan.filter(task => task.backlog);
-    return btasks;
   })
 
 });

@@ -10,6 +10,8 @@ export default Controller.extend({
   activityPlan1: [...getActivityPlan()],
   yes: true,
 
+
+
   isMobile: computed('yes', function () {
     let x = window.screen.availWidth;
     // console.log(window.screen.availWidth);
@@ -22,10 +24,16 @@ export default Controller.extend({
 
   actions: {
     publish(todayTeamCopy) {
+      console.log(todayTeamCopy,"todayTeamCopy in home controller")
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
-        console.log(data);
+        // console.log(data,"ohjkuhilhopj;huyfigkh@@@@@@@@@@@");
       })
       this.transitionToRoute('sprintView');
+    },
+    
+    gotoSprint() {
+        // this.transitionToRoute('sprintView');
+        
     }
   }
 });

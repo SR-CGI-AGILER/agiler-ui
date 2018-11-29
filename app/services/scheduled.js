@@ -1,10 +1,11 @@
 import Service from '@ember/service';
 import Ember from 'ember';
+import ENV from '../config/environment'
 
 export default Service.extend({
     getScheduledOn(){
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduled/task`,
+            url: `http://localhost:3000/api/v1/scheduledy/task`,
             type: 'GET',
             contentType: 'application/json'
         })
@@ -18,9 +19,8 @@ export default Service.extend({
     },
    
     postScheduled(x){
-        console.log(x,"x data hai ye re");
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduled/task`,
+            url: `http://${ENV.serverhost}/api/v1/scheduled/task`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(x)

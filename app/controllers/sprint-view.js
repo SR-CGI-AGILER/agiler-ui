@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-
+import { set } from '@ember/object';
 export default Controller.extend({
     teamCopy: Ember.inject.service('team-copy'),
     startTime: null,
@@ -8,43 +8,85 @@ export default Controller.extend({
     selectedTasks : [],
     showSprintViewAction: false,
     selected: false,
-    // isChecked = true, 
-    // selected: false,
     selectedCount: Ember.computed.reads('selectedBands.length'),
 
     actions: {
+        
         raisedButtonComplete() {
             console.log(this.showSprintViewAction,"atreya");
-            // this.set('showSprintViewAction','true');
-            // console.log(this.showSprintViewAction,"atreya");
             console.log(this.get('todayTeamCopy'));
-            this.get('todayTeamCopy').pushObjects(this.get('selectedTasks'));
-            console.log(this.get('todayTeamCopy'),"atreya ra selected task achi eita");
-        },
-        raisedButtonNew() {
-        },
-        raisedButtonPending() {
-        },
-        markComplete(task) {
-            let data = {
-                createdAt: '2018-10-21',
-                taskId: task._id
-            }
-            this.teamCopy.updateTeamCopy(data).then(function(data){
-                console.log(data);
+            
+            console.log(this.get('selectedTasks'),"selectedTasks");
+            let arr1 = [];
+            this.get('selectedTasks').map(function(e){
+                let data = {
+                    taskId:e._id,
+                    action:"Completed"
+                };
+                arr1.pushObject(data);
             })
+            let data = {
+                createdAt:"2018-10-21",
+                arr2 : [],
+            };
+            data.arr2 = arr1;
+            this.teamCopy.updateTeamCopy(data);
+            this.get('model').payload.data.tasks.map(e => {
+                this.get('selectedTasks').map(f => {
+                    if(e._id === f._id){
+                        console.log(e);
+                        set(e,'isPending',true);
+                        set(e,'isComplete',false);
+                        set(e,'isNew',false);
+                        return e
+                    }
+                    else {
+                        return e
+                    }
+                })
+               
+              });
+            this.set('selected',false);
+            console.log(this.get('selected'), "ghcgh");
+
         },
 
-        markNew(task) {
-            let data = {
-                createdAt: '2018-10-21',
-                taskId:  task._id,
-                action: "New"
-            }
+        raisedButtonPending() {
+            console.log(this.showSprintViewAction,"atreya");
+            console.log(this.get('todayTeamCopy'));
             
-            this.teamCopy.updateTeamCopy(data).then(function(data) {
-                console.log(data);
+            console.log(this.get('selectedTasks'),"selectedTasks");
+            let arr1 = [];
+            this.get('selectedTasks').map(function(e){
+                let data = {
+                    taskId:e._id,
+                    action:"Pending"
+                };
+                arr1.pushObject(data);
             })
+            let data = {
+                createdAt:"2018-10-21",
+                arr2 : [],
+            };
+            data.arr2 = arr1;
+            this.teamCopy.updateTeamCopy(data);
+            this.get('model').payload.data.tasks.map(e => {
+                this.get('selectedTasks').map(f => {
+                    if(e._id === f._id){
+                        console.log(e);
+                        set(e,'isPending',true);
+                        set(e,'isComplete',false);
+                        set(e,'isNew',false);
+                        return e
+                    }
+                    else {
+                        return e
+                    }
+                })
+               
+              });
+            this.set('selected',false);
+
         },
 
         selectBand(event) {
@@ -66,10 +108,10 @@ export default Controller.extend({
         },   
         
         unselectBand(item) {
-            // debugger
+            
             this.set('showSprintViewAction','true');
             console.log('unselect Band', "on touch end ");
-            if((this.startTime + 1000) < new Date().getTime()){
+            if((this.startTime + 500) < new Date().getTime()){
                   this.set('selectedTasks', []);
                   console.log("Long Press condition true")
                   if(this.selected) {
