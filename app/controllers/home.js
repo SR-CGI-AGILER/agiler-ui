@@ -7,7 +7,6 @@ import {
 
 export default Controller.extend({
   activityPlan: Ember.inject.service(),
-  activityPlan1: [...getActivityPlan()],
   yes: true,
   userData: {},
   init(){

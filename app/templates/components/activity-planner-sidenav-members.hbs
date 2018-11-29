@@ -4,13 +4,11 @@
         Members
        
     {{/paper-subheader}}
-
-    {{members}}
-
-    {{#each members as |member|}}
-        {{#paper-item}}
-            {{member.name}}
-        {{/paper-item}}
-    {{/each}}
-    
-{{/paper-list}}
+{{#each members.data as |m|}}
+{{#paper-item}}
+    {{m.name}}
+{{/paper-item}}
+{{/each}}
+{{!-- {{members}} --}}
+ {{paper-divider}}   
+    {{/paper-list}}

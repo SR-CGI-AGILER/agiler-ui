@@ -6,7 +6,7 @@ export default Component.extend({
     image:"",
     username:"",
     showView: true,
-    members:[],
+    // members:[],
     init(){
         this._super(...arguments)
         this.set('username',this.get('userData').name);
@@ -23,9 +23,8 @@ export default Component.extend({
                 // console.log(data)
                 that.set('members',data);
                 // console.log(that.get('members'),"hiiiii")
-
-
             })
+            this.toggleProperty('showView');
         },
         incrementTabIndex() {
             if(this.tabIndex === 3){
@@ -44,7 +43,12 @@ export default Component.extend({
             }
         },
         toggleView() {
-            this.toggleProperty('showView');
+            if(this.get('showView')){
+                this.set('showView',false)
+            }
+            else{
+                this.set('showView',true)
+            }
         }
     }
 });
