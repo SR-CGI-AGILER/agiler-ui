@@ -9,7 +9,7 @@ export default Component.extend({
     // newTasks:['Task 1','Task 2', 'Task 3'],
     // removeTask: "this is check string",
     actions : {
-        removeTask (taskObject) {
+        removeNewTask (taskObject) {
             
             debugger
             console.log(taskObject.that.newTasks, "is this getting triggered newTasks??")
@@ -25,10 +25,10 @@ export default Component.extend({
     init(){
         this._super(...arguments)
         let that = this
-        this.get('taskData').on('data-comming', function(data) {
+        this.get('taskData').on('data-commingNew', function(data) {
             // console.log(data,"init data")
             // console.log("sdfsdfsdf",that.newTasks,"this has reached the parent")
-            that.actions.removeTask({that: that, data: data})
+            that.actions.removeNewTask({that: that, data: data})
             
             
         })

@@ -11,16 +11,18 @@
         
         {{#each activityPlanTasks as |task|}}
           {{#paper-item}}
-          {{task.text}}
-          <p>@{{task.owner}}</p>
-          {{/paper-item}}
+          {{!-- <p>@{{task.owner}}</p> --}}
           {{#if notPublished}}
           {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px; background-color:pink">
-  Drop here
+          {{task.text}}
        </div>
   {{/draggable-dropzone}}
+  {{else}}
+  {{#paper-item}}{{task.text}}{{/paper-item}}
   {{/if}}
+          {{/paper-item}}
+          
           {{/each}}
         {{#if notPublished}}
 <div style="height:230px">
@@ -37,6 +39,7 @@
   {{#paper-button iconButton=true onClick=(action "add")}}
   {{paper-icon "send"}}
   {{/paper-button}}
+  {{!-- {{input-textbox}} --}}
   {{#paper-button iconButton=true onClick=(action "publishActivityPlan")}}
   {{paper-icon "publish"}}
   {{/paper-button}}

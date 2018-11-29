@@ -6,6 +6,7 @@ export default Route.extend({
     scheduled:Ember.inject.service() ,
     activityPlan: Ember.inject.service(),
     productBacklogs: Ember.inject.service(), 
+    
     async model(){
         let model = {};
         await this.teamCopy.getTeamCopy("2018-10-21","default").then(function(data) {
@@ -15,12 +16,12 @@ export default Route.extend({
            model.productBacklogs = data.payload.data
         })
         
-        await this.scheduled.getScheduledOn().then(function (data) {
-            model.scheduled = data.payload.data
-         })
-         await this.scheduled.getScheduledFor().then(function (data) {
-            model.scheduledfor = data.payload.data
-         })
+        // await this.scheduled.getScheduledOn().then(function (data) {
+        //     model.scheduled = data.payload.data
+        //  })
+        //  await this.scheduled.getScheduledFor().then(function (data) {
+        //     model.scheduledfor = data.payload.data
+        //  })
         return model;
     }
 });

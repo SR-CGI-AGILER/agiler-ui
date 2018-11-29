@@ -26,6 +26,10 @@ export default Controller.extend({
         console.log(data);
       })
       this.transitionToRoute('sprintView');
+    },
+    publishActivityPlan(x){
+      debugger
+     this.transitionToRoute('sprintView'); 
     }
   }
 });

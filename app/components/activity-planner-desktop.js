@@ -49,4 +49,10 @@ export default Component.extend({
         // return this.activityPlan.filter(task => task.backlog);
         return btasks;
       })
+      
+      // actions : {
+      //   publishActivityPlan(x){
+      //     debugger;
+      //   }
+      // }
 });
