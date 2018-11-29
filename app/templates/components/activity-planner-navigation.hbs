@@ -1,6 +1,80 @@
 {{!-- {{#paper-content flex-layout="column" flex=true}} --}}
+
+{{#paper-sidenav-container class="inner-sidenav"}}
+{{#paper-sidenav
+	class="md-whiteframe-z2"
+	name="left"
+	open=leftSideBarOpen
+	lockedOpen = false
+	onToggle=(action (mut leftSideBarOpen)) }}
+	{{#paper-toolbar as |toolbar|}}
+     <div style="margin-left:30px">
+		{{#paper-toolbar-tools}}Agiler
+            {{#paper-button iconButton=true onClick=(action "toggleView")}}
+              {{paper-icon "apps"}}
+            {{/paper-button}}
+    {{/paper-toolbar-tools}}
+        </div>
+	{{/paper-toolbar}}
+
+<div class="sidenav-container">
+{{#paper-list}}
+	{{!-- {{#link-to  "my-projects"}} --}}
+	{{#paper-item class="md-2-line"}}
+      <div class="md-list-item-text nav-route">
+        <img src = {{image}} alt="no image" class="md-avatar" style="width:80px; height:80px">
+      </div>
+  {{/paper-item}}
+  {{#paper-item class="md-2-line"}}
+    {{username}}
+  {{/paper-item}}
+  {{!-- {{/link-to}} --}}
+	{{paper-divider}}
+	{{!-- {{#link-to  "my-teams"}} --}}
+  {{#if showView}}
+	 {{activity-planner-sidenav-initiatives
+   showUsers=(action "showUsers")}} 
+   {{else}}
+    {{activity-planner-sidenav-members
+    members=members}}
+   {{/if}}
+
+	{{!-- {{paper-divider}} --}}
+	{{!--
+	{{#paper-item class="md-2-line"}}
+      <div class="md-list-item-text" >
+        <h3 class="nav-route">User Profile</h3>
+      </div>
+  {{/paper-item}}
+	{{paper-divider}}
+	{{#link-to "index"}}
+	{{#paper-item class="md-2-line"}}
+      <div class="md-list-item-text">
+        <h3>Logout</h3>
+      </div>
+  {{/paper-item}}
+	{{/link-to}}
+	{{paper-divider}}--}}
+  {{#paper-item class="md-1-line"}}
+    Backlogs
+  {{/paper-item}}
+  {{#paper-item class="md-1-line"}}
+    Scheduled Tasks
+  {{/paper-item}}
+  {{#paper-item class="md-1-line"}}
+    Sprint Plan
+  {{/paper-item}}  
+{{/paper-list}}	 
+</div>		
+	{{/paper-sidenav}}
+
   {{#paper-toolbar class="fix-toolbar"}}
     {{#paper-toolbar-tools}}
+    {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+					{{#paper-button classNames="hide-xl" onClick=(action toggleAction) iconButton=true}}
+						{{paper-icon "menu"}}
+					{{/paper-button}}
+				{{/paper-sidenav-toggle}}
       {{#paper-button iconButton=true}}
         {{paper-icon "navigate_before"}}
       {{/paper-button}}
@@ -12,3 +86,6 @@
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 {{!-- {{/paper-content}} --}}
+
+
+{{/paper-sidenav-container}}

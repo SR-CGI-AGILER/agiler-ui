@@ -7,6 +7,8 @@ import {
 // import { Ember } from 'ember';
 
 export default Component.extend(RecognizerMixin, {
+
+  
   sprint: false,
   selectedTasks: [],
   projects: new Set(),

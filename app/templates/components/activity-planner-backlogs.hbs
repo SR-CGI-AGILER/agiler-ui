@@ -47,6 +47,9 @@
             {{/paper-dialog-actions}}
         {{/paper-dialog}}
     {{/if}}  
+    
+    
+
     {{#paper-button class="fixedbuttonright" iconButton=true raised=true fab=true onClick=(action "showDialogToAdd")}}{{paper-icon "add"}}{{/paper-button}}
 {{/liquid-if}}
 
@@ -57,12 +60,10 @@
 {{#each projectBacklogTasks as |category|}}
     {{#paper-item class="md-1-line" as |controls|}}
     <div class="md-list-item-text">
-                <p ontouchStart={{action "selectBand" category}} 
-            ontouchEnd={{action "unselectBand" category}}>
-            {{category.text}}
-          </p>
-        </div>
-        {{#if selected}}
+        <p ontouchStart={{action "selectBand" category}} 
+            ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
+    </div>
+    {{#if selected}}
         <div class="md-secondary-container ">
           {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
         </div>

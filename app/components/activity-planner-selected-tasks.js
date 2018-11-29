@@ -47,10 +47,12 @@ export default Component.extend({
         },
 
         addToActivityPlan() {
-            console.log(this.get('task'),"I am tasks array in child component");
-            console.log(this.get('selectedTasks'),"selected tasks in child")
+            // console.log(this.get('todayTeamCopy'));
             this.get('task').pushObjects(this.get('selectedTasks'));
             // console.log(this.get('todayTeamCopy'));
+        },
+        assignOwners(){
+
         }
     }
 });

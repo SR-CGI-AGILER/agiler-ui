@@ -9,8 +9,12 @@ export default Controller.extend({
   activityPlan: Ember.inject.service(),
   activityPlan1: [...getActivityPlan()],
   yes: true,
-
-
+  userData: {},
+  init(){
+    this._super(...arguments);
+    let x = this.get('session').currentUser;
+    this.set('userData',x)
+  },
 
   isMobile: computed('yes', function () {
     let x = window.screen.availWidth;

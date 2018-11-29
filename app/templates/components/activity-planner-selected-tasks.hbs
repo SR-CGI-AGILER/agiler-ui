@@ -42,6 +42,9 @@
     {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO SCHEDULED
     {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "assignOwners")}}
+        ASSIGN OWNERS
+    {{/paper-button}}
     {{/if}}
 
     {{!-- {{#if showSprintViewAction}}

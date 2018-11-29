@@ -20,7 +20,7 @@ export default Route.extend({
         var month = ("0" + (d.getMonth()+ 1)).slice(-2);
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         // console.log(this, "is it this ??")
-        let that = this;
+        // let that = this;
         
         let checkPublish = param.ifPublished;
         if(checkPublish) {

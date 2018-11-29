@@ -7,9 +7,9 @@ export default Component.extend({
 
     init(){
         this._super(...arguments);
-        console.log(this.backlogs,"ahs");
-
+        
         if(this.backlogs) {
+            console.log(this.backlogs,"ahs");
 
             this.backlogs.forEach(element => {
                 element.tasks.forEach(tasks => {
@@ -47,18 +47,18 @@ export default Component.extend({
     actions: {
         selectBand(event) {
 
-            console.log('selectBand', this.get('category'),event);
+            console.log('selectBand', this.get('category'));
             this.set('startTime', new Date().getTime())
             if(!event.checked){
               this.selectedTasks.pushObject(event);
               console.log(this.selectedTasks, "on touch staart ..!!!");
             }
             else{
-  
+      
               this.selectedTasks.removeObject(event);
               console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
             }
-  
+      
          },   
          unselectBand(item) {
               console.log('unselect Band', "on touch end ");
@@ -68,6 +68,7 @@ export default Component.extend({
                   if(this.selected) {
                     this.set('selected',false)
                       
+      
   
                   }
                   else{
@@ -81,11 +82,11 @@ export default Component.extend({
               else{
                 console.log('else', "happened on the touch end!!!");
                 if(!this.selected){
-  
+      
                   console.log('NOT SELECTED', "checkbox not invoked!!");
                   this.set('selectedTasks',[]);
                 }
-  
+      
               }
               console.log(this.selectedTasks, "end state of the arr on touch end");
          },
@@ -179,3 +180,11 @@ export default Component.extend({
       })
 
 });
+
+
+
+
+
+
+
+ 
