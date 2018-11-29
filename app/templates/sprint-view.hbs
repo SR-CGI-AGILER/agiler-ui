@@ -1,16 +1,53 @@
 {{outlet}}
 {{#paper-toolbar class="fix-toolbar"}}
-    {{#paper-toolbar-tools}}
-      <h2>Today's Sprint</h2>
-    {{/paper-toolbar-tools}}
-  {{/paper-toolbar}}
+{{#paper-toolbar-tools}}
+<h2>Today's Sprint</h2>
+{{/paper-toolbar-tools}}
+{{/paper-toolbar}}
 {{#paper-list}}
-    {{#each model.payload.data.tasks as |task|}}
-        {{#paper-item class="md-1-line" onClick=(action 'markComplete' task)}}
-            <div class="md-list-item-text">
-                <p>{{task.text}}</p>
-                {{paper-divider}}
-            </div>
-        {{/paper-item}}
-    {{/each}}
-{{/paper-list}}
+{{#each model.payload.data.tasks as |task|}}
+
+    {{#paper-item class="md-1-line" as |controls|}}
+
+    <div class="md-list-item-text">
+
+        <p ontouchStart={{action "selectBand" task}} 
+            ontouchEnd={{action "unselectBand" task}}>
+                {{task.text}}
+        </p>
+
+        
+        {{#if selected}}
+          <div class="md-secondary-container ">
+            {{controls.checkbox value=task.checked onChange=(action (mut task.checked))}}
+          </div>
+        {{/if}}
+       
+        
+        
+
+            {{paper-divider}}
+        </div>
+
+    {{/paper-item}}
+
+        {{/each}}
+{{!-- 
+    <div class="layout-row layout-align-space-around-center">
+        {{#paper-button raised=true fab=true onClick = (action 'markNew' task)}}C{{/paper-button}}
+        {{#paper-button raised=true fab=true}}N{{/paper-button}}
+        {{#paper-button raised=true fab=true}}P{{/paper-button}}
+    </div> --}}
+    {{!-- {{activity-planner-selected-tasks}} --}}
+    {{#if showSprintViewAction}}
+    {{#paper-button raised=true onClick=(action "raisedButtonComplete")}}
+        MARK AS COMPLETED
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButtonPending")}}
+        MARK AS PENDING
+    {{/paper-button}}
+    {{#paper-button raised=true onClick=(action "raisedButtonNew")}}
+        MARK AS NEW
+    {{/paper-button}}   
+    {{/if}}
+        {{/paper-list}}

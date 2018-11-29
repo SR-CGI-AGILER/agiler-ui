@@ -36,9 +36,12 @@ export default Component.extend({
     showActivityPlanAction: computed('renderView',function(){
         return this.renderView === 'activityPlan'
     }),
-
+    showSprintViewAction: false,
     actions: {
         raisedButton() {
+            console.log(this.showSprintViewAction,"atreya");
+            this.set('showSprintViewAction','true');
+            console.log(this.showSprintViewAction,"atreya");
             console.log(this.get('todayTeamCopy'));
             this.get('todayTeamCopy').pushObjects(this.get('selectedTasks'));
             // console.log(this.get('todayTeamCopy'));

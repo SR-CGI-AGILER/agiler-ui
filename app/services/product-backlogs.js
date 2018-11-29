@@ -4,7 +4,7 @@ import Ember from 'ember';
 export default Service.extend({
     getProductBacklog(){
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/backlog`,
+            url: `http://172.23.238.243:4000/api/v1/backlog`,
             type: 'GET',
             contentType: 'application/json'
         })
@@ -12,7 +12,7 @@ export default Service.extend({
 
     postBacklog(backlog){
         return Ember.$.ajax({
-            url:'http://localhost:3000/api/v1/backlog',
+            url:'http://172.23.238.243:4000/api/v1/backlog',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(backlog)
