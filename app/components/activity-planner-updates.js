@@ -6,6 +6,7 @@ import {
 export default Component.extend({
   init() {
     this._super(...arguments);
+    console.log("HELLO")
     // this.completedTasks.setEach('checked', false)
     // this.newTasks.setEach('checked', false)
     // this.pendingTasks.setEach('checked', false)

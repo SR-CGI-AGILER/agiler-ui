@@ -13,7 +13,7 @@ export default ToriiAuthenticator.extend({
         .then((authData) => {
             // console.log(authData, "this is the torii autheticator")
                                      
-            return new RSVP.Promise((resolve, reject) =>  {
+            return new Promise((resolve, reject) =>  {
                      
                 return $.ajax(this.server, {
                     type: 'POST',

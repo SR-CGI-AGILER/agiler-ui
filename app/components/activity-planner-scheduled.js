@@ -96,7 +96,7 @@ export default Component.extend({
       let date =d.getTime()
       console.log(date)
       let newdata = {
-        initiative: this.getProperties('initiative').initiative,
+        // initiative: this.getProperties('initiative').initiative,
         tasks: [{text:(this.getProperties('text')).text,projectName:(this.getProperties('projectName')).projectName,scheduled_For:date}]
     
       };

@@ -8,7 +8,7 @@ export default Component.extend({
     renderView: 'updates',
     actionComponent: computed('tabIndex', function() {
         let tab = this.get('tabIndex');
-        console.log(tab,"HEREEEE");
+        // console.log(tab,"HEREEEE");
         switch(tab) {
             case 0: this.set('renderView','updates');
                     break;

@@ -4,27 +4,22 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
     // mutiComp: false,
-
+    session: Ember.inject.service(),
+    
     init(){
         this._super(...arguments);
-        
+        // this.set('calledFromInit', )
         if(this.backlogs) {
             console.log(this.backlogs,"ahs");
-
-            this.backlogs.forEach(element => {
-                element.tasks.forEach(tasks => {
-                    this.get('backlogProjects').pushObject(tasks.projectName);
-                })
-                
+            this.backlogs.tasks.forEach(element => {                  
+                    console.log(this.get('backlogProjects'))
+                    this.get('backlogProjects').pushObject(element.projectName);
             })
             let allProjects = this.get('backlogProjects').filter((v,i)=>this.get('backlogProjects').indexOf(v) === i);
-            // console.log(x);
             this.set('backlogProjects',allProjects);
         }
     },
-
-  
-
+   
       willDestroyElement(){
         console.log("COMPONENET DESTROYED")
         console.log(this.get('todayTeamCopy'));
@@ -116,14 +111,14 @@ export default Component.extend({
             // let task = this.get('taskName')
             console.log(project)
             let newData = {
-                initiative: "I2",
+                initiativeName: this.get('session').initiative.initiativeName,
                 tasks : [
                     {
                         text: this.get('taskName'),
                         projectName: this.get('projectName'),
-                        due_date:"2018-11-30",
-                        owner:"Owner",
-                        status:"Status"
+                        due_date:"",
+                        owner:this.get('session').currentUser.email,
+                        status:"Backlog"
                     }
                 ]
             }

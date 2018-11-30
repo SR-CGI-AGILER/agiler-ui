@@ -4,15 +4,20 @@ import {
   computed
 } from '@ember/object';
 
-
 export default Controller.extend({
+  queryParams: ['ifPublished'],
   activityPlan: Ember.inject.service(),
+  userInitiative : Ember.inject.service(),
   yes: true,
+  session: Ember.inject.service(),
   userData: {},
+  initiatives:"",
+  
   init(){
     this._super(...arguments);
     let x = this.get('session').currentUser;
     this.set('userData',x)
+
   },
 
   isMobile: computed('yes', function () {
@@ -33,12 +38,13 @@ export default Controller.extend({
       this.transitionToRoute('sprintView');
     },
     gotoSprint() {
-        this.transitionToRoute('sprintView');
+        // this.transitionToRoute('sprintView');
         
     },
     submit() {
-      debugger
       this.transitionToRoute('sprintView');
     }
   }
 });
+
+

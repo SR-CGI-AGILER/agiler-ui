@@ -3,10 +3,20 @@ import Ember from 'ember';
 
 export default Route.extend({
     teamCopy: Ember.inject.service(),
+    session: Ember.inject.service(),
     async model(){
         let response;
         console.log(this.teamCopy.getTeamCopy("2018-10-21","default"));
-       await  this.teamCopy.getTeamCopy("2018-10-21","default").then(data => {
+
+        var d = new Date();
+        // d.setDate(d.getDate() - 1);
+        var day = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth()+ 1)).slice(-2);
+        var today = d.getFullYear() + "-" + (month) + "-" + (day);
+        // console.log(this.teamCopy.getTeamCopy(today,"default"));
+        // return this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId);
+
+       await  this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(data => {
         // debugger  
         data.payload.data.tasks.map(function(e){
                 if(e.status === 'Completed'){
@@ -46,4 +56,5 @@ export default Route.extend({
         // this.set(model,'model'
         controller.set('model',model);
     }
+    
 });
