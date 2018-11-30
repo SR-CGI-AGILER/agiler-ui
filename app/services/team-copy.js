@@ -19,5 +19,13 @@ export default Service.extend({
             contentType: 'application/json',
             data: JSON.stringify(task_data.arr)
             })
+    },
+    addToTeamCopy(task_data) {
+        return Ember.$.ajax({
+            url: `http://172.23.238.187:3000/api/v1/teamCopy/${task_data.createdAt}/${task_data.initiatives}`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(task_data.task)
+            })
     }
 });

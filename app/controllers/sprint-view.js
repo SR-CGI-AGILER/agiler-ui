@@ -8,6 +8,7 @@ export default Controller.extend({
   teamCopy: Ember.inject.service(),
   startTime: null,
   endTime: null,
+  showPromptDialog: false,
   selectedTasks: [],
   showSprintViewAction: false,
   selected: false,
@@ -18,7 +19,6 @@ export default Controller.extend({
   yes: true,
   isDesktopSprint: computed('yes', function () {
     let x = window.screen.availWidth;
-    // console.log(window.screen.availWidth);
     if (x < 760) {
       return false
     } else {
@@ -27,11 +27,47 @@ export default Controller.extend({
   }),
 
   actions: {
-    raisedButtonComplete() {
-        console.log(this.showSprintViewAction,"atreya");
-        console.log(this.get('todayTeamCopy'));
+    newTask() {
+        this.set('showPromptDialog', true);
+      },
+      closePromptDialog() {
+        this.toggleProperty('showPromptDialog');
+        this.set('projectName','');
+          this.set('taskName','');
+      },
+      cancel() {
+          this.toggleProperty('showPromptDialog');
+          this.set('projectName','');
+          this.set('taskName','');
+      },
+      ok() {
         
-        console.log(this.get('selectedTasks'),"selectedTasks");
+          let data = {
+              createdAt:"2018-10-21",
+              initiatives:"default",
+              task:{
+                text: this.get('taskName'),
+                projectName: this.get('projectName'),
+                status: "New"
+            }
+          };
+
+          this.teamCopy.addToTeamCopy(data);
+          this.get('model').payload.data.tasks.pushObject(data.task);
+          let l = this.get('model').payload.data.tasks.length;
+          set(this.get('model').payload.data.tasks[l-1],'isNew', true);
+        //   set(this.get('model').payload.data.tasks[l-1],'isPending', false);
+        //   set(this.get('model').payload.data.tasks[l-1],'isComplete', false);
+          this.set('projectName','');
+          this.set('taskName','');
+          this.set('showPromptDialog',false);
+      },
+      add(){
+          if(this.getProperties('input').input){
+              let a = this.getProperties('input').input;
+          }
+      },
+    raisedButtonComplete() {
         let arr1 = [];
         this.get('selectedTasks').map(function(e){
             let data = {
@@ -49,9 +85,8 @@ export default Controller.extend({
         this.get('model').payload.data.tasks.map(e => {
             this.get('selectedTasks').map(f => {
                 if(e._id === f._id){
-                    console.log(e);
-                    set(e,'isPending',false);
                     set(e,'isComplete',true);
+                    set(e,'isPending',false);
                     set(e,'isNew',false);
                     return e
                 }
@@ -61,16 +96,14 @@ export default Controller.extend({
             })
            
           });
-        this.set('selected',false);
-        console.log(this.get('selected'), "ghcgh");
-
+        this.set('selected',false);  
     },
 
     raisedButtonPending() {
-        console.log(this.showSprintViewAction,"atreya");
-        console.log(this.get('todayTeamCopy'));
+       
+       
         
-        console.log(this.get('selectedTasks'),"selectedTasks");
+         
         let arr1 = [];
         this.get('selectedTasks').map(function(e){
             let data = {
@@ -88,7 +121,7 @@ export default Controller.extend({
         this.get('model').payload.data.tasks.map(e => {
             this.get('selectedTasks').map(f => {
                 if(e._id === f._id){
-                    console.log(e);
+                     
                     set(e,'isPending',true);
                     set(e,'isComplete',false);
                     set(e,'isNew',false);
@@ -106,18 +139,14 @@ export default Controller.extend({
 
     selectBand(event) {
 
-        console.log('selectBand', this.get('task'),event);
         this.set('startTime', new Date().getTime())
-        console.log(event,"event");
+        
         if(!event.checked){
-            // debugger
           this.selectedTasks.pushObject(event);
-          console.log(this.selectedTasks, "on touch staart ..!!!");
         }
         else{
 
           this.selectedTasks.removeObject(event);
-          console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
         }
 
     },   
@@ -125,10 +154,10 @@ export default Controller.extend({
     unselectBand(item) {
         
         this.set('showSprintViewAction','true');
-        console.log('unselect Band', "on touch end ");
+       
         if((this.startTime + 500) < new Date().getTime()){
               this.set('selectedTasks', []);
-              console.log("Long Press condition true")
+             
               if(this.selected) {
                 this.set('selected',false)
                   
@@ -136,7 +165,7 @@ export default Controller.extend({
               }
               else{
                 this.set('selected', true)
-                console.log(this.selected);
+               
 
               }
                 
@@ -144,19 +173,19 @@ export default Controller.extend({
         }
           
         else{
-            console.log('else', "happened on the touch end!!!");
+            
             if(!this.selected){
 
-              console.log('NOT SELECTED', "checkbox not invoked!!");
+               
               this.set('selectedTasks',[]);
             }
 
           }
-        console.log(this.selectedTasks, "end state of the arr on touch end");
+        
     },
 
     myuserdefined(x) {
-         console.log(x, "onChange for the checkbox is triggred")
+      
          x.checked = true;
          return x
       
@@ -172,13 +201,13 @@ export default Controller.extend({
         arr: []
       }
       data.arr.push(data1);
-      console.log(data, "data in action");
+      
    
       this.teamCopy.updateTeamCopy(data).then(function (data) {})
-    //   console.log(this.get('model').payload.data.tasks,"CONTROLLER");
+  
       this.get('model').payload.data.tasks.map(e => {
         if(e._id === task._id){
-            console.log(e);
+            
             set(e,'isComplete',true);
             set(e,'isPending',false);
             set(e,'isNew',false);
@@ -188,7 +217,6 @@ export default Controller.extend({
             return e
         }
       });
-    //   console.log(this.isCompleted, this.isNew, this.isPending, "markComplete");
     },
 
     markNew(task) {
@@ -200,14 +228,11 @@ export default Controller.extend({
       this.set('isNew', 'true');
       this.set('isPending', 'false');
       this.set('isCompleted', 'false');
-      console.log(this.isNew, "isNew");
+      
       this.teamCopy.updateTeamCopy(data).then(function (data) {
-        console.log(data);
-
-        // console.log(this.isNew,"isNew");
 
       })
-    //   console.log(this.isCompleted, this.isNew, this.isPending, "markNew");
+
     },
 
     markPending(task) {
@@ -222,12 +247,12 @@ export default Controller.extend({
       data.arr.push(data1);
      
       this.teamCopy.updateTeamCopy(data).then(function (data) {
-        console.log(data);
+      
 
       })
       this.get('model').payload.data.tasks.map(e => {
         if(e._id === task._id){
-            console.log(e);
+          
             set(e,'isPending',true);
             set(e,'isComplete',false);
             set(e,'isNew',false);
@@ -238,7 +263,6 @@ export default Controller.extend({
         }
       });
       
-    //   console.log(this.isCompleted, this.isNew, this.isPending, "markPending");
     }
   }
 });
