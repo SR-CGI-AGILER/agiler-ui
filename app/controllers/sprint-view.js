@@ -5,9 +5,11 @@ import {
 import {
   computed
 } from '@ember/object';
+import Ember from 'ember';
 
 export default Controller.extend({
 teamCopy: Ember.inject.service(),
+session: Ember.inject.service(),
 startTime: null,
 endTime: null,
 showPromptDialog: false,
@@ -43,10 +45,14 @@ actions: {
     this.set('taskName', '');
   },
   ok() {
-
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+    let that = this;
     let data = {
-      createdAt: "2018-10-21",
-      initiatives: "default",
+      createdAt: today,
+      initiativeId: that.get('session').initiative.initiativeId,
       task: {
         text: this.get('taskName'),
         projectName: this.get('projectName'),
@@ -70,19 +76,28 @@ actions: {
     }
   },
   raisedButtonComplete() {
-    let arr1 = [];
+    let taskArray = [];
+    let that =  this;
     this.get('selectedTasks').map(function (e) {
       let data = {
         taskId: e._id,
-        action: "Completed"
+        action: "Completed",
       };
-      arr1.pushObject(data);
+      taskArray.pushObject(data);
     })
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
     let data = {
-      createdAt: "2018-10-21",
-      arr: [],
+        
+      createdAt: today,
+      initiativeId: that.get('session').initiative.initiativeId,
+      arr: []
     };
-    data.arr = arr1;
+    data.arr = taskArray;
     this.teamCopy.updateTeamCopy(data);
     this.get('model').payload.data.tasks.map(e => {
       this.get('selectedTasks').map(f => {
@@ -98,42 +113,54 @@ actions: {
     });
     this.set('selected', false);
   },
+
+
+
+
+
   raisedButtonPending() {
-
-
-
-
-    let arr1 = [];
+    let taskArray = [];
+    let that =  this;
     this.get('selectedTasks').map(function (e) {
       let data = {
         taskId: e._id,
-        action: "Pending"
+        action: "Pending",
       };
-      arr1.pushObject(data);
+      taskArray.pushObject(data);
     })
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
     let data = {
-      createdAt: "2018-10-21",
-      arr: [],
+        
+      createdAt: today,
+      initiativeId: that.get('session').initiative.initiativeId,
+      arr: []
     };
-    data.arr = arr1;
+    data.arr = taskArray;
     this.teamCopy.updateTeamCopy(data);
     this.get('model').payload.data.tasks.map(e => {
       this.get('selectedTasks').map(f => {
         if (e._id === f._id) {
-
-          set(e, 'isPending', true);
-          set(e, 'isComplete', false);
+            set(e, 'isPending', true);
+            set(e, 'isComplete', false);
           set(e, 'isNew', false);
           return e
         } else {
           return e
         }
       })
-
     });
     this.set('selected', false);
-
   },
+
+
+
+
+
   selectBand(event) {
 
     this.set('startTime', new Date().getTime())

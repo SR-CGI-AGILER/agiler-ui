@@ -14,7 +14,7 @@ export default Service.extend({
         console.log(task_data,"req.body data");
         // debugger
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/teamCopy/${data.createdAt}/tasks/${data.taskId}`,
+            url: `http://localhost:3000/api/v1/teamCopy/${task_data.createdAt}/${task_data.initiativeId}`,
             type: 'PATCH',
             contentType: 'application/json',
             data: JSON.stringify(task_data.arr)
