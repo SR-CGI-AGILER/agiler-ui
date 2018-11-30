@@ -23,5 +23,9 @@ export default Service.extend({
             contentType: 'application/json',
             data: JSON.stringify(backlog)
         })
+    },
+
+    assignOwner(){
+        
     }
 });

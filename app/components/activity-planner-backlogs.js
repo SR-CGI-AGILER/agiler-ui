@@ -8,7 +8,7 @@ export default Component.extend({
     
     init(){
         this._super(...arguments);
-        this.set('calledFromInit', )
+        // this.set('calledFromInit', )
         if(this.backlogs) {
             console.log(this.backlogs,"ahs");
             this.backlogs.tasks.forEach(element => {                  

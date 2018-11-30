@@ -44,7 +44,7 @@ export default Component.extend({
             // console.log(this.get('todayTeamCopy'));
         },
         assignOwners(){
-
+            
         }
     }
 });

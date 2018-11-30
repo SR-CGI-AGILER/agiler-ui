@@ -28,7 +28,7 @@ export default Route.extend({
                 model.teamCopy = data.payload.data
             })
             await this.productBacklogs.getProductBacklog().then(function (data) {
-               console.log(data);
+               console.log(data,"HELLO");
                 model.productBacklogs = data.payload.data
             })
             

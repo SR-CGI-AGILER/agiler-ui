@@ -25,8 +25,8 @@ export default Component.extend({
         showUsers(init){
             let that = this;
             this.initiativeUser.getUsers(init.initiativeId).then(function(data){
-                // console.log(data)
-                that.set('members',data);
+                console.log(data.data,"members response")
+                that.set('members',data.data);
                 // console.log(that.get('members'),"hiiiii")
             })
             this.toggleProperty('showView');
