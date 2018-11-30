@@ -11,7 +11,7 @@ export default Component.extend(RecognizerMixin, {
   
   sprint: false,
   selectedTasks: [],
-  projects: new Set(),
+  projects: [],
   todayTeamCopy: [],
   task: [],
   initiatives: "default",
@@ -88,6 +88,9 @@ export default Component.extend(RecognizerMixin, {
     },
   
   actions: {
+    reRenderView() {
+      // this.reRenderView();
+    },
     handleTabIndexC(newTabIndex) {
       this.set('selectedTasks', []);
       this.set('tabIndex', newTabIndex + 1);
@@ -327,11 +330,9 @@ export default Component.extend(RecognizerMixin, {
 
   backlogProjects: computed('backlogs', function () {
     if(this.get('backlogs')) {
-
-      this.backlogs.forEach(element => {
-        element.tasks.forEach(task=>{
-          this.get('projects').add(task.projectName);
-        })
+      debugger
+      this.backlogs.tasks.forEach(element => {
+          this.get('projects').push(element.projectName);
       });
       return this.projects;
     }
@@ -346,17 +347,18 @@ export default Component.extend(RecognizerMixin, {
   backlogTasks: computed('backlogs', function () {
     let btasks = [];
     if(this.get('backlogs')) {
-
-      this.backlogs.forEach(element => {
+      debugger
+      this.backlogs.tasks.forEach(element => {
         console.log(element.tasks, "hhgugh");
-        element.tasks.forEach(task=>{
-          btasks.pushObject(task);  
-        });
+        // element.tasks.forEach(task=>{
+          btasks.pushObject(element);  
+        // });
       })
       console.log(btasks,"I AM BTASKS");
       return btasks;
     }
     else {
+      debugger
       this.gotoSprint();
     }
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);

@@ -8,7 +8,7 @@
     {{!-- {{initiatives}} --}}
     {{#each initiatives as |init|}}
         {{#paper-item onClick=(action "showUsers" init)}}
-            {{init.name}}
+            {{init.initiativeName}}
         {{/paper-item}}
     {{/each}}
 

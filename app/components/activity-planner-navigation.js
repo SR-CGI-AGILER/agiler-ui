@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 export default Component.extend({
     initiativeUser : Ember.inject.service(),
+    session: Ember.inject.service(),
     image:"",
     username:"",
     showView: true,
@@ -11,20 +12,25 @@ export default Component.extend({
         this._super(...arguments)
         this.set('username',this.get('userData').name);
         this.set('image',this.get('userData').profilePicUrl);
-
+        console.log(this.get('session').currentUser);
         
         
 
     },
     actions: {
+        reRenderView(){
+            // debugger
+            // this.reRenderView();
+        },
         showUsers(init){
             let that = this;
-            this.initiativeUser.getUsers(init.id).then(function(data){
+            this.initiativeUser.getUsers(init.initiativeId).then(function(data){
                 // console.log(data)
                 that.set('members',data);
                 // console.log(that.get('members'),"hiiiii")
             })
             this.toggleProperty('showView');
+            this.reRenderView();
         },
         incrementTabIndex() {
             if(this.tabIndex === 3){

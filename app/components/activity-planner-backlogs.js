@@ -4,17 +4,21 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
     // mutiComp: false,
+    session: Ember.inject.service(),
 
     init(){
         this._super(...arguments);
-        
+            
         if(this.backlogs) {
+    
             console.log(this.backlogs,"ahs");
 
-            this.backlogs.forEach(element => {
-                element.tasks.forEach(tasks => {
-                    this.get('backlogProjects').pushObject(tasks.projectName);
-                })
+            this.backlogs.tasks.forEach(element => {
+                // element.tasks.forEach(tasks => {
+                    
+                    console.log(this.get('backlogProjects'))
+                    this.get('backlogProjects').pushObject(element.projectName);
+            
                 
             })
             let allProjects = this.get('backlogProjects').filter((v,i)=>this.get('backlogProjects').indexOf(v) === i);

@@ -3,9 +3,14 @@ import Ember from 'ember';
 import ENV from '../config/environment';
 
 export default Service.extend({
+    session: Ember.inject.service(),
+
+    // initiative: this.get('session').initiative.id,
     getProductBacklog(){
+        let initiative = this.get('session').initiative
+        console.log(initiative,"i am sure this is undefiuned") 
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/backlog/defaultInitiative`,
+            url: `http://localhost:3000/api/v1/backlog/1cm4tr8mrjp2nymjx`,
             type: 'GET',
             contentType: 'application/json'
         })
