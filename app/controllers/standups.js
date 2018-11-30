@@ -11,7 +11,7 @@ export default Controller.extend({
     userInitiative: Ember.inject.service(),
     init(){
         let img = this.get('session').currentUser;
-        console.log(img);
+        // console.log(img);
         this.set('image',img.profilePicUrl);
         this.set('name',img.name);
         
@@ -26,12 +26,12 @@ export default Controller.extend({
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
 
             await this.userInitiative.getInitiatives("swarnim@gmail.com").then(function(data){
-            console.log(data.data.initiative[0],"PLEASE AA JAO NA");
+            // console.log(data.data.initiative[0],"PLEASE AA JAO NA");
             that.get('session').set('initiative',data.data.initiative[0])
             
         })
-            console.log(this.get('session').initiative,"IN STANDUP")
-            await this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeName).then(function(data){
+            // console.log(this.get('session').initiative,"IN STANDUP")
+            await this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(function(data){
                 // console.log(data,"HELLo");
                 if(data.payload.data === "NO DATA FOUND"){
                     // debugger

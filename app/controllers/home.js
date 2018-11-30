@@ -18,9 +18,6 @@ export default Controller.extend({
     let x = this.get('session').currentUser;
     this.set('userData',x)
 
-    
-
-
   },
 
   isMobile: computed('yes', function () {

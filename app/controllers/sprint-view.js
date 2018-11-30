@@ -12,6 +12,9 @@ export default Controller.extend({
             this.teamCopy.updateTeamCopy(data).then(function(data){
                 console.log(data);
             })
+        },
+        goToHome(){
+            this.transitionToRoute("home")
         }
     }
 });

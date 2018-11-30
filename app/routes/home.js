@@ -8,34 +8,34 @@ export default Route.extend({
     productBacklogs: Ember.inject.service(),
     session: Ember.inject.service(),
     userInitiative : Ember.inject.service(),
+    // updateRender: "",
 
     beforeModel(){
-        debugger
+        // debugger
     },
 
     async model(param){
+
+        console.log("MODEL")
+
         let that = this;
-        debugger
-        console.log(param.ifPublished);
-    //    await this.userInitiative.getInitiatives("swarnim@gmail.com").then(function(data){
-    //         console.log(data.data.initiative[0],"PLEASE AA JAO NA");
-    //         that.get('session').set('initiative',data.data.initiative[0])
-            
-    //     })
+        
+        // console.log(param.ifPublished);
         let model = {};
         let initiative = that.get('session').initiative;
-    //    await console.log(initiative,"ASDASDSAD");
+    
         var d = new Date();
         // d.setDate(d.getDate() - 1);
         var day = ("0" + d.getDate()).slice(-2);
         var month = ("0" + (d.getMonth()+ 1)).slice(-2);
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         let checkPublish = param.ifPublished;
+        // this.set('updateRender',checkPublish);
         // console.log(checkPublish,"IN HOME");
         if(checkPublish) {
-            console.log(initiative,"CONSOLE HERE")
-            await this.teamCopy.getTeamCopy(today,initiative.initiativeName).then(function(data) {
-                console.log(data,"MODEL")
+            // console.log(initiative,"CONSOLE HERE")
+            await this.teamCopy.getTeamCopy(today,initiative.initiativeId).then(function(data) {
+                // console.log(data,"MODEL")
                 model.teamCopy = data.payload.data
             })
             await this.productBacklogs.getProductBacklog().then(function (data) {
@@ -43,6 +43,7 @@ export default Route.extend({
             })
             
             // await this.scheduled.getScheduledOn().then(function (data) {
+            //     console.log(data.message);
             //     model.scheduled = data.payload.data
             // })
             //  await this.scheduled.getScheduledFor().then(function (data) {
@@ -53,6 +54,5 @@ export default Route.extend({
         return model;
     }
 
-    
 });
 

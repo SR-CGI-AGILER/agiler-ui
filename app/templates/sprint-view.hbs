@@ -1,6 +1,9 @@
 {{outlet}}
 {{#paper-toolbar class="fix-toolbar"}}
     {{#paper-toolbar-tools}}
+    {{#paper-button iconButton=true onClick=(action "goToHome")}}
+      {{paper-icon "keyboard_backspace"}}
+      {{/paper-button}}
       <h2>Today's Sprint</h2>
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}

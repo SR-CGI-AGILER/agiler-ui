@@ -12,7 +12,7 @@ export default Component.extend({
         this._super(...arguments)
         this.set('username',this.get('userData').name);
         this.set('image',this.get('userData').profilePicUrl);
-        console.log(this.get('session').currentUser);
+        // console.log(this.get('session').currentUser);
         
         
 
