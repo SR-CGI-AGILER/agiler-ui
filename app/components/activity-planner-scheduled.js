@@ -3,45 +3,26 @@ import Component from '@ember/component';
 export default Component.extend({
 
   init() {
+   
     this._super(...arguments);
-    this.futureTasks.setEach('checked', false)
-    // this.futureTasks.map(function (e) {
-    //     e.checked = false
-    //     return e
-    // })
-    // console.log(this.futureTasks)
+    if(this.futureTasks) {
+      this.futureTasks.setEach('checked',false)
+    }
+
+    
   },
-  // didReceiveAttrs() {
-  //   this._super(...arguments);
-  //   console.log(this.futureTasks, "this is rendered after reciving attrs")
-  // //   this.set('futureTasks-altered',this.futureTasks.map(function (e) {
-  // //       e.checked = false 
-  // //       return e;
-  // //   })
-  // // )
-  // //   console.log(this.futureTasks)
-  // this.futureTasks.map(function(e) {
-  //   e.checked = true;
-  //   return e
-  // })
-  // },
+  
   willDestroyElement() {
     console.log("COMPONENET DESTROYED")
     console.log(this.get('todayTeamCopy'));
-    // this.futureTasks.map(function (e) {
-    //   e.checked = false
-    //   return e
-    // });
-    // this.futureTasks.setEach('checked',false);
-    // console.log(this.get('futureTasks'));
+   
     this._super(...arguments);
   },
 
   startTime: null,
   endTime: null,
   selectedBands: [],
-  // isChecked = true, 
-  // selected: false,
+  
   selectedCount: Ember.computed.reads('selectedBands.length'),
   scheduleds: Ember.inject.service('scheduled'),
   actions: {

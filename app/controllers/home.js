@@ -10,6 +10,8 @@ export default Controller.extend({
   activityPlan1: [...getActivityPlan()],
   yes: true,
 
+
+
   isMobile: computed('yes', function () {
     let x = window.screen.availWidth;
     // console.log(window.screen.availWidth);
@@ -27,6 +29,11 @@ export default Controller.extend({
         // console.log(data,"ohjkuhilhopj;huyfigkh@@@@@@@@@@@");
       })
       this.transitionToRoute('sprintView');
+    },
+    
+    gotoSprint() {
+        // this.transitionToRoute('sprintView');
+        
     }
   }
 });
