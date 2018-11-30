@@ -201,7 +201,7 @@ export default Component.extend(RecognizerMixin, {
       console.log(this.get('selectedTasks'));
     },
     horizontalSlide() {
-      debugger
+      
     }
   },
   showActivityPlanTab: computed('currentTab', function () {
@@ -347,7 +347,7 @@ export default Component.extend(RecognizerMixin, {
 
   backlogProjects: computed('backlogs', function () {
     if(this.get('backlogs')) {
-      debugger
+      this.set('projects', []);
       this.backlogs.tasks.forEach(element => {
           this.get('projects').push(element.projectName);
       });
@@ -355,6 +355,7 @@ export default Component.extend(RecognizerMixin, {
     }
     else {
       this.gotoSprint();
+      return [];
     }
 
     // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
@@ -363,8 +364,9 @@ export default Component.extend(RecognizerMixin, {
 
   backlogTasks: computed('backlogs', function () {
     let btasks = [];
+    
     if(this.get('backlogs')) {
-      debugger
+      
       this.backlogs.tasks.forEach(element => {
         console.log(element.tasks, "hhgugh");
         // element.tasks.forEach(task=>{
@@ -375,8 +377,9 @@ export default Component.extend(RecognizerMixin, {
       return btasks;
     }
     else {
-      debugger
+      
       this.gotoSprint();
+      return []
     }
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
     // return this.activityPlan.filter(task => task.backlog);
