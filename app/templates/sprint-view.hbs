@@ -1,17 +1,175 @@
 {{outlet}}
+{{#if isDesktopSprint}}
+{{activity-planner-desktop-navigation}}
 {{#paper-toolbar class="fix-toolbar"}}
     {{#paper-toolbar-tools}}
+    {{#paper-button iconButton=true onClick=(action "goToHome")}}
+      {{paper-icon "keyboard_backspace"}}
+      {{/paper-button}}
       <h2>Today's Sprint</h2>
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 {{#paper-list}}
 
+
     {{#each model.payload.data.tasks as |task|}}
-        {{#paper-item class="md-1-line" onClick=(action 'markComplete' task)}}
+        {{#paper-item class="md-1-line"}}
             <div class="md-list-item-text">
-                <p>{{task.text}}</p>
+            
+            {{#if task.isComplete}}
+                <del>{{task.text}}</del>
+            {{else if task.isPending}}
+                {{task.text}}{{paper-icon "av_timer"}}
+            {{else if task.isNew}}
+            {{task.text}}{{paper-icon "fiber_new"}}
+            {{/if}}
+        
                 {{paper-divider}}
             </div>
+           
+            {{#paper-menu as |menu|}}
+  {{#menu.trigger}}
+    {{#paper-button iconButton=true}}
+      {{paper-icon "more_vert"}}
+    {{/paper-button}}
+  {{/menu.trigger}}
+  {{#menu.content width=4 as |content|}}
+
+          {{#content.menu-item onClick=(action "markComplete" task)}}
+           {{#paper-button}}
+        {{paper-icon "done"}}      
+        <span>Mark Complete</span>
+        {{/paper-button}}
+        {{/content.menu-item}}
+        {{paper-divider}}
+         {{#content.menu-item onClick=(action "markPending" task)}}
+              {{#paper-button}}
+        {{paper-icon "av_timer"}}      
+        <span>Mark Pending</span>
+        {{/paper-button}}
+        {{/content.menu-item}}
+  {{/menu.content}}
+{{/paper-menu}}
         {{/paper-item}}
+    
     {{/each}}
+
+
 {{/paper-list}}
+
+
+{{else}}
+
+
+
+
+<div class="sprint-plan-view-mobile">
+{{#paper-toolbar class="fix-toolbar"}}
+{{#paper-toolbar-tools}}
+{{#paper-button iconButton=true onClick=(action "goToHome")}}
+    {{paper-icon "keyboard_backspace"}}
+{{/paper-button}}
+<h2>Today's Sprint</h2>
+{{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+{{#paper-list}}
+
+
+
+
+{{#each model.payload.data.tasks as |task|}}
+
+   {{#paper-item class="md-1-line" as |controls|}}
+
+   <div class="md-list-item-text">
+
+       <p ontouchStart={{action "selectBand" task}}
+           ontouchEnd={{action "unselectBand" task}}>
+               
+       
+       
+       <div class="{{if task.isComplete 'strikeOff'}}">
+                {{task.text}}           
+       </div>
+
+       
+       <div class="icon-container-mobile">
+           {{#if selected}}
+         <div class="md-secondary-container">
+           {{controls.checkbox value=task.checked onChange=(action (mut task.checked))}}
+         </div>
+       {{/if}}
+         <div>
+        {{#if task.isPending}}
+         {{paper-icon "av_timer"}}   
+        {{/if}}
+        {{#if task.isNew}}
+            {{paper-icon "fiber_new"}}
+        {{/if}}
+        </div>
+       </div> 
+       
+
+      {{!-- {{#if task.isComplete}}
+      <del>{{task.text}}</del>
+
+       {{else if task.isNew}}
+       <span>{{task.text}} {{paper-icon "fiber_new"}}</span>
+       
+       {{else if task.isPending}}
+         {{task.text}} 
+         {{paper-icon "av_timer"}}
+       {{/if}}
+           {{paper-divider}} --}}
+
+
+       </p>
+       </div>
+
+
+
+
+   {{/paper-item}}
+
+       {{/each}}
+
+   {{#if showSprintViewAction}}
+   {{#paper-button raised=true onClick=(action "raisedButtonComplete")}}
+       MARK AS COMPLETED
+   {{/paper-button}}
+   {{#paper-button raised=true onClick=(action "raisedButtonPending")}}
+       MARK AS PENDING
+   {{/paper-button}}
+   {{/if}}
+       {{/paper-list}}
+
+<div class="layout-row layout-align-end-end">
+ {{#paper-button fab=true iconButton=true onClick=(action "newTask")}}
+   {{paper-icon "add"}}
+ {{/paper-button}}
+ </div>
+
+{{#if showPromptDialog}}
+  {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") clickOutsideToClose=true origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">New Task</h2>
+      
+      {{paper-input placeholder="Project Name" autofocus=true value=projectName onChange=(action (mut projectName))}}
+      {{paper-input placeholder="Enter Task" value=taskName onChange=(action (mut taskName))}}
+
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closePromptDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "ok")}}Ok{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+</div>
+{{/if}}
+
+

@@ -3,9 +3,9 @@ import Ember from 'ember';
 
 export default Service.extend({
 
-    getInitiatives(id){
+    getInitiatives(email){
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/user/initiatives/${id}`,
+            url: `http://localhost:4000/api/v1/user/initiatives/${email}`,
             type: 'GET',
             contentType: 'application/json'
         })

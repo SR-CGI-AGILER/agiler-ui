@@ -12,7 +12,7 @@ export default Component.extend({
         this._super(...arguments)
         this.set('username',this.get('userData').name);
         this.set('image',this.get('userData').profilePicUrl);
-        console.log(this.get('session').currentUser);
+        // console.log(this.get('session').currentUser);
         
         
 
@@ -23,10 +23,23 @@ export default Component.extend({
             // this.reRenderView();
         },
         showUsers(init){
+            console.log(init,"ACTION")
             let that = this;
             this.initiativeUser.getUsers(init.initiativeId).then(function(data){
-                console.log(data.data,"members response")
-                that.set('members',data.data);
+                console.log(data.message,"user")
+                if(data.message === "something went wrong"){
+                    let owner = [];
+                    owner.pushObject({
+                        email: that.get('session').currentUser.email,
+                        name: that.get('session').currentUser.name,
+                        owner: true,
+                        profilePicUrl: that.get('session').currentUser.profilePicUrl
+                    })
+                    that.set('members',owner)
+                }
+                else {
+                    that.set('members',data.data);
+                }
                 // console.log(that.get('members'),"hiiiii")
             })
             this.toggleProperty('showView');

@@ -19,13 +19,7 @@ export default Component.extend({
             this.set('backlogProjects',allProjects);
         }
     },
-    didUpdateAttrs() {
-        // this.backlogProjects.map()
-        // // this.backlogTasks = [];
-        // console.log(this.get('backlogProjects'), "thiss is where i am watching the state")
-    },
-  
-
+   
       willDestroyElement(){
         console.log("COMPONENET DESTROYED")
         console.log(this.get('todayTeamCopy'));

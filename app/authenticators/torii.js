@@ -6,7 +6,7 @@ const  { RSVP, $ ,inject: {service} } = Ember
 export default ToriiAuthenticator.extend({
     torii: service('torii'),
     session: service('session'),
-    server: "http://"+"localhost:3000"+"/api/v1/auth/google",
+    server: "http://"+"localhost:4000"+"/api/v1/auth/google",
     authenticate(provider, options){
           
         return this.get('torii').open(provider, options)

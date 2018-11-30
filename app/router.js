@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('sprintView');
   this.route('login');
   this.route('standups');
+  this.route('sprint-view-desktop');
 });
 // {path: '/home/:ifPublished'}
 export default Router;

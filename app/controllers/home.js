@@ -18,9 +18,6 @@ export default Controller.extend({
     let x = this.get('session').currentUser;
     this.set('userData',x)
 
-    
-
-
   },
 
   isMobile: computed('yes', function () {
@@ -35,22 +32,17 @@ export default Controller.extend({
 
   actions: {
     publish(todayTeamCopy) {
-      console.log(todayTeamCopy,"todayTeamCopy in home controller")
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
-        // console.log(data,"ohjkuhilhopj;huyfigkh@@@@@@@@@@@");
+  
       })
       this.transitionToRoute('sprintView');
     },
-    
     gotoSprint() {
         // this.transitionToRoute('sprintView');
         
     },
-
-    reRenderView(){
-      debugger
-      // console.log("HOW MANY TINES")
-      // this.transitionToRoute('home', {queryParams: {ifPublished: true}});
+    submit() {
+      this.transitionToRoute('sprintView');
     }
   }
 });

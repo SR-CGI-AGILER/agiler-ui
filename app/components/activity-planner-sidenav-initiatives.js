@@ -6,20 +6,44 @@ import getOwner from 'ember-owner/get';
 export default Component.extend({
     routing: service("-routing"),
     session: Ember.inject.service(),
+    userInitiative: Ember.inject.service(),
     initiatives:[
-        {
-            initiativeId: "1cm4tri7mjp2wluvt",
-            initiativeName: "i1"
-        },
-        {
-            initiativeId: "1cm4tri7mjp2wm7ti",
-            initiativeName: "i2"   
-        }
+        // {
+        //     initiativeId: "1cm4tri7mjp2wluvt",
+        //     initiativeName: "i1"
+        // },
+        // {
+        //     initiativeId: "1cm4tri7mjp2wm7ti",
+        //     initiativeName: "i2"   
+        // }
     ],
+
+    async init(){
+        this._super(...arguments);
+        let that = this;
+        await this.userInitiative.getInitiatives(this.get('session').currentUser.email).then(function(data){
+            // console.log(data.data.initiative);
+            if(!data.data){
+                console.log(data.data,"IF")
+                console.log(that.get('session').initiative,"I AM INIR")
+                let defaultInitiative  = [];
+                defaultInitiative.pushObject(that.get('session').initiative);
+                that.set('initiatives',defaultInitiative)
+            }
+            else{
+                console.log(data.data,"ELSE")
+                that.set('initiatives',data.data.initiative);
+            }
+        })
+    },
+
     actions :{
         showUsers(init){
+            debugger
+            console.log(init,"Action1");
             this.get('session').set('initiative',init)
             // console.log(this.get('session').initiative,"HATT YAHA SE");
+            
             this.showUsers(init)
             // this.reRenderView();
             const currentRouteName = this.get("routing.currentRouteName");
