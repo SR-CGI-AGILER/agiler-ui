@@ -1,0 +1,14 @@
+{{yield}}
+{{#paper-list}}
+    {{#paper-subheader}}
+        Members
+       
+    {{/paper-subheader}}
+{{#each members as |m|}}
+{{#paper-item}}
+    {{m.name}}
+{{/paper-item}}
+{{/each}}
+{{!-- {{members}} --}}
+ {{paper-divider}}   
+    {{/paper-list}}

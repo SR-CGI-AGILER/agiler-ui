@@ -4,15 +4,15 @@ import jwtDecode from 'ember-cli-jwt-decode';
 
 export default Controller.extend({
     image:"",
-    visible:false,
     email:"",
     name:"",
     actions: {
         authenticateSession(){
             
             let session = this.get('session');
-            
-            this.get('session').authenticate('authenticator:torii', 'google-oauth2').then(()=>{
+            // let that = this;
+            this.get('session').authenticate('authenticator:torii', 'google-oauth2')
+            .then(()=>{
                 
                 let token = this.get('session').session.content.authenticated.jwtToken;
                 
@@ -22,18 +22,14 @@ export default Controller.extend({
                 this.get('session').set('currentUser',decoded.token);
                 document.cookie = `jwtToken=${token}`;
                 if(token){
-                    // console.log(token,"dsasd")
-                    this.transitionToRoute('standups');                                                                            Property('visible');
-                    // this.set('image',decoded.token.profilePicUrl);
-                    // this.set('name',decoded.token.name);
-                    // this.set('email',decoded.token.email);
+                    
+                    this.transitionToRoute('standups'); 
+                    
                 }
-            }).catch(err=>{
+            })
+            .catch(function(err){
                 console.log(err);
-            });
-        },
-        gotoStandUp(){
-            this.transitionToRoute('home');
+            })
         }
     },
     

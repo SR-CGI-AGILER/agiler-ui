@@ -8,7 +8,7 @@
         <div style="height:200px; width:200px;">
           {{#ember-scrollable}}
         {{#each newTasks as |category|}}
-        {{#draggable-item  remove=(action 'removeTask') content=category}}
+        {{#draggable-item  remove=(action 'removeNewTask') content=category}}
             {{#paper-item}}{{category.text}}{{/paper-item}}
               {{/draggable-item}}
               {{paper-divider}}

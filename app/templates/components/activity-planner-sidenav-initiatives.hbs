@@ -1,0 +1,22 @@
+{{yield}}
+
+{{#paper-list}}
+    {{#paper-subheader}}
+        Initiatives
+       
+    {{/paper-subheader}}
+    {{!-- {{initiatives}} --}}
+    {{#each initiatives as |init|}}
+        {{#paper-item onClick=(action "showUsers" init)}}
+            {{init.initiativeName}}
+        {{/paper-item}}
+    {{/each}}
+
+ {{paper-divider}}   
+    
+    
+    
+
+
+    
+{{/paper-list}}

@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import RecognizerMixin from 'ember-gestures/mixins/recognizers';
+import Ember from 'ember';
 
 import {
   computed
@@ -7,16 +8,23 @@ import {
 // import { Ember } from 'ember';
 
 export default Component.extend(RecognizerMixin, {
+
+  session: Ember.inject.service(),
   sprint: false,
   selectedTasks: [],
-  projects: new Set(),
+  projects: [],
   todayTeamCopy: [],
   task: [],
   initiatives: "default",
-  tabIndex: 3,
-  tabSubheading: '(4/4) Activity Plan',
-  currentTab: 'ActivityPlan',
+  tabIndex: 0,
+  tabSubheading: '(1/4) Updates',
+  currentTab: 'updates',
   selected: false,
+
+  init(){
+    this._super(...arguments);
+    console.log("PLANNER");
+  },
   
   recognizers: 'swipe',
     swipeRight(){
@@ -86,6 +94,9 @@ export default Component.extend(RecognizerMixin, {
     },
   
   actions: {
+    reRenderView() {
+      // this.reRenderView();
+    },
     handleTabIndexC(newTabIndex) {
       this.set('selectedTasks', []);
       this.set('tabIndex', newTabIndex + 1);
@@ -172,7 +183,8 @@ export default Component.extend(RecognizerMixin, {
       var today = d.getFullYear() + "-" + (month) + "-" + (day);
 
       let obj = {
-        initiatives: this.get('initiatives'),
+        initiative: this.get('session').initiative.initiativeName,
+        initiativeId: this.get('session').initiative.initiativeId,
         createdAt: today,
         tasks: task
       }
@@ -189,7 +201,7 @@ export default Component.extend(RecognizerMixin, {
       console.log(this.get('selectedTasks'));
     },
     horizontalSlide() {
-      debugger
+      
     }
   },
   showActivityPlanTab: computed('currentTab', function () {
@@ -198,10 +210,12 @@ export default Component.extend(RecognizerMixin, {
 
   pendingTasks: computed('activityPlan', function () {
     if(this.get('activityPlan')) {
+      // this.set('updateRender',true)
       // return this.activityPlan.filter(task => task.status === "Completed");
       return this.activityPlan.filter(task => task.status === "Pending");
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();
     }
   }),
@@ -249,7 +263,7 @@ export default Component.extend(RecognizerMixin, {
 
   scheduledFutureTasks: computed('activityPlan', function () {
     if(this.get('activityPlan')) {
-
+      // this.set('updateRender',true)
       var now = new Date();
       var day = ("0" + now.getDate()).slice(-2);
       var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -259,13 +273,14 @@ export default Component.extend(RecognizerMixin, {
       return this.activityPlan.filter(task => task.scheduled === today);
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();
     }
   }),
 
   scheduledTodayTasks: computed('activityPlan', function () {
     if(this.get('activityPlan')) {
-
+      // this.set('updateRender',true)
       var now = new Date();
       var day = ("0" + now.getDate()).slice(-2);
       var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -276,6 +291,7 @@ export default Component.extend(RecognizerMixin, {
 
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();
     }
   }),
@@ -283,10 +299,12 @@ export default Component.extend(RecognizerMixin, {
   cancelledTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
     if(this.get('activityPlan')) {
+      // this.set('updateRender',true)
       // return this.activityPlan.filter(task => task.status === "Completed");
       return this.activityPlan.filter(activityPlan => activityPlan.status === "Cancelled");
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();
     }
   }),
@@ -294,10 +312,12 @@ export default Component.extend(RecognizerMixin, {
   newTasks: computed('activityPlan', function () {
     // console.log(this.activityPlan);
     if(this.get('activityPlan')) {
+      // this.set('updateRender',true)
       // return this.activityPlan.filter(task => task.status === "Completed");
       return this.activityPlan.filter(task => task.status === "New");
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();
     }
   }),
@@ -316,25 +336,26 @@ export default Component.extend(RecognizerMixin, {
 
   completedTasks: computed('activityPlan', function () {
     if(this.get('activityPlan')) {
+      // this.set('updateRender',true)
       return this.activityPlan.filter(task => task.status === "Completed");
     }
     else{
+      // this.set('updateRender',false)
       this.gotoSprint();    
     }
   }),
 
   backlogProjects: computed('backlogs', function () {
     if(this.get('backlogs')) {
-
-      this.backlogs.forEach(element => {
-        element.tasks.forEach(task=>{
-          this.get('projects').add(task.projectName);
-        })
+      this.set('projects', []);
+      this.backlogs.tasks.forEach(element => {
+          this.get('projects').push(element.projectName);
       });
       return this.projects;
     }
     else {
       this.gotoSprint();
+      return [];
     }
 
     // let temp = this.activityPlan.filter(backlogTasks => backlogTasks.tasks.backlog===true);
@@ -343,19 +364,22 @@ export default Component.extend(RecognizerMixin, {
 
   backlogTasks: computed('backlogs', function () {
     let btasks = [];
+    
     if(this.get('backlogs')) {
-
-      this.backlogs.forEach(element => {
+      
+      this.backlogs.tasks.forEach(element => {
         console.log(element.tasks, "hhgugh");
-        element.tasks.forEach(task=>{
-          btasks.pushObject(task);  
-        });
+        // element.tasks.forEach(task=>{
+          btasks.pushObject(element);  
+        // });
       })
       console.log(btasks,"I AM BTASKS");
       return btasks;
     }
     else {
+      
       this.gotoSprint();
+      return []
     }
     // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
     // return this.activityPlan.filter(task => task.backlog);

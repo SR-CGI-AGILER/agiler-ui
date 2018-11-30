@@ -1,14 +1,13 @@
 import Service from '@ember/service';
 import Ember from 'ember';
 import ENV from '../config/environment'
-
 export default Service.extend({
-    session:Emeber.inject.service(),
+    session:Ember.inject.service(),
     
     getScheduledOn(){
         let initiative = this.get("session").initiative
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduledy/task/${initiative.initiativeId}`,
+            url: `http://localhost:4000/api/v1/scheduledy/task/${initiative.initiativeId}`,
             type: 'GET',
             contentType: 'application/json'
         })
@@ -17,17 +16,18 @@ export default Service.extend({
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduledx/task/${initiative.initiativeId}d`,
+            url: `http://localhost:4000/api/v1/scheduledx/task/${initiative.initiativeId}d`,
             type: 'GET',
             contentType: 'application/json'
         })
     },
    
     postScheduled(x){
+        console.log(x,"IN FRONTEND")
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-            url: `http://localhost:3000/api/v1/scheduled/task/${initiative.initiativeId}`,
+            url: `http://localhost:4000/api/v1/scheduled/task/${initiative.initiativeId}`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(x)
@@ -37,7 +37,7 @@ export default Service.extend({
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-        url: `http://localhost:3000/api/v1/scheduled/task/${initiative.initiativeId}/:taskId`,
+        url: `http://localhost:4000/api/v1/scheduled/task/${initiative.initiativeId}/:taskId`,
         type: 'PATCH',
         contentType: 'application/json',
         data: JSON.stringify(x)

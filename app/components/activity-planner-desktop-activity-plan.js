@@ -1,5 +1,9 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import {
+    bindKeyboardShortcuts,
+    unbindKeyboardShortcuts
+  } from 'ember-keyboard-shortcuts';
 
 export default Component.extend({
     activityPlanTasks: [],
@@ -12,6 +16,7 @@ export default Component.extend({
     notPublished: true,
     activityPlan: Ember.inject.service('activity-plan'),
     actions: {
+       
         publishActivityPlan(){
             let self = this;
             let data = {
@@ -24,18 +29,24 @@ export default Component.extend({
            this.activityPlan.postActivityPlan(data);
            this.set('isPublished',true);
            this.set('notPublished', false);
+        // this.get('publishActivityPlan')(activityPlanTasks)
         },
+        submit() {
+            this.get('submit')();
+          },
         addTask(x){
             console.log("addTask action")
             console.log(this.activityPlanTasks);
             
-            this.activityPlanTasks.pushObject(x);
+            // this.activityPlanTasks.pushObject(x);
+            this.activityPlanTasks.addObject(x);
+
             console.log(this.activityPlanTasks);
         },
         add() {
             if (this.getProperties('input').input) {
                 let s = this.getProperties('input').input;
-                // let taskName = s.split('@');
+                // let taskName = s.split('#');
                 // console.log(taskName,"taskName");
                 //   let word = s.split(' ');
                 //   console.log(word,"array of space seperated strings");
@@ -51,13 +62,18 @@ export default Component.extend({
                            let that = this;
                            console.log(that,"that3")
                             multi.map(function(e){
-                                let taskName = e.split('@');
+                                let taskName = e.split('#');
+                                
                                 console.log(taskName,"taskName");
+                                let taskName1 = e.split('@');
+                                console.log(taskName1,"taskName1");
                                 if(taskName.length>1){
-                                    let x = taskName[1].substring(0);
-                                    // console.log(z,"asdadj")
+                                    let l = taskName[1].substring(0);
+                                    let q = l.toUpperCase();
+                                    console.log(q,"q");
+                                    let x = q.trim();
                                     console.log(x,"x")
-                                    if(x==="backlogs" || x==="Backlogs" || x==="BACKLOGS"){
+                                    if(x==="BACKLOGS"){
                                         let newTask = {
                                             
                                                 // text:this.getProperties('input').input,
@@ -67,7 +83,7 @@ export default Component.extend({
                                         console.log(this,"this Backlogs in activity plan js file");
                                         that.backlogTasks.pushObject(newTask);
                                     }
-                                    else if(x==="new" || x==="NEW" || x==="New"){
+                                    else if(x==="NEW"){
                                         
                                         let z = {
                                             text: taskName[0],
@@ -78,7 +94,7 @@ export default Component.extend({
                                         that.newTasks.pushObject(z);
                                         console.log(that.newTasks,"that.newTasks")
                                     }
-                                    else if(x==="pending" || x==="PENDING" || x==="Pending"){
+                                    else if(x==="PENDING"){
                                         let newTask = {
                                     text: taskName[0],
                                     status: x
@@ -128,7 +144,7 @@ export default Component.extend({
 add1(){
     if (this.getProperties('input').input) {
         let s = this.getProperties('input').input;
-        // let taskName = s.split('@');
+        // let taskName = s.split('#');
         // console.log(taskName,"taskName");
         //   let word = s.split(' ');
         //   console.log(word,"array of space seperated strings");
@@ -146,15 +162,16 @@ add1(){
                     multi.map(function(e){
                         console.log(e,"E");
                         if(e!==""){
-                            let taskName = e.split('@');
+                            let taskName = e.split('#');
+                            let taskName1 = e.split('@');
                             console.log(taskName,"taskName");
                             if(taskName.length>1){
-                                let y = taskName[1].substring(0);
-                                // let y = taskName[0].substring(0);
-                                let x = y.trim();
-                                // console.log(z,"asdadj")
+                                let l = taskName[1].substring(0);
+                                let q = l.toUpperCase();
+                                console.log(q,"q");
+                                let x = q.trim();
                                 console.log(x,"x")
-                                if(x==="backlogs"){
+                                if(x==="BACKLOGS"){
                                     let newTask = {
                                         
                                             // text:this.getProperties('input').input,
@@ -165,7 +182,7 @@ add1(){
                                     console.log(that,"this add1 backlogs");
                                     that.backlogTasks.pushObject(newTask);
                                 }
-                                else if(x==="new"){
+                                else if(x==="NEW"){
                                     let z ={
                                         text: taskName[0],
                                     status:x
@@ -177,7 +194,7 @@ add1(){
                                     // y.tasks.push(z);
                                     that.newTasks.pushObject(z);
                                 }
-                                else if(x==="pending"){
+                                else if(x==="PENDING"){
                                     let newTask = {
                                 
                             
@@ -196,8 +213,8 @@ add1(){
                         let newTask = {
                             
                               // text:this.getProperties('input').input
-                              text: taskName[0],
-                              owner: taskName[1],
+                              text: taskName1[0],
+                              owner: taskName1[1],
                               due_date: today,
                               status: "Standup"
                           }
@@ -214,8 +231,8 @@ add1(){
                       let newTask = {
                         
                             // text:this.getProperties('input').input,
-                            text: taskName[0],
-                            owner: taskName[1],
+                            text: taskName1[0],
+                            owner: taskName1[1],
                             due_date: today,
                             status: "Standup"
                         }
@@ -242,7 +259,6 @@ add1(){
                 }
             }
             console.log(b,"b")
-            console.log(this,"thisasdasdfmkciopxpobnniubiux sywbijnsdoncnxdoisemwjkopspokakwipqowasoq[olas[")
             // self.send('submitform');
             // let data = event.dataTransfer.setData('some_Object', JSON.stringify(this.content));
             // Ember.run.debounce(self,self.get('add1'),400);
@@ -250,5 +266,10 @@ add1(){
             this.set('input','')
             return false;
         }
+        else if(event.keyCode === 9) {
+            console.log("tab key press");
+            
+        }
     }
+
 });

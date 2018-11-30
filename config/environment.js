@@ -46,7 +46,7 @@ module.exports= function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.serverhost = "localhost:4000"
+    ENV.serverhost = "172.23.238.243:4000"
   }
 
   if (environment === 'test') {

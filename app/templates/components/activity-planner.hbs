@@ -1,7 +1,9 @@
 {{activity-planner-navigation 
     onTabIndexChanged=(action "handleTabIndexChanged") 
     tabIndex=tabIndex 
-    tabSubheading=tabSubheading}}
+    tabSubheading=tabSubheading
+    userData=userData
+    reRenderView = (action "reRenderView")}}
 
 
 {{#liquid-if showUpdatesView}}
@@ -16,6 +18,7 @@
         ntasks=ntasks
         ctasks=ctasks
         catasks=catasks}}
+ 
     {{/activity-planner-updates}}
 {{/liquid-if}}
 
@@ -52,9 +55,9 @@
 {{/liquid-if}}
 {{!-- {{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}} --}}
 
-{{#if sprint}}
+{{!-- {{#if sprint}}
     {{activity-planner-sprint-view}}
-{{/if}}
+{{/if}} --}}
 
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex

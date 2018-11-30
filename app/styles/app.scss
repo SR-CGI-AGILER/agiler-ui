@@ -32,7 +32,7 @@ body{
 }
 
 .fixedbuttonright{
-    left: 80vw;
+    left: 50vw;
     bottom: 0.5vh;
 }
 
@@ -41,6 +41,13 @@ body{
     bottom: 0;
     padding: 0;
 }
+.pending{
+    display: flex;
+    justify-content: space-between;
+}
+// .dropdown{
+//     right: 50vw;
+// }
 
 .fix-toolbar{
     box-shadow: 0px 2.5px 2.5px rgba(1,1,1,1);
@@ -66,4 +73,52 @@ body{
     }
     
     
+}
+// .md-list-item-text .nav-route{
+// .md-avatar{
+//     width: 100px;
+//     height : 100px
+// }
+// }
+
+
+.sprint-plan-view-mobile {
+    
+    md-list {
+            md-list-item {
+                .md-list-item-inner {
+                    div {
+                        width: 100%;
+                        p {
+                            display: flex;
+                            justify-content: space-between;
+                            .icon-container-mobile {
+                                display: flex;
+                                justify-content: flex-end;
+                                div {
+                                   
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    // margin: 0;
+                                    margin-left: 20px;
+                                    width: 20px;
+                                    md-icon {
+                                        margin-right: 25px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // background-color: black
+    }
+    .strikeOff{
+             text-decoration: line-through;
+    }
+    
+}
+
+.layout-align-end-end{
+    position: sticky;
 }

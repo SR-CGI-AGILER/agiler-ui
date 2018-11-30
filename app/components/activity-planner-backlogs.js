@@ -4,27 +4,22 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
     // mutiComp: false,
-
+    session: Ember.inject.service(),
+    
     init(){
         this._super(...arguments);
-        console.log(this.backlogs,"ahs");
-
+        // this.set('calledFromInit', )
         if(this.backlogs) {
-
-            this.backlogs.forEach(element => {
-                element.tasks.forEach(tasks => {
-                    this.get('backlogProjects').pushObject(tasks.projectName);
-                })
-                
+            console.log(this.backlogs,"ahs");
+            this.backlogs.tasks.forEach(element => {                  
+                    console.log(this.get('backlogProjects'))
+                    this.get('backlogProjects').pushObject(element.projectName);
             })
             let allProjects = this.get('backlogProjects').filter((v,i)=>this.get('backlogProjects').indexOf(v) === i);
-            // console.log(x);
             this.set('backlogProjects',allProjects);
         }
     },
-
-  
-
+   
       willDestroyElement(){
         console.log("COMPONENET DESTROYED")
         console.log(this.get('todayTeamCopy'));
@@ -47,18 +42,18 @@ export default Component.extend({
     actions: {
         selectBand(event) {
 
-            console.log('selectBand', this.get('category'),event);
+            console.log('selectBand', this.get('category'));
             this.set('startTime', new Date().getTime())
             if(!event.checked){
               this.selectedTasks.pushObject(event);
               console.log(this.selectedTasks, "on touch staart ..!!!");
             }
             else{
-  
+      
               this.selectedTasks.removeObject(event);
               console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
             }
-  
+      
          },   
          unselectBand(item) {
               console.log('unselect Band', "on touch end ");
@@ -68,6 +63,7 @@ export default Component.extend({
                   if(this.selected) {
                     this.set('selected',false)
                       
+      
   
                   }
                   else{
@@ -81,11 +77,11 @@ export default Component.extend({
               else{
                 console.log('else', "happened on the touch end!!!");
                 if(!this.selected){
-  
+      
                   console.log('NOT SELECTED', "checkbox not invoked!!");
                   this.set('selectedTasks',[]);
                 }
-  
+      
               }
               console.log(this.selectedTasks, "end state of the arr on touch end");
          },
@@ -115,14 +111,14 @@ export default Component.extend({
             // let task = this.get('taskName')
             console.log(project)
             let newData = {
-                initiative: "I2",
+                initiativeName: this.get('session').initiative.initiativeName,
                 tasks : [
                     {
                         text: this.get('taskName'),
                         projectName: this.get('projectName'),
-                        due_date:"2018-11-30",
-                        owner:"Owner",
-                        status:"Status"
+                        due_date:"",
+                        owner:this.get('session').currentUser.email,
+                        status:"Backlog"
                     }
                 ]
             }
@@ -179,3 +175,11 @@ export default Component.extend({
       })
 
 });
+
+
+
+
+
+
+
+ 

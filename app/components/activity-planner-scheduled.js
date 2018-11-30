@@ -1,7 +1,8 @@
 import Component from '@ember/component';
+import Ember from 'ember';
 
 export default Component.extend({
-
+  session: Ember.inject.service(),
   init() {
    
     this._super(...arguments);
@@ -88,19 +89,21 @@ export default Component.extend({
 
     },
     ok() {
+      console.log(this.get('scheduledfor'), "what is this?awd")
       console.log(this.getProperties('initiative'), this.getProperties('task'), this.getProperties('projectName'), this.getProperties('scheduled_For'), "jjjjjj")
       let d = new Date((this.getProperties('scheduled_For')).scheduled_For)
       let date = d.getTime()
       console.log(date)
       let newdata = {
-        initiative: this.getProperties('initiative').initiative,
-        tasks: [{ text: (this.getProperties('text')).text, projectName: (this.getProperties('projectName')).projectName, scheduled_For: date }]
+        // initiative: this.getProperties('initiative').initiative,
+        initiative: this.get('session').initiative.initiativeId,
+        tasks: { text: (this.getProperties('text')).text, projectName: (this.getProperties('projectName')).projectName, scheduled_For: date, scheduled_On: new Date().getTime() }
 
       };
 
       // newdata.tasks=this.activityPlanTasks;
       console.log(newdata, "published data");
-      console.log(this, "what is this?")
+      console.log(this.get('scheduledfor'), "what is this?")
       this.scheduleds.postScheduled(newdata);
       // let createProject = {
       // projectName : newdata.projectName.projectName,
