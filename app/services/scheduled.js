@@ -16,7 +16,7 @@ export default Service.extend({
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/scheduledx/task/${initiative.initiativeId}d`,
+            url: `http://localhost:4000/api/v1/scheduledx/task/${initiative.initiativeId}`,
             type: 'GET',
             contentType: 'application/json'
         })
