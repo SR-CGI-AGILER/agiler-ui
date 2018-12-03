@@ -1,16 +1,17 @@
 import Component from '@ember/component';
 import Ember from 'ember';
+import { set } from '@ember/object';
 
 export default Component.extend({
   session: Ember.inject.service(),
+  // new Date((this.getProperties('scheduled_For')).scheduled_For)
   init() {
    
     this._super(...arguments);
     if(this.futureTasks) {
       this.futureTasks.setEach('checked',false)
     }
-
-    
+       
   },
   
   willDestroyElement() {
@@ -88,6 +89,40 @@ export default Component.extend({
     cancel() {
 
     },
+     reschedule(){
+      let taskArray = [];
+      let that =  this;
+      let d =new Date((this.getProperties('scheduled_For1')).scheduled_For1)
+                  console.log(d,"date");
+      let date = d.getTime()
+      console.log(date,"date");
+      this.get('selectedTasks').map(function (e) {
+        let data = {
+          taskId: e._id,
+          scheduled_For: date,
+        };
+        taskArray.pushObject(data);
+      })
+      let data = {
+        initiativeId: that.get('session').initiative.initiativeId,
+        arr: []
+      };
+      data.arr = taskArray;
+      this.scheduleds.patchScheduled(data);
+      // this.get('model').payload.data.tasks.map(e => {
+      //   this.get('selectedTasks').map(f => {
+      //     if (e._id === f._id) {
+      //       set(e, 'isComplete', true);
+      //       set(e, 'isPending', false);
+      //       set(e, 'isNew', false);
+      //       return e
+      //     } else {
+      //       return e
+      //     }
+      //   })
+      // });
+      // this.set('selected', false);
+  },
     ok() {
       console.log(this.get('scheduledfor'), "what is this?awd")
       console.log(this.getProperties('initiative'), this.getProperties('task'), this.getProperties('projectName'), this.getProperties('scheduled_For'), "jjjjjj")
@@ -97,7 +132,7 @@ export default Component.extend({
       let newdata = {
         // initiative: this.getProperties('initiative').initiative,
         initiative: this.get('session').initiative.initiativeId,
-        tasks: { text: (this.getProperties('text')).text, projectName: (this.getProperties('projectName')).projectName, scheduled_For: date, scheduled_On: new Date().getTime() }
+        tasks: { text: (this.getProperties('text')).text, projectName: (this.getProperties('projectName')).projectName, scheduled_For: date }
 
       };
 

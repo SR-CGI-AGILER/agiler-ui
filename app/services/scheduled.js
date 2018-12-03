@@ -33,7 +33,7 @@ export default Service.extend({
             data: JSON.stringify(x)
         })
     },
-    patchscheduled(x){
+    patchScheduled(x){
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
