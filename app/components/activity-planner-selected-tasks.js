@@ -37,7 +37,9 @@ export default Component.extend({
         return this.renderView === 'activityPlan'
     }),
     showSprintViewAction: false,
-    actions: {
+    scheduleds: Ember.inject.service('scheduled'),
+    session: Ember.inject.service(),
+        actions: {
         raisedButton() {
             console.log(this.showSprintViewAction,"atreya");
             this.set('showSprintViewAction','true');
@@ -53,9 +55,7 @@ export default Component.extend({
         },
         assignOwners(){
             
-        }
-        // reschedule(){
-
-        // }
+        },
+       
     }
 });

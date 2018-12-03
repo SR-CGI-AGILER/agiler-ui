@@ -16,7 +16,7 @@ export default Service.extend({
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/scheduledx/task/${initiative.initiativeId}d`,
+            url: `http://localhost:4000/api/v1/scheduledx/task/${initiative.initiativeId}`,
             type: 'GET',
             contentType: 'application/json'
         })
@@ -33,11 +33,11 @@ export default Service.extend({
             data: JSON.stringify(x)
         })
     },
-    patchscheduled(x){
+    patchScheduled(x){
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({
-        url: `http://localhost:4000/api/v1/scheduled/task/${initiative.initiativeId}/:taskId`,
+        url: `http://localhost:4000/api/v1/scheduled/task/${initiative.initiativeId}`,
         type: 'PATCH',
         contentType: 'application/json',
         data: JSON.stringify(x)
