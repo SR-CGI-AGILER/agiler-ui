@@ -52,21 +52,26 @@ export default Component.extend({
         return this.activityPlan.filter(task => task.scheduled_On === today);
         }
       }),
-      // backlogTasks: computed('backlogs', function () {
-      //   if(this.get('activityPlan')){        
-      //   let btasks = [];
-      //   this.backlogs.forEach(element => {
-      //     console.log(element.tasks, "hhgugh");
-      //     element.tasks.forEach(task=>{
-      //       btasks.pushObject(task);  
-      //     }); 
-      //   })
-      // }
-      //   console.log(btasks,"I AM BTASKS");
-      //   // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
-      //   // return this.activityPlan.filter(task => task.backlog);
-      //   return btasks;
-      // })
+      backlogTasks: computed('backlogs', function () {
+        let btasks = [];
+        if(this.get('backlogs')){        
+        this.backlogs.forEach(element => {
+          console.log(element.tasks, "hhgugh");
+          element.tasks.forEach(task=>{
+            btasks.pushObject(task);  
+          }); 
+        })
+      }
+        console.log(btasks,"I AM BTASKS");
+        // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
+        // return this.activityPlan.filter(task => task.backlog);
+        return btasks;
+      }),
+      actions : {
+        reRenderView() {
+          // this.reRenderView();
+        }
+      }
       
       // actions : {
       //   publishActivityPlan(x){

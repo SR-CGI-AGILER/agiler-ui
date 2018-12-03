@@ -14,7 +14,7 @@
           {{!-- <p>@{{task.owner}}</p> --}}
           {{#if notPublished}}
           {{#draggable-dropzone dropped="addTask"}}
-       <div style="height:40px; background-color:pink">
+       <div style="height:40px;">
           {{task.text}}
        </div>
   {{/draggable-dropzone}}
@@ -27,7 +27,7 @@
         {{#if notPublished}}
 <div style="height:230px">
 {{#draggable-dropzone dropped="addTask"}}
-       <div style="height:40px; background-color:pink">
+       <div style="height:40px;">
   Drop here
        </div>
   {{/draggable-dropzone}}

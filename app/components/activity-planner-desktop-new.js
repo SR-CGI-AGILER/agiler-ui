@@ -11,7 +11,7 @@ export default Component.extend({
     actions : {
         removeNewTask (taskObject) {
             
-            debugger
+            // debugger
             console.log(taskObject.that.newTasks, "is this getting triggered newTasks??")
         let arr = taskObject.that.newTasks.filter(task=> task._id !== taskObject.data._id);
         let arr1 = taskObject.that.newTasks.filter(task=> task._id === taskObject.data._id);

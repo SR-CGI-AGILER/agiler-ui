@@ -34,7 +34,8 @@
 	{{!-- {{#link-to  "my-teams"}} --}}
   {{#if showView}}
 	 {{activity-planner-sidenav-initiatives
-   showUsers=(action "showUsers")}} 
+   showUsers=(action "showUsers")
+    reRenderView=(action "reRenderView")}} 
    {{else}}
     {{activity-planner-sidenav-members
     members=members}}
