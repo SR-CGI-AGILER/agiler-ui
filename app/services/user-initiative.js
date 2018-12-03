@@ -5,7 +5,7 @@ export default Service.extend({
 
     getInitiatives(email){
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/user/initiatives/${email}`,
+            url: `http://172.23.238.187:4000/api/v1/user/initiatives/${email}`,
             type: 'GET',
             contentType: 'application/json'
         })

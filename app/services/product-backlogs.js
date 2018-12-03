@@ -10,7 +10,7 @@ export default Service.extend({
         let initiative = this.get('session').initiative
         console.log(initiative,"i am sure this is undefiuned") 
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/backlog/${this.session.initiative.initiativeId}`,
+            url: `http://172.23.238.187:4000/api/v1/backlog/${this.session.initiative.initiativeId}`,
             type: 'GET',
             contentType: 'application/json'
         })
@@ -18,7 +18,7 @@ export default Service.extend({
 
     postBacklog(backlog){
         return Ember.$.ajax({
-            url:`http://localhost:4000/api/v1/backlog/${this.session.initiative.initiativeId}`,
+            url:`http://172.23.238.187:4000/api/v1/backlog/${this.session.initiative.initiativeId}`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(backlog)
