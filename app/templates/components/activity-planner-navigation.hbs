@@ -35,10 +35,12 @@
   {{#if showView}}
 	 {{activity-planner-sidenav-initiatives
    showUsers=(action "showUsers")
+   navigate=(action 'navigateToInitiative')
    reRenderView=(action "reRenderView")}} 
    {{else}}
     {{activity-planner-sidenav-members
-    members=members}}
+    members=members
+    navigate=(action 'navigateToMembers')}}
    {{/if}}
 
 	{{!-- {{paper-divider}} --}}

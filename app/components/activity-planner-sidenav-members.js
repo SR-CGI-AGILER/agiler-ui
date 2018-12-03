@@ -26,5 +26,10 @@ export default Component.extend({
             // console.log(that.get('members'),"hiiiii")
         })
         console.log(this.get('members'));
+    },
+    actions: {
+        navigateTomembers() {
+            this.navigate("members")
+        }
     }
 });

@@ -1,0 +1,36 @@
+{{yield}}
+<div class="add-intitiative-container">
+    {{#paper-autocomplete
+    placeholder="Find Initiative"
+    options=initiativeSuggestion
+    selected=selectedItem.initiativeName
+    searchField="initiativeName"
+    onSearchTextChange=(action 'searchInitiative')
+    onSelectionChange=(action (mut selectedItem))
+    as |item|}}
+        {{item.initiativeName}}
+    {{else}}
+    {{#paper-item}}
+        Whoops! could not find!
+    {{/paper-item}}
+    {{/paper-autocomplete}}
+
+    {{#paper-button iconButton=true raised=true onClick=(action 'createInitiative')}}
+        {{paper-icon 'add'}}
+    {{/paper-button}}
+
+    {{#paper-button iconButton=true raised=true onClick=(action 'deleteInitiative')}}
+        {{paper-icon 'delete'}}
+    {{/paper-button}}
+
+    {{#if alertSuccessfull}}
+    {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose as |toast|}}
+      {{#toast.text}}Successfull{{/toast.text}}
+    {{/paper-toast}}
+    {{/if}}
+    {{#if alertFailed}}
+    {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToast") as |toast|}}
+      {{#toast.text}}Failed{{/toast.text}}
+    {{/paper-toast}}
+    {{/if}}
+</div>

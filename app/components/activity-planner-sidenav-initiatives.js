@@ -7,16 +7,7 @@ export default Component.extend({
     routing: service("-routing"),
     session: Ember.inject.service(),
     userInitiative: Ember.inject.service(),
-    initiatives:[
-        // {
-        //     initiativeId: "1cm4tri7mjp2wluvt",
-        //     initiativeName: "i1"
-        // },
-        // {
-        //     initiativeId: "1cm4tri7mjp2wm7ti",
-        //     initiativeName: "i2"   
-        // }
-    ],
+    initiatives:[],
 
     async init(){
         this._super(...arguments);
@@ -51,6 +42,9 @@ export default Component.extend({
             currentRouteInstant.refresh();
             // console.log("IN COMPONENT")
 
+        },
+        navigateToInitiativeRoute(){
+            this.navigate("initiative")
         }
 
     }

@@ -202,6 +202,14 @@ export default Component.extend(RecognizerMixin, {
     },
     horizontalSlide() {
       
+    },
+    navigateToInitiaiveRoute(route){
+      console.log("comming in planneer component")
+      this.navigateToInitiaive(route)
+    },
+    navigateTomembers(route){
+      console.log("planner", route)
+      this.navigateToInitiativeMembers(route)
     }
   },
   showActivityPlanTab: computed('currentTab', function () {

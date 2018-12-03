@@ -68,6 +68,15 @@ export default Component.extend({
             else{
                 this.set('showView',true)
             }
+        },
+        navigateToInitiative(route){
+            console.log('here in navigation', route)
+            // this.navigateToInitiativeRoute();
+            this.navigateToInitiative(route)
+        },
+        navigateToMembers(route){
+            console.log(route)
+            this.navigateToInitiativeMembers(route)
         }
     }
 });

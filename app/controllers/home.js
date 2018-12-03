@@ -43,6 +43,13 @@ export default Controller.extend({
     },
     submit() {
       this.transitionToRoute('sprintView');
+    },
+    navigateToInitiaive(route){
+      console.log("in controller??")
+      this.transitionToRoute(`initiative`, {queryParams: { route: route }})
+    },
+    navigateTomembers(route){
+      this.transitionToRoute('initiative', {queryParams: { route: route }})
     }
   }
 });

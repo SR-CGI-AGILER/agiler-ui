@@ -1,0 +1,38 @@
+{{yield}}
+<div>
+    {{#paper-autocomplete
+    placeholder="Find Initiative"
+    options=initiativeSuggestion
+    selected=selectedItem.initiativeName
+    searchField="initiativeName"
+    onSearchTextChange=(action 'searchInitiative')
+    onSelectionChange=(action (mut selectedItem))
+    as |item|}}
+        {{item.initiativeName}}
+    {{else}}
+    {{#paper-item}}
+        Whoops! could not find!
+    {{/paper-item}}
+    {{/paper-autocomplete}}
+</div>
+<div>
+    {{paper-input label="Email" placeholder="Email" value=name onChange=(action (mut name))}}
+    {{#paper-button iconButton=true onClick=(action 'addUser')}}
+        {{paper-icon 'add'}}
+    {{/paper-button}}
+    {{#paper-button iconButton=true onClick=(action 'deleteUser') }}
+        {{paper-icon 'delete'}}
+    {{/paper-button}}
+</div>
+
+{{#if successful}}
+  {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeSuccessful") as |toast|}}
+    {{#toast.text}}SuccessFull{{/toast.text}}
+  {{/paper-toast}}
+{{/if}}
+
+{{#if failed}}
+  {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeFailed") as |toast|}}
+    {{#toast.text}}Failed{{/toast.text}}
+  {{/paper-toast}}
+{{/if}}

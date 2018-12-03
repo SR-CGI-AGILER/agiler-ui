@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('login');
   this.route('standups');
   this.route('sprint-view-desktop');
+  this.route('initiative');
 });
 // {path: '/home/:ifPublished'}
 export default Router;

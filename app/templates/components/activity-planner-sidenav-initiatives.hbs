@@ -3,9 +3,12 @@
 {{#paper-list}}
     {{#paper-subheader}}
         Initiatives
-       
+        {{#paper-button iconButton=true onClick=(action 'navigateToInitiativeRoute')}}
+            {{paper-icon 'edit'}}
+        {{/paper-button}}
     {{/paper-subheader}}
     {{!-- {{initiatives}} --}}
+
     {{#each initiatives as |init|}}
         {{#paper-item onClick=(action "showUsers" init)}}
             {{init.initiativeName}}

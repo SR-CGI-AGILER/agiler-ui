@@ -1,0 +1,14 @@
+{{outlet}}
+{{#paper-toolbar}}
+    {{#paper-toolbar-tools}}
+     {{#paper-button iconButton=true onClick=(action "navigateToHome") }}
+       {{paper-icon "keyboard_backspace"}}
+     {{/paper-button}}
+    {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+
+{{#if showInitiative }}
+{{add-initiative}}
+{{else}}
+{{add-user-initiative}}
+{{/if}}

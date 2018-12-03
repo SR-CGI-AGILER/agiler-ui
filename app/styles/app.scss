@@ -122,3 +122,12 @@ body{
 .layout-align-end-end{
     position: sticky;
 }
+
+
+.add-intitiative-container {
+    padding: 1.5%;
+    display: flex;
+    md-autocomplete {
+        flex-grow: 1
+    }
+}

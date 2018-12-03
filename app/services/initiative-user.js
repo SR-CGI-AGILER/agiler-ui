@@ -1,7 +1,9 @@
 import Service from '@ember/service';
 import Ember from 'ember';
 
+
 export default Service.extend({
+    session: Ember.inject.service(),
     getUsers(id){
         return Ember.$.ajax({
             url: `http://localhost:4000/api/v1/initiative/users/${id}`,
@@ -15,6 +17,39 @@ export default Service.extend({
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data)
+        })
+    },
+    postNewInitiative(data){
+        let reqBody = {
+            name: data,
+            members: {
+                name: this.session.currentUser.name,
+                email: this.session.currentUser.email,
+                profilePicUrl: this.session.currentUser.profilePicUrl 
+            }
+        }
+        
+        console.log(reqBody)
+        
+        return Ember.$.ajax({
+            url: `http://localhost:4000/api/v1/initiative/new`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(reqBody),
+
+        })
+    },
+    deleteInitiative(data){
+        let reqBody = {
+            email: data.user,
+            initiativeId: data.initiativeId
+        }
+
+        return Ember.$.ajax({
+            url: `http://localhost:4000/api/v1/initiative`,
+            type: 'DELETE',
+            contentType: 'application/json',
+            data: JSON.stringify(reqBody),
         })
     }
 });

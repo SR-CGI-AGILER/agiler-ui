@@ -9,5 +9,21 @@ export default Service.extend({
             type: 'GET',
             contentType: 'application/json'
         })
+    },
+    postNewUser(user){
+        let reqBody = {
+            id: user.initiativeId,
+            name: user.initiativeName, 
+            members: {
+                email: user.email
+            }
+        }
+        console.log(reqBody)
+        return Ember.$.ajax({
+            url:  `http://localhost:4000/api/v1/initiative/user`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(reqBody) 
+        })
     }
 });

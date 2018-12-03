@@ -2,7 +2,9 @@
 {{#paper-list}}
     {{#paper-subheader}}
         Members
-       
+       {{#paper-button iconButton=true onClick="navigateTomembers"}}
+        {{paper-icon 'edit'}}
+       {{/paper-button}}
     {{/paper-subheader}}
 {{#each members as |m|}}
 {{#paper-item}}
