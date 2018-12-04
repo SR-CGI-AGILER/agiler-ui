@@ -3,6 +3,9 @@
 module.exports= function(environment) {
   let ENV = {
     modulePrefix: 'agiler',
+    'ember-websockets': {
+      socketIO: true
+    },
     environment,
     rootURL: '/',
     locationType: 'hash',
