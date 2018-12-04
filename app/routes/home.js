@@ -32,17 +32,17 @@ export default Route.extend({
             // debugger
             let that = this;
             await this.teamCopy.getTeamCopy(today,initiative.initiativeId).then(function(data) {
-                if(data.payload.data.tasks.length===0){
-                    // debugger
-                    that.set('checkPublish1',false);
-                    console.log(that.get('checkPublish1'),"home js if")
-                }
-                else{
-                    // debugger
-                    that.set('checkPublish1',true);
-                    console.log(that.get('checkPublish1'),"home js else")
+                // if(data.payload.data.tasks.length===0){
+                //     // debugger
+                //     that.set('checkPublish1',false);
+                //     console.log(that.get('checkPublish1'),"home js if")
+                // }
+                // else{
+                //     // debugger
+                //     that.set('checkPublish1',true);
+                //     console.log(that.get('checkPublish1'),"home js else")
+                // }
                     model.teamCopy = data.payload.data
-                }
             })
             await this.productBacklogs.getProductBacklog().then(function (data) {
 

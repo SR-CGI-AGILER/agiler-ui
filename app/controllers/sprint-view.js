@@ -253,7 +253,6 @@ actions: {
       action: "Pending"
     }
     let that =  this;
-
     var now = new Date();
  
     var day = ("0" + now.getDate()).slice(-2);
@@ -266,10 +265,9 @@ actions: {
     }
     data.arr.push(data1);
 
-    this.teamCopy.updateTeamCopy(data).then(function (data) {
 
+    this.teamCopy.updateTeamCopy(data).then(function (data) {})
 
-    })
     this.get('model').payload.data.tasks.map(e => {
       if (e._id === task._id) {
 
@@ -279,7 +277,6 @@ actions: {
         return e
       } else {
         return e
-
       }
     });
   },
