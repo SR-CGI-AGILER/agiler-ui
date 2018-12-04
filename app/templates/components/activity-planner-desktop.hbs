@@ -1,11 +1,10 @@
 {{yield}}
-{{activity-planner-desktop-navigation}}
+{{activity-planner-desktop-navigation userData=userData reRenderView = (action "reRenderView")}}
 
 <div class="layout-row layout-align-start-start">
 {{activity-planner-desktop-completed completedTasks=completedTasks}}
 {{activity-planner-desktop-new newTasks=newTasks}}
 {{activity-planner-desktop-pending pendingTasks=pendingTasks}}
-{{activity-planner-desktop-cancelled cancelledTasks=cancelledTasks}}
 {{activity-planner-desktop-backlogs backlogTasks=backlogTasks}}
 {{activity-planner-desktop-scheduled-future scheduledFutureTasks=scheduledFutureTasks}}
 {{activity-planner-desktop-scheduled-today scheduledTodayTasks=scheduledTodayTasks}}

@@ -26,7 +26,9 @@
           <p ontouchStart={{action "selectBand" category}} 
             ontouchEnd={{action "unselectBand" category}}>
             {{category.text}}
-          </p>
+             </p>
+             scheduled_For:{{category.scheduled_For}}
+         
         </div>
         {{#if selected}}
         <div class="md-secondary-container ">
@@ -35,13 +37,18 @@
         {{/if}}
       {{/paper-item}}
     {{/each}}
-        
+          {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
+{{#paper-button primary=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
       {{else}}
         {{!-- Scheduled Today --}}
         {{#each scheduledfor as |category|}}
           {{#paper-item class="md-1-line"  as |controls|}}
             <div class="md-list-item-text">
-              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>
+                {{category.text}}
+                </p>
+               scheduled_For: {{category.scheduled_For}}
+                
             </div>
             {{#if selected}}
               <div class="md-secondary-container ">
@@ -53,11 +60,12 @@
         {{/each}}
 
             <div class="layout-row layout-align-center-end">
+  {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
+{{#paper-button primary=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
 {{#paper-button primary=true fab=true onClick=(action "showPromptDialogAction")}}+{{/paper-button}}
 {{#if showPromptDialog}}
   {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
     {{#paper-dialog-content}}
-      {{paper-input placeholder="initiative" autofocus=true value=initiative onChange=(action (mut initiative))}}
       {{paper-input placeholder="text"  value=text onChange=(action (mut text))}}
       {{paper-input placeholder="projectName"  value=projectName onChange=(action (mut projectName))}}
       {{paper-input class="flex" label="scheduled_For" type="date" value=scheduled_For onChange=(action (mut scheduled_For))}}

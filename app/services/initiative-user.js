@@ -1,19 +1,19 @@
 import Service from '@ember/service';
 import Ember from 'ember';
-
+import ENV from '../config/environment';
 
 export default Service.extend({
     session: Ember.inject.service(),
     getUsers(id){
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/initiative/users/${id}`,
+            url: `http://${ENV.serverhost}/api/v1/initiative/users/${id}`,
             type: 'GET',
             contentType: 'application/json'
         })
     },
     postInitiative(data){
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/initiative/default`,
+            url: `http://${ENV.serverhost}/api/v1/initiative/default`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data)
@@ -32,7 +32,7 @@ export default Service.extend({
         console.log(reqBody)
         
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/initiative/new`,
+            url: `http://${ENV.serverhost}/api/v1/initiative/new`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(reqBody),
@@ -46,7 +46,7 @@ export default Service.extend({
         }
 
         return Ember.$.ajax({
-            url: `http://localhost:4000/api/v1/initiative`,
+            url: `http://${ENV.serverhost}/api/v1/initiative`,
             type: 'DELETE',
             contentType: 'application/json',
             data: JSON.stringify(reqBody),

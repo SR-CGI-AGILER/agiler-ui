@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import Ember from 'ember';
+import {set} from '@ember/object';
 
 export default Route.extend({
     teamCopy: Ember.inject.service(),
@@ -27,22 +28,41 @@ export default Route.extend({
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         let checkPublish = param.ifPublished;
         if(checkPublish) {
-            // console.log(initiative,"CONSOLE HERE")
+
             await this.teamCopy.getTeamCopy(today,initiative.initiativeId).then(function(data) {
-                // console.log(data,"MODEL")
+
                 model.teamCopy = data.payload.data
             })
             await this.productBacklogs.getProductBacklog().then(function (data) {
-               console.log(data);
+
                 model.productBacklogs = data.payload.data
             })
             
             await this.scheduled.getScheduledOn().then(function (data) {
-                console.log(data.payload.data,"CLUELESS1");
+
+                
+                let scheduledTasks = data.payload.data;
+                scheduledTasks.map(elem => {
+                var d = new Date(elem.scheduled_For)
+                var day = ("0" + d.getDate()).slice(-2);
+                var month = ("0" + (d.getMonth()+ 1)).slice(-2);
+                var act_Date = d.getFullYear() + "-" + (month) + "-" + (day);
+                set(elem,'scheduled_For',act_Date); 
+                })
+ 
                 model.scheduled = data.payload.data
             })
              await this.scheduled.getScheduledFor().then(function (data) {
-                console.log(data.payload.data,"CLUELESS2");
+
+                let scheduledTasks = data.payload.data;
+                scheduledTasks.map(elem => {
+                var d = new Date(elem.scheduled_For)
+                var day = ("0" + d.getDate()).slice(-2);
+                var month = ("0" + (d.getMonth()+ 1)).slice(-2);
+                var act_Date = d.getFullYear() + "-" + (month) + "-" + (day);
+                set(elem,'scheduled_For',act_Date); 
+                })
+ 
                 model.scheduledfor = data.payload.data
             })
         }

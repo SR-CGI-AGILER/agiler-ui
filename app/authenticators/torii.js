@@ -1,12 +1,12 @@
 import ToriiAuthenticator from 'ember-simple-auth/authenticators/torii';
 import Ember from 'ember';
 const  { RSVP, $ ,inject: {service} } = Ember
-// import ENV from 'agiler-frontend/config/environment';
+import ENV from '../config/environment';
 
 export default ToriiAuthenticator.extend({
     torii: service('torii'),
     session: service('session'),
-    server: "http://"+"localhost:4000"+"/api/v1/auth/google",
+    server: "http://"+`${ENV.serverhost}`+"/api/v1/auth/google",
     authenticate(provider, options){
           
         return this.get('torii').open(provider, options)

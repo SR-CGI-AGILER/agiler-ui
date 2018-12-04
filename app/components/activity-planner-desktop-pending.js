@@ -11,7 +11,7 @@ export default Component.extend({
     actions : {
         removePendingTask (taskObject) {
             
-            debugger
+            // debugger
             console.log(taskObject.that.pendingTasks, "is this getting triggered pendingTasks??")
         let arr = taskObject.that.pendingTasks.filter(task=> task._id !== taskObject.data._id);
         let arr1 = taskObject.that.pendingTasks.filter(task=> task._id === taskObject.data._id);

@@ -1,5 +1,6 @@
 import Service from '@ember/service';
-import Ember from 'ember'
+import Ember from 'ember';
+
 export default Service.extend(Ember.Evented, {
     sendDataNew(data){
          console.log(data)

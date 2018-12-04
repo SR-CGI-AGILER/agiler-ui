@@ -15,12 +15,7 @@
     {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO COMPLETED
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO SCHEDULED
-    {{/paper-button}}
+ 
     {{/if}}
 
     {{#if showScheduledAction}}
@@ -30,8 +25,8 @@
     {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO COMPLETED
     {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO BACKLOGS
+    {{#paper-button raised=true onClick=(action "reschedule")}}
+        reschedule
     {{/paper-button}}
     {{/if}}
     

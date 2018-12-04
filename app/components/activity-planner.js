@@ -20,8 +20,10 @@ export default Component.extend(RecognizerMixin, {
   tabSubheading: '(1/4) Updates',
   currentTab: 'updates',
   selected: false,
-
+  
   init(){
+   
+
     this._super(...arguments);
     console.log("PLANNER");
   },

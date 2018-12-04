@@ -6,7 +6,7 @@ export default Route.extend({
     session: Ember.inject.service(),
     async model(){
         let response;
-        console.log(this.teamCopy.getTeamCopy("2018-10-21","default"));
+        // console.log(this.teamCopy.getTeamCopy("2018-10-21","default"));
 
         var d = new Date();
         // d.setDate(d.getDate() - 1);

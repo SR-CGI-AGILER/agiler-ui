@@ -13,6 +13,7 @@ session: Ember.inject.service(),
 startTime: null,
 endTime: null,
 showPromptDialog: false,
+teamCopyTasks:[],
 selectedTasks: [],
 showSprintViewAction: false,
 selected: false,
@@ -70,11 +71,11 @@ actions: {
     this.set('taskName', '');
     this.set('showPromptDialog', false);
   },
-  add() {
-    if (this.getProperties('input').input) {
-      let a = this.getProperties('input').input;
-    }
-  },
+  // add() {
+  //   if (this.getProperties('input').input) {
+  //     let a = this.getProperties('input').input;
+  //   }
+  // },
   raisedButtonComplete() {
     let taskArray = [];
     let that =  this;
@@ -214,8 +215,15 @@ actions: {
       taskId: task._id,
       action: "Completed"
     }
+    let that =  this;
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
     let data = {
-      createdAt: '2018-10-21',
+      createdAt: today,
+      initiativeId: that.get('session').initiative.initiativeId,
       arr: []
     }
     data.arr.push(data1);
@@ -236,29 +244,37 @@ actions: {
     });
   },
 
-  markNew(task) {
-    let data = {
-      createdAt: '2018-10-21',
-      taskId: task._id,
-      action: "New"
-    }
-    this.set('isNew', 'true');
-    this.set('isPending', 'false');
-    this.set('isCompleted', 'false');
+  // markNew(task) {
+  //   let data = {
+  //     createdAt: '2018-10-21',
+  //     taskId: task._id,
+  //     action: "New"
+  //   }
+  //   this.set('isNew', 'true');
+  //   this.set('isPending', 'false');
+  //   this.set('isCompleted', 'false');
 
-    this.teamCopy.updateTeamCopy(data).then(function (data) {
+  //   this.teamCopy.updateTeamCopy(data).then(function (data) {
 
-    })
+  //   })
 
-  },
-
+  // },
+    
   markPending(task) {
     let data1 = {
       taskId: task._id,
       action: "Pending"
     }
+    let that =  this;
+
+    var now = new Date();
+ 
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
     let data = {
-      createdAt: '2018-10-21',
+      createdAt: today,
+      initiativeId: that.get('session').initiative.initiativeId,
       arr: []
     }
     data.arr.push(data1);

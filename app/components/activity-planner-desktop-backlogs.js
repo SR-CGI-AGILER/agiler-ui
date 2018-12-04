@@ -11,7 +11,7 @@ export default Component.extend({
     actions : {
         removeBacklogTask (taskObject) {
             
-            debugger
+            // debugger
             console.log(taskObject.that.backlogTasks, "is this getting triggered backlogTasks ??")
         let arr = taskObject.that.backlogTasks.filter(task=> task._id !== taskObject.data._id);
         let arr1 = taskObject.that.backlogTasks.filter(task=> task._id === taskObject.data._id);

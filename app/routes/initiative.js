@@ -2,9 +2,13 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     model(param){
-        this.set('route', param.route)
+        debugger
+        if (param.route === 'initiative') {
+            return true
+        }else{
+            return false
+        }
+        
+
     }
-    // setupController(model, controller){
-    //     this._super(...arguments)
-    // }
 });
