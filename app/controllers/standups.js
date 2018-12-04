@@ -52,26 +52,28 @@ export default Controller.extend({
                 debugger
                 that.get('session').set('initiative',data.data.initiative[0])
             }
-            if(that.get('createDefault')) {
-                console.log("CREATE");
-                // console.log(this.get('userData'),"MAIN HOON YAHA")
-                that.initiativeUser.postInitiative(that.get('userData')).then(function(data){
-                    
-                        console.log(data,"RESPONSE");
-                        that.get('session').set('initiative',{
-                                initiativeId:data.payload.data.initiative.id,
-                                initiativeName:data.payload.data.initiative.name
-                        })
-                    
-                }).catch(err=>{
-                    console.log(err)
-                });
-
-            }
-            console.log(that.get('session').initiative,"INITTIATTA");
             
-            })
-    
+            
+        })
+        
+        if(that.get('createDefault')) {
+            console.log("CREATE");
+            // console.log(this.get('userData'),"MAIN HOON YAHA")
+            await that.initiativeUser.postInitiative(that.get('userData')).then(function(data){
+                
+                console.log(data,"RESPONSE");
+                that.get('session').set('initiative',{
+                    initiativeId:data.payload.data.initiative.id,
+                    initiativeName:data.payload.data.initiative.name
+                })
+                
+            }).catch(err=>{
+                console.log(err)
+            });
+            
+        }
+        
+        console.log(that.get('session').initiative,"INITTIATTA");
 
             
             // console.log(this.get('session').initiative,"IN STANDUP")
