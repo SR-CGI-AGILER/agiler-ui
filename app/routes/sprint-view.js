@@ -15,8 +15,9 @@ export default Route.extend({
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         // console.log(this.teamCopy.getTeamCopy(today,"default"));
         // return this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId);
-
-       await  this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(data => {
+        var initiativeId = this.get('session').initiative.initiativeId;
+        console.log(initiativeId);
+       await  this.teamCopy.getTeamCopy(today,initiativeId).then(data => {
         // debugger  
         data.payload.data.tasks.map(function(e){
                 if(e.status === 'Completed'){

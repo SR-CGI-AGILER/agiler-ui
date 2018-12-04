@@ -41,6 +41,7 @@ export default Controller.extend({
                 })
                 let newData={
                     name:"default",
+                    id:"default000",
                     members : that.get('session').currentUser
                 }
                 that.set('userData',newData);
@@ -49,6 +50,7 @@ export default Controller.extend({
                 
             }
             else {
+                debugger
                 that.get('session').set('initiative',data.data.initiative[0])
             }
             console.log(that.get('session').initiative,"INITTIATTA");

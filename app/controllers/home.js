@@ -34,8 +34,8 @@ export default Controller.extend({
     publish(todayTeamCopy) {
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
+        this.transitionToRoute('sprintView');
       })
-      this.transitionToRoute('sprintView');
     },
     gotoSprint() {
         // this.transitionToRoute('sprintView');
