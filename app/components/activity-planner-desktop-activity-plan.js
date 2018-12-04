@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { set } from '@ember/object';
 import {
     bindKeyboardShortcuts,
     unbindKeyboardShortcuts
   } from 'ember-keyboard-shortcuts';
-
 export default Component.extend({
     activityPlanTasks: [],
     taskEmpty: computed('activityPlanTasks', function(){
@@ -15,19 +15,26 @@ export default Component.extend({
     isPublished: false,
     notPublished: true,
     activityPlan: Ember.inject.service('activity-plan'),
+    productBacklogs: Ember.inject.service(),
+    session: Ember.inject.service(),
     actions: {
-       
+
         publishActivityPlan(){
+            var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
             let self = this;
             let data = {
-                createdAt:"2018-09-17",
-                initiatives:"default",
+                createdAt:today,
+                initiativeId: self.get('session').initiative.initiativeId,
                 tasks: []
             };
             data.tasks=this.activityPlanTasks;
             console.log(data,"published data");
            this.activityPlan.postActivityPlan(data);
-           this.set('isPublished',true);
+           console.log(self.get('checkPublish'),"checkPublish in desktop activity plan");
+           this.set('checkPublish',true);
            this.set('notPublished', false);
         // this.get('publishActivityPlan')(activityPlanTasks)
         },
@@ -44,6 +51,10 @@ export default Component.extend({
             console.log(this.activityPlanTasks);
         },
         add() {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
             if (this.getProperties('input').input) {
                 let s = this.getProperties('input').input;
                 // let taskName = s.split('#');
@@ -82,6 +93,13 @@ export default Component.extend({
                                         }
                                         console.log(this,"this Backlogs in activity plan js file");
                                         that.backlogTasks.pushObject(newTask);
+                                        let backlogData = {
+                                            createdAt: today,
+                                            initiativeId: that.get('session').initiative.initiativeId,
+                                          tasks: []
+                                        };
+                                         backlogData.tasks= that.backlogTasks
+                                        that.productBacklogs.postBacklog(backlogData);
                                     }
                                     else if(x==="NEW"){
                                         
@@ -109,7 +127,7 @@ export default Component.extend({
         let today = now.getFullYear() + "-" + (month) + "-" + (day);
                             let data = {
                                 text : taskName[0],
-                                owner : taskName[1],
+                                owner : taskName[1] || that.get('session').currentUser.name,
                                 due_date: today,
                                 status:"Standup"
                             };
@@ -138,10 +156,19 @@ export default Component.extend({
                             })
                        } 
               }
-              this.set('input','');
+              this.set('input',' ')
+            
+
             }     
     },
+
+
+    
 add1(){
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
     if (this.getProperties('input').input) {
         let s = this.getProperties('input').input;
         // let taskName = s.split('#');
@@ -181,6 +208,13 @@ add1(){
                                     }
                                     console.log(that,"this add1 backlogs");
                                     that.backlogTasks.pushObject(newTask);
+                                    let backlogData = {
+                                        createdAt: today,
+                                        initiativeId: that.get('session').initiative.initiativeId,
+                                      tasks: []
+                                    };
+                                     backlogData.tasks= that.backlogTasks
+                                    that.productBacklogs.postBacklog(backlogData);
                                 }
                                 else if(x==="NEW"){
                                     let z ={
@@ -243,10 +277,16 @@ add1(){
  
                     })
                } 
-      }
-      this.set('input','');
+            }
+            console.log(this.get('input'),"input1")
+            // this.set('input','');
+            set(this,'input',' ');
+
+            // console.log(this.get('input'),"input2")
+
     },
     keyDown(event) {
+        // debugger
         let self = this;
         let a = this.getProperties('input');
         let c =a.input;
@@ -263,7 +303,8 @@ add1(){
             // let data = event.dataTransfer.setData('some_Object', JSON.stringify(this.content));
             // Ember.run.debounce(self,self.get('add1'),400);
             this.add1();
-            this.set('input','')
+            console.log(this.get('input'))
+            this.set('input',' ')
             return false;
         }
         else if(event.keyCode === 9) {

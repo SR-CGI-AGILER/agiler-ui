@@ -31,35 +31,37 @@ export default Component.extend({
         }
       }),
 
-      scheduledFutureTasks: computed('activityPlan', function () {
-        if(this.get('activityPlan')){
+      scheduledFutureTasks: computed('scheduledfor', function () {
+        if(this.get('scheduledfor')){
+          console.log(this.get('scheduledfor'),"scheduled future tasks");
           var now = new Date();
           var day = ("0" + now.getDate()).slice(-2);
           var month = ("0" + (now.getMonth() + 1)).slice(-2);
           var today = now.getFullYear() + "-" + (month) + "-" + (day);
           // console.log(today);
-          return this.activityPlan.filter(task => task.scheduled === today);
+          return this.scheduledfor.filter(task => task.scheduled === today);
         }
       }),
     
-      scheduledTodayTasks: computed('activityPlan', function () {
-        if(this.get('activityPlan')){        
+      scheduledTodayTasks: computed('scheduled', function () {
+        if(this.get('scheduled')){        
         var now = new Date();
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
         var today = now.getFullYear() + "-" + (month) + "-" + (day);
         // console.log(today);
-        return this.activityPlan.filter(task => task.scheduled_On === today);
+        return this.scheduled.filter(task => task.scheduled_On === today);
         }
       }),
       backlogTasks: computed('backlogs', function () {
         let btasks = [];
-        if(this.get('backlogs')){        
-        this.backlogs.forEach(element => {
-          console.log(element.tasks, "hhgugh");
-          element.tasks.forEach(task=>{
-            btasks.pushObject(task);  
-          }); 
+        if(this.get('backlogs')){
+          console.log(this.backlogs,"backlogs")        
+        this.backlogs.tasks.forEach(element => {
+          // console.log(element.tasks, "hhgugh");
+          // element.tasks.forEach(task=>{
+            btasks.pushObject(element);  
+          // }); 
         })
       }
         console.log(btasks,"I AM BTASKS");

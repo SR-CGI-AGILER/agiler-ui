@@ -13,6 +13,7 @@ export default Service.extend({
         })
     },
     postActivityPlan(x){
+        console.log(x,"post activity plan ")
         return Ember.$.ajax({
             url: `http://${ENV.serverhost}/api/v1/activityplan`,
             type: 'POST',

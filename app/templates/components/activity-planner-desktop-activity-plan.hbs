@@ -40,9 +40,14 @@
   {{paper-icon "send"}}
   {{/paper-button}}
   {{!-- {{input-textbox}} --}}
-  {{#paper-button iconButton=true onClick=(action "publishActivityPlan") submit=(action "submit")}}
+  {{#if checkPublish}}
+  <p>Activity Plan is published for today!</p>
+{{else}}
+  {{#paper-button iconButton=true onClick=(action "publishActivityPlan")}}
   {{paper-icon "publish"}}
   {{/paper-button}}
+  {{/if}}
+ 
         {{/title.text}}
       {{/card.title}}
     {{/paper-card}}

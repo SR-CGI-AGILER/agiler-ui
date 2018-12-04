@@ -21,7 +21,7 @@ export default Service.extend({
             })
     },
     addToTeamCopy(task_data) {
-        
+        console.log(task_data,"addToTeamCopy")
         return Ember.$.ajax({
             url: `http://${ENV.serverhost}/api/v1/teamCopy/${task_data.createdAt}/${task_data.initiativeId}`,
             type: 'POST',

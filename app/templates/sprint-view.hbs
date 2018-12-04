@@ -22,6 +22,8 @@
                 {{task.text}}{{paper-icon "av_timer"}}
             {{else if task.isNew}}
             {{task.text}}{{paper-icon "fiber_new"}}
+            {{else}}
+            {{task.text}}
             {{/if}}
         
                 {{paper-divider}}
@@ -57,11 +59,11 @@
 
 {{/paper-list}}
 
-{{!-- {{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5)
+{{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5)
   value=input onChange=(action (mut input))}}
-  {{#paper-button iconButton=true onClick=(action "add")}}
+  {{#paper-button iconButton=true onClick=(action "add1")}}
   {{paper-icon "send"}}
-  {{/paper-button}} --}}
+  {{/paper-button}}
 
 {{else}}
 

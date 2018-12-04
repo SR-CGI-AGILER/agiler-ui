@@ -18,6 +18,7 @@ export default Route.extend({
 
        await  this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(data => {
         // debugger  
+        
         data.payload.data.tasks.map(function(e){
                 if(e.status === 'Completed'){
                     e.isComplete = true;

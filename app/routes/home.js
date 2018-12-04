@@ -9,6 +9,7 @@ export default Route.extend({
     productBacklogs: Ember.inject.service(),
     session: Ember.inject.service(),
     userInitiative : Ember.inject.service(),
+    checkPublish1: false,
     // updateRender: "",
 
 
@@ -28,10 +29,20 @@ export default Route.extend({
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         let checkPublish = param.ifPublished;
         if(checkPublish) {
-
+            // debugger
+            let that = this;
             await this.teamCopy.getTeamCopy(today,initiative.initiativeId).then(function(data) {
-
-                model.teamCopy = data.payload.data
+                if(data.payload.data.tasks.length===0){
+                    // debugger
+                    that.set('checkPublish1',false);
+                    console.log(that.get('checkPublish1'),"home js if")
+                }
+                else{
+                    // debugger
+                    that.set('checkPublish1',true);
+                    console.log(that.get('checkPublish1'),"home js else")
+                    model.teamCopy = data.payload.data
+                }
             })
             await this.productBacklogs.getProductBacklog().then(function (data) {
 

@@ -6,8 +6,8 @@ import {
 export default Component.extend({
   mutiComp: false,
 //   projectName: "default",
-  initiatives: "default",
-  
+  // initiatives: "default",
+  session: Ember.inject.service(),
   showPromptDialog: false,
   actions: {
     publish() {
@@ -28,11 +28,16 @@ export default Component.extend({
         this.set('taskName','');
     },
     ok() {
+      let that = this
+      var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
         let newTask={
             text: this.get('taskName'),
             projectName: this.get('projectName'),
-            due_date: "2018-11-27",
-            owner: "Swarnim",
+            due_date: today,
+            owner: that.get('session').currentUser.name,
             status: "Standup"
         }
         this.get('task').pushObject(newTask);
