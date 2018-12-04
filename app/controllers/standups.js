@@ -35,40 +35,44 @@ export default Controller.extend({
             // console.log(data.data.initiative[0],"PLEASE AA JAO NA");
             // console.log(that.get('session').currentUser,"Members")
             if(!data.data){
-                that.get('session').set('initiative',{
-                    initiativeId:"default000",
-                    initiativeName:"default"
-                })
+                
                 let newData={
                     name:"default",
-                    id:"default000",
                     members : that.get('session').currentUser
                 }
                 that.set('userData',newData);
                 that.set('createDefault',true);
                  console.log("HERHEHERHER")
+                 console.log(that.get('createDefault'),"PLEASE")
+                 
                 
+
             }
             else {
                 debugger
                 that.get('session').set('initiative',data.data.initiative[0])
             }
+            if(that.get('createDefault')) {
+                console.log("CREATE");
+                // console.log(this.get('userData'),"MAIN HOON YAHA")
+                that.initiativeUser.postInitiative(that.get('userData')).then(function(data){
+                    
+                        console.log(data,"RESPONSE");
+                        that.get('session').set('initiative',{
+                                initiativeId:data.payload.data.initiative.id,
+                                initiativeName:data.payload.data.initiative.name
+                        })
+                    
+                }).catch(err=>{
+                    console.log(err)
+                });
+
+            }
             console.log(that.get('session').initiative,"INITTIATTA");
             
             })
-            console.log(this.get('createDefault'),"PLEASE")
-            if(this.get('createDefault')) {
-                console.log("CREATE");
-                console.log(this.get('userData'),"MAIN HOON YAHA")
-                await this.initiativeUser.postInitiative(this.get('userData')).then(function(err,data){
-                    if(err){
-                        reject(err)
-                    }
-                    else{
-                        console.log(data);
-                    }
-                });
-            }
+    
+
             
             // console.log(this.get('session').initiative,"IN STANDUP")
             await this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(function(data){
