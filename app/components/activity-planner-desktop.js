@@ -72,6 +72,14 @@ export default Component.extend({
       actions : {
         reRenderView() {
           // this.reRenderView();
+        },
+        navigateToInitiaiveRoute(route){
+          console.log("comming in planneer component")
+          this.navigateToInitiaive(route)
+        },
+        navigateTomembers(route){
+          console.log("planner", route)
+          this.navigateToInitiativeMembers(route)
         }
       }
       

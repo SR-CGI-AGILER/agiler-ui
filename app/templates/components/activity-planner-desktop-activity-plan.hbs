@@ -1,7 +1,7 @@
 {{yield}}
 
-<div style="width:1500px">
-
+<div style="width:98vw">
+ {{#draggable-dropzone dropped="addTask"}}
 {{#paper-card class="a" as |card|}}
       {{#card.title as |title|}}
         {{#title.text as |text|}}
@@ -28,7 +28,7 @@
 <div style="height:230px">
 {{#draggable-dropzone dropped="addTask"}}
        <div style="height:40px;">
-  Drop here
+
        </div>
   {{/draggable-dropzone}}
 </div>
@@ -51,4 +51,5 @@
         {{/title.text}}
       {{/card.title}}
     {{/paper-card}}
+    {{/draggable-dropzone}}
 </div>
