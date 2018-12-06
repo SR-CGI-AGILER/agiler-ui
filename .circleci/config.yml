@@ -31,6 +31,15 @@ jobs:
           name: install Software Properties
           command: sudo apt-get install software-properties-common 
       - run:
+          name: add ansible repo
+          command: sudo apt-add-repository ppa:ansible/ansible
+      - run:
+          name: apt update
+          command: sudo apt-get update
+      - run:
+          name: install ansible
+          command: sudo apt-get install ansible
+      - run:
           name: connection AWS
           command: ssh ruchik@13.233.75.155
       - run:
