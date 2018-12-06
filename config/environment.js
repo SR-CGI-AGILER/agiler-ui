@@ -68,6 +68,16 @@ module.exports= function(environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
     ENV.serverhost = "agiler.stackroute.in"
+    ENV.torii = {
+      sessionServiceName: 'session',
+      providers: {
+        'google-oauth2': {
+            apiKey: '1053797418071-cb49noe362osfv37v0jc25bkvqbum5qp.apps.googleusercontent.com',
+            redirectUri: 'http://agiler.stackroute.in/torii/redirect.html',
+            scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+          }
+      }
+    }
   }
 
   return ENV;

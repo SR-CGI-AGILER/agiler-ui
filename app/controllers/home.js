@@ -33,6 +33,7 @@ export default Controller.extend({
 
   actions: {
     logout(){
+      // console.log(this.get('session').usertoken)
       this.transitionToRoute("login");
     },
     sprintView(){
