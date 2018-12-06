@@ -1,56 +1,61 @@
 ---
-version: 2 
-jobs: 
-  build: 
+version: 2
+jobs:
+ build:
+   machine:
+     enable: true
+   steps:
+     - checkout
+     - restore_cache:
+         keys:
+         - v1-dependencies-{{ checksum "package.json" }}
+         - v1-dependencies-
+     - run: npm install
+     - save_cache:
+         paths:
+           - node_modules
+         key: v1-dependencies-{{ checksum "package.json" }}
+     - run: npm run test
+ deploy:
     machine:
-      enable: true
-    steps: 
-      - checkout 
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: npm install
-      - run: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm run test
-  deploy: 
-     machine:
-      enable: true
-     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "89:18:ce:5f:4a:a7:de:37:77:7e:bb:51:dc:74:14:e4"
-      - run: 
-          name: do dir
-          command: ls -la
-      - run:
-          name: install Software Properties
-          command: sudo apt-get install software-properties-common 
-      - run:
-          name: add ansible repo
-          command: sudo apt-add-repository ppa:ansible/ansible
-      - run:
-          name: apt update
-          command: sudo apt-get update
-      - run:
-          name: install ansible
-          command: sudo apt-get install ansible
-      - run:
-          name: check ansible version
-          command: ansible --version
-      - run:
-          name: connection AWS
-          command: ssh ruchik@13.233.75.155
-      - run:
-          name: command check in AWS VM
-          command: ls 
+     enable: true
+    steps:
+     - add_ssh_keys:
+         fingerprints:
+           - "b8:77:d3:00:de:06:89:73:9f:21:65:b9:d2:8f:44:e8"
+     - checkout
+     - run:
+         name: do dir
+         command: ls -la
+     - run:
+         name: install Software Properties
+         command: sudo apt-get install software-properties-common
+     - run:
+         name: add ansible repo
+         command: sudo apt-add-repository ppa:ansible/ansible
+     - run:
+         name: apt update
+         command: sudo apt-get update
+     - run:
+         name: install ansible
+         command: sudo apt-get install ansible
+     - run:
+         name: check ansible version
+         command: ansible --version
+     - run:
+         name: Ping production server via ansible
+         command: ansible -i '13.233.75.155,' --user ruchik --private-key=~/.ssh/id_rsa_b877d300de0689739f2165b9d28f44e8 -m ping all
+     - run:
+         name: deploy application
+         command: |
+           cd deploy-scripts
+           touch pass.key
+           echo $SUDO_PASS > ./pass.key
+           ansible-playbook -i '13.233.75.155,' --user ruchik --private-key=~/.ssh/id_rsa_b877d300de0689739f2165b9d28f44e8 playbook.yml -vv --extra-vars "ansible_sudo_pass=$SUDO_PASS"
+
 workflows:
-  version: 2
-  build_and_test: 
-    jobs: 
-     - build 
-     - deploy
+ version: 2
+ build_and_test:
+   jobs:
+    - build
+    - deploy
