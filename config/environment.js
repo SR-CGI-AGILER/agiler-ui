@@ -67,7 +67,7 @@ module.exports= function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.serverhost = "agiler.stackroute.in"
+    ENV.serverhost = "agiler.stackroute.in/backend"
     ENV.torii = {
       sessionServiceName: 'session',
       providers: {
