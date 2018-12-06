@@ -7,9 +7,10 @@
     navigateToInitiative=(action 'navigateToInitiaiveRoute')
     navigateToInitiativeMembers=(action 'navigateTomembers')
     logout=(action "logout")
+    sprintView=(action "sprintView")
     }}
 
-
+<div class="my-container">
 {{#liquid-if showUpdatesView}}
     {{#activity-planner-updates
         selected=selected
@@ -59,7 +60,7 @@
 {{/activity-planner-activity-plan}}
 {{/liquid-if}}
 
-
+</div>
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
     task=task

@@ -1,15 +1,24 @@
 import Route from '@ember/routing/route';
 import Ember from 'ember';
 import {set} from '@ember/object';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Route.extend({
+export default Route.extend(AuthenticatedRouteMixin,{
+
+    beforeModel(){
+        let token = this.get('session').userToken;
+        if(!token){
+            this.transitionTo('login');
+        }
+    },
+
     teamCopy: Ember.inject.service(),
     scheduled:Ember.inject.service(),
     activityPlan: Ember.inject.service(),
     productBacklogs: Ember.inject.service(),
     session: Ember.inject.service(),
     userInitiative : Ember.inject.service(),
-    checkPublish1: false,
+    // checkPublish1: false,
 
 
     async model(param){
@@ -26,6 +35,7 @@ export default Route.extend({
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         let checkPublish = param.ifPublished;
         if(checkPublish) {
+            // this.set('checkPublish1',true);
             let that = this;
             await this.teamCopy.getTeamCopy(today,initiative.initiativeId).then(function(data) {
             

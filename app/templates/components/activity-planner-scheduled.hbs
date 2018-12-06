@@ -19,34 +19,38 @@
     {{#paper-subheader}}
       {{#if current.tab}}
         {{#each scheduled as |category|}}
+        <div ontouchStart={{action "selectBand" category}} 
+            ontouchEnd={{action "unselectBand" category}} class="md-list-item-text">
       {{#paper-item class="md-1-line"  as |controls|}}
-        <div class="md-list-item-text">
-          <p ontouchStart={{action "selectBand" category}} 
-            ontouchEnd={{action "unselectBand" category}}>
+        
+          <p >
             {{category.text}}
-             </p>
-             scheduled_For:{{category.scheduled_For}}
+             
+             scheduled_For:{{category.scheduled_For}}</p>
          
-        </div>
+        
         {{#if selected}}
         <div class="md-secondary-container ">
           {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
         </div>
         {{/if}}
       {{/paper-item}}
+      </div>
     {{/each}}
           {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
-{{#paper-button primary=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
+{{#paper-button  raised=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
       {{else}}
         {{#each scheduledfor as |category|}}
+        <div ontouchStart={{action "selectBand" category}} 
+              ontouchEnd={{action "unselectBand" category}} class="md-list-item-text">
           {{#paper-item class="md-1-line"  as |controls|}}
-            <div class="md-list-item-text">
-              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>
+            
+              <p >
                 {{category.text}}
-                </p>
-               scheduled_For: {{category.scheduled_For}}
                 
-            </div>
+               scheduled_For: {{category.scheduled_For}}</p>
+                
+            
             {{#if selected}}
               <div class="md-secondary-container ">
                 {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
@@ -54,12 +58,13 @@
             {{/if}}
 
           {{/paper-item}}
+          </div>
         {{/each}}
 
             <div class="layout-row layout-align-center-end">
   {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
-{{#paper-button primary=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
-{{#paper-button primary=true fab=true onClick=(action "showPromptDialogAction")}}+{{/paper-button}}
+{{#paper-button raised=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
+{{#paper-button raised=true fab=true onClick=(action "showPromptDialogAction")}}+{{/paper-button}}
 {{#if showPromptDialog}}
   {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
     {{#paper-dialog-content}}
@@ -70,8 +75,8 @@
     {{/paper-dialog-content}}
     {{#paper-dialog-actions class="layout-row"}}
       <span class="flex"></span>
-      {{#paper-button primary=true onClick=(action "closePromptDialog" "cancel")}}Cancel{{/paper-button}}
-      {{#paper-button primary=true onClick=(action "ok")}}Ok{{/paper-button}}
+      {{#paper-button raised=true onClick=(action "closePromptDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button raised=true onClick=(action "ok")}}Ok{{/paper-button}}
     {{/paper-dialog-actions}}
 
   {{/paper-dialog}}

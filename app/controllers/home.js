@@ -1,4 +1,6 @@
 import Controller from '@ember/controller';
+// import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+
 import Ember from 'ember';
 import {
   computed
@@ -33,10 +35,14 @@ export default Controller.extend({
     logout(){
       this.transitionToRoute("login");
     },
+    sprintView(){
+      this.transitionToRoute("sprintView")
+    },
     publish(todayTeamCopy) {
+      let that=this;
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
-        this.transitionToRoute('sprintView');
+        that.transitionToRoute('sprintView');
       })
     },
     gotoSprint() {

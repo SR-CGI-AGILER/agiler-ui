@@ -92,6 +92,9 @@ export default Component.extend(RecognizerMixin, {
     logout(){
       this.logout();
     },
+    sprintView(){
+      this.sprintView();
+    },
     reRenderView() {
     },
     handleTabIndexC(newTabIndex) {

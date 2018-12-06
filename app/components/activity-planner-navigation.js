@@ -54,6 +54,9 @@ export default Component.extend({
         },
         navigateToMembers(route){
             this.navigateToInitiativeMembers(route)
+        },
+        sprintView(){
+            this.sprintView();
         }
     }
 });
