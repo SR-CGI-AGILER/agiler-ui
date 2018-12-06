@@ -29,7 +29,6 @@ export default Service.extend({
             }
         }
         
-        console.log(reqBody)
         
         return Ember.$.ajax({
             url: `http://${ENV.serverhost}/api/v1/initiative/new`,

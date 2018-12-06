@@ -23,7 +23,6 @@ export default Service.extend({
     },
    
     postScheduled(x){
-        console.log(x,"IN FRONTEND")
         let initiative = this.get("session").initiative
 
         return Ember.$.ajax({

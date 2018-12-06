@@ -13,10 +13,8 @@ export default Component.extend({
     this._super(...arguments);
     const self = this
     this.set('self', self)
-    console.log(this)
 
   },
-  // self: this,
   classNames: ['draggableItem'],
   attributeBindings: ['draggable'],
   draggable: 'true',
@@ -24,8 +22,6 @@ export default Component.extend({
   taskData: Ember.inject.service('task-data'),
   dragStart(event) {
     let data = event.dataTransfer.setData('some_Object', JSON.stringify(this.content)); // rename it after
-    console.log(data,"dragStart");
-    console.log(this.content,"content")
     return data
   }
 

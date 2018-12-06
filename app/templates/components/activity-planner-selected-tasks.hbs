@@ -1,16 +1,9 @@
-{{!-- {{taskName}} --}}
 
     
 
-    {{!-- {{#each selectedTasks as |tasks|}}
-        {{#paper-item class="md-1-line"}}
-            {{tasks.text}}
-        {{/paper-item}}
-    {{/each}} --}}
-    {{!-- {{actionComponent}} --}}
+   
     {{#paper-list}}
     {{#if showUpdatesAction}}
-    {{!-- <p>SELECTED TASKS {{tabIndex}} {{actionComponent}} {{renderView}}</p> --}}
     
     {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
@@ -42,17 +35,6 @@
     {{/paper-button}}
     {{/if}}
 
-    {{!-- {{#if showSprintViewAction}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
-        MARK AS COMPLETED
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
-        MARK AS PENDING
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "raisedButton")}}
-        MARK AS NEW
-    {{/paper-button}}   
-    {{/if}} --}}
     
    
     {{/paper-list}}

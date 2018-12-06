@@ -13,7 +13,7 @@ export default Component.extend({
         let that = this
         this._super(...arguments);
         let user = this.session.currentUser.email
-        debugger
+
         await this.userInitiative.getInitiatives(user).then(function(data) {
             data.data.initiative.map(function(e) {
                 that.initiativeSuggestion.pushObject(e)
@@ -33,7 +33,6 @@ export default Component.extend({
                 })
             }else {
                 this.toggleProperty('alertFailed')
-                console.log(this.get('alertFailed'))
             }
         },
         deleteInitiative() {

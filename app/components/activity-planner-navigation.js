@@ -7,27 +7,23 @@ export default Component.extend({
     image:"",
     username:"",
     showView: true,
-    // members:[],
     init(){
         this._super(...arguments)
-        console.log(this.get('username'),"Mobile init hook it is");
         this.set('username',this.get('userData').name);
         this.set('image',this.get('userData').profilePicUrl);
-        console.log(this.get('session').currentUser, "INIT MOBILE");
         
         
 
     },
     actions: {
+        logout(){
+            this.logout();
+        },
         reRenderView(){
-            // debugger
-            // this.reRenderView();
         },
         showUsers(init){
-            console.log(init,"ACTION")
             let that = this;
             this.initiativeUser.getUsers(init.initiativeId).then(function(data){
-                console.log(data.message,"user")
                 if(data.message === "something went wrong"){
                     let owner = [];
                     owner.pushObject({
@@ -41,7 +37,6 @@ export default Component.extend({
                 else {
                     that.set('members',data.data);
                 }
-                // console.log(that.get('members'),"hiiiii")
             })
             this.toggleProperty('showView');
             this.reRenderView();
@@ -55,12 +50,9 @@ export default Component.extend({
             }
         },
         navigateToInitiative(route){
-            console.log('here in navigation', route)
-            // this.navigateToInitiativeRoute();
             this.navigateToInitiative(route)
         },
         navigateToMembers(route){
-            console.log(route)
             this.navigateToInitiativeMembers(route)
         }
     }

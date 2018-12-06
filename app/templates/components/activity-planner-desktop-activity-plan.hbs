@@ -1,55 +1,71 @@
 {{yield}}
 
 <div style="width:98vw">
+  {{#if notPublished}}
  {{#draggable-dropzone dropped="addTask"}}
 {{#paper-card class="a" as |card|}}
       {{#card.title as |title|}}
         {{#title.text as |text|}}
           {{#text.headline}}Activity Plan{{/text.headline}}
-         {{paper-divider}}
-        {{#paper-list}}
-        
-        {{#each activityPlanTasks as |task|}}
-          {{#paper-item}}
-          {{!-- <p>@{{task.owner}}</p> --}}
-          {{#if notPublished}}
-          {{#draggable-dropzone dropped="addTask"}}
-       <div style="height:40px;">
-          {{task.text}}
-       </div>
-  {{/draggable-dropzone}}
-  {{else}}
-  {{#paper-item}}{{task.text}}{{/paper-item}}
-  {{/if}}
-          {{/paper-item}}
           
-          {{/each}}
-        {{#if notPublished}}
-<div style="height:230px">
-{{#draggable-dropzone dropped="addTask"}}
-       <div style="height:40px;">
+         {{paper-divider}}
 
-       </div>
-  {{/draggable-dropzone}}
-</div>
-{{/if}}
+        {{#paper-list}}
+        {{#each activityPlanTasks as |task|}}
+  {{#paper-item}}{{task.text}}{{/paper-item}} 
+          {{/each}}
         {{/paper-list}}
+
 {{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5) disabled=isPublished
   value=input onChange=(action (mut input))}}
   {{#paper-button iconButton=true onClick=(action "add")}}
   {{paper-icon "send"}}
   {{/paper-button}}
-  {{!-- {{input-textbox}} --}}
-  {{#if checkPublish}}
-  <p>Activity Plan is published for today!</p>
-{{else}}
+
   {{#paper-button iconButton=true onClick=(action "publishActivityPlan")}}
   {{paper-icon "publish"}}
   {{/paper-button}}
-  {{/if}}
- 
+
+
         {{/title.text}}
       {{/card.title}}
     {{/paper-card}}
     {{/draggable-dropzone}}
+
+
+
+  {{else}}
+   {{!-- {{#draggable-dropzone dropped="addTask"}} --}}
+{{#paper-card class="a" as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}Activity Plan{{/text.headline}}
+          
+         {{paper-divider}}
+
+        {{#paper-list}}
+        {{#each activityPlanTasks as |task|}}
+  {{#paper-item}}{{task.text}}{{/paper-item}} 
+          {{/each}}
+        {{/paper-list}}
+
+{{paper-input textarea=true block=true label="Add Task" passThru=(hash rows=1 maxRows=5) disabled=isPublished
+  value=input onChange=(action (mut input))}}
+  {{#paper-button iconButton=true onClick=(action "add")}}
+  {{paper-icon "send"}}
+
+  {{/paper-button}}
+  <p>Activity Plan is published for today!</p>
+  {{!-- {{#paper-button iconButton=true onClick=(action "publishActivityPlan")}}
+  {{paper-icon "publish"}}
+  {{/paper-button}} --}}
+
+        {{/title.text}}
+      {{/card.title}}
+    {{/paper-card}}
+    {{!-- {{/draggable-dropzone}} --}}
+
+
+
+    {{/if}}
 </div>

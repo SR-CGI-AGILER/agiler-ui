@@ -19,7 +19,6 @@ export default Service.extend({
                 email: user.email
             }
         }
-        console.log(reqBody)
         return Ember.$.ajax({
             url:  `http://${ENV.serverhost}/api/v1/initiative/user`,
             type: 'POST',

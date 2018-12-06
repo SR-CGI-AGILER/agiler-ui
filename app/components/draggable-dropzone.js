@@ -14,10 +14,9 @@ export default Component.extend({
     this._super(...arguments);
     const self = this
     this.set('self', self)
-    console.log(this)
 
   },
-  // self: this,
+  
   classNames: ['draggableItem'],
   attributeBindings: ['draggable'],
   draggable: 'true',
@@ -33,25 +32,34 @@ export default Component.extend({
       },
       drop(event) {
         let data = event.dataTransfer.getData('some_Object');
-        console.log(data,"drop1")
       
         let rawData = JSON.parse(data);
-        console.log(rawData,"rawData in drop");
         this.sendAction('dropped', rawData);
-        let a = rawData.status;
-        // let b = rawData.backlog;
-        console.log(a,"statsu")
-        // this.actions.some_action(data)
-        // this.sendAction('dragged', rawData);
-        // console.log(JSON.stringify(data),data,"drop");
-        if(a==="new" || a==="New" || a==="NEW")
+        let b = rawData.status;
+        
+        let a = b.toUpperCase();
+        let now = new Date();
+        let day = ("0" + now.getDate()).slice(-2);
+        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+        let today = now.getFullYear() + "-" + (month) + "-" + (day);
+    
+       
+        
+        if(a==="NEW")
         this.taskData.sendDataNew(rawData);
-        else if(a==="pending" || a==="Pending" || a==="PENDING")
+        else if(a==="PENDING")
         this.taskData.sendDataPending(rawData);
-        // else if(b)
-        // this.taskData.sendDataBacklogs(rawData);
-        // this.newTasks.removeObject(data);
-        // console.log(this.actions.some_action(data),data, "which we are getting from the events")
+        else if(a==="BACKLOGS")
+        this.taskData.sendDataBacklogs(rawData);
+        else if(rawData.scheduled_On){
+          let c = Date.parse(rawData.scheduled_On);
+          let day = ("0" + c.getDate()).slice(-2);
+          let month = ("0" + (c.getMonth() + 1)).slice(-2);
+          let d = c.getFullYear() + "-" + (month) + "-" + (day);
+          if(d === today){
+            this.taskData.sendDataScheduledToday(rawData);
+          }
+        }        
         set(this, 'dragClass', 'deactivated');
       }
 });

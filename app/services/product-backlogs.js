@@ -5,10 +5,8 @@ import ENV from '../config/environment';
 export default Service.extend({
     session: Ember.inject.service(),
 
-    // initiative: this.get('session').initiative.id,
     getProductBacklog(){
         let initiative = this.get('session').initiative
-        console.log(initiative,"i am sure this is undefiuned") 
         return Ember.$.ajax({
             url: `http://${ENV.serverhost}/api/v1/backlog/${this.session.initiative.initiativeId}`,
             type: 'GET',

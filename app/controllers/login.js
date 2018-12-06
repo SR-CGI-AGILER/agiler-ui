@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-// var jwtDecode = require('jwt-decode');
 import jwtDecode from 'ember-cli-jwt-decode';
 
 export default Controller.extend({
@@ -10,7 +9,6 @@ export default Controller.extend({
         authenticateSession(){
             
             let session = this.get('session');
-            // let that = this;
             this.get('session').authenticate('authenticator:torii', 'google-oauth2')
             .then(()=>{
                 
@@ -28,7 +26,7 @@ export default Controller.extend({
                 }
             })
             .catch(function(err){
-                console.log(err);
+            
             })
         }
     },

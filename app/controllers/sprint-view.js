@@ -177,7 +177,7 @@ actions: {
 
   },
   unselectBand(item) {
-
+    // debugger
     this.set('showSprintViewAction', 'true');
 
     if ((this.startTime + 500) < new Date().getTime()) {
@@ -291,13 +291,9 @@ actions: {
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     let that = this;
     if(this.getProperties){
-// let s = this.getProperties('input').input;
 let f = this.getProperties('input').input;
 let s = f.trim();
-console.log(f,"f",s,"s");
 let taskName = s.split('#');
-console.log(taskName,"taskName");
-// if(taskName.length===2){
   let data = {
     createdAt: today,
     initiativeId: that.get('session').initiative.initiativeId,
@@ -309,7 +305,6 @@ console.log(taskName,"taskName");
       status: "New"
     }
   };
-  console.log(data,"Sprint view desktop data it is")
   this.teamCopy.addToTeamCopy(data);
 // }
 
@@ -335,8 +330,6 @@ add2(){
 let f = this.getProperties('input').input;
 let s = f.trim();
 let taskName = s.split('#');
-console.log(taskName,"taskName");
-// if(taskName.length===2){
 let data = {
   createdAt: today,
   initiativeId: that.get('session').initiative.initiativeId,
@@ -348,7 +341,6 @@ let data = {
     status: "New"
   }
 };
-console.log(data,"Sprint view desktop data it is")
 this.teamCopy.addToTeamCopy(data);
 // }
 
@@ -356,154 +348,26 @@ this.get('model').payload.data.tasks.pushObject(data.task);
 let l = this.get('model').payload.data.tasks.length;
 set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
 }
-debugger
-console.log(this.get('input'),"before clear")
 this.set('input',' ')
-console.log(this.get('input'),"after clear")
 
 },
 
 keyDown(event) {
-  // debugger
-  // let self = this;
   let a = this.getProperties('input');
   let c =a.input;
-  // console.log(c,"c")
   if (event.keyCode === 13) {
-      console.log(a,"keystroke");
       let b = {
           tasks:{
               text:c
           }
       }
-      console.log(b,"b")
-      // self.send('submitform');
-      // let data = event.dataTransfer.setData('some_Object', JSON.stringify(this.content));
-      // Ember.run.debounce(self,self.get('add1'),400);
       this.add2();
-      debugger
-      console.log(this.get('input'),"keydown")
+      
       this.set('input',' ')
       return false;
   }
-  else if(event.keyCode === 9) {
-      console.log("tab key press");
-      
-  }
-}
-//   add() {
-//     if (this.getProperties('input').input) {
-//         let s = this.getProperties('input').input;
-//         // let taskName = s.split('#');
-//         // console.log(taskName,"taskName");
-//         //   let word = s.split(' ');
-//         //   console.log(word,"array of space seperated strings");
-//         //   word.map(function(e){
-//             //       if(e.charAt(0)=== "@"){
-                
-//                 //       }
-//                 //   })
-//                 console.log(this,"this1")
-//                 let multi = s.split('+');
-//                 console.log(multi,"multi")
-//                if(multi.length>=0){
-//                    let that = this;
-//                    console.log(that,"that3")
-//                     multi.map(function(e){
-//                         let taskName = e.split('#');
-                        
-//                         console.log(taskName,"taskName");
-//                         let taskName1 = e.split('@');
-//                         console.log(taskName1,"taskName1");
-//                         if(taskName.length>1){
-//                             let l = taskName[1].substring(0);
-//                             let q = l.toUpperCase();
-//                             console.log(q,"q");
-//                             let x = q.trim();
-//                             console.log(x,"x")
-//                             if(x==="BACKLOGS"){
-//                                 let newTask = {
-                                    
-//                                         // text:this.getProperties('input').input,
-//                                         text: taskName[0]
-             
-//                                 }
-//                                 console.log(this,"this Backlogs in activity plan js file");
-//                                 that.teamCopyTasks.pushObject(newTask);
-//                             }
-//                             else if(x==="NEW"){
-                                
-//                                 let z = {
-//                                     text: taskName[0],
-//                                     status: x
-//                                 };
-//                                 console.log(z,"new task z")
-//                                 // y.tasks.pushObject(z);
-//                                 that.teamCopyTasks.pushObject(z);
-//                                 console.log(that.teamCopyTasks,"that.teamCopyTasks")
-//                             }
-//                             else if(x==="PENDING"){
-//                                 let newTask = {
-//                             text: taskName[0],
-//                             status: x
-//                     }
-//                     that.teamCopyTasks.pushObject(newTask);
-//                 }
-                
-//                 else {
-//                     let now = new Date();
-//                     let day = ("0" + now.getDate()).slice(-2);
-// let month = ("0" + (now.getMonth() + 1)).slice(-2);
-// let today = now.getFullYear() + "-" + (month) + "-" + (day);
-//                     let data = {
-//                         text : taskName[0],
-//                         owner : taskName[1] || that.get('session').currentUser.name,
-//                         due_date: today,
-//                         status:"New"
-//                     };
-//                     // newTask.tasks.pushObject(data);
-//                     that.teamCopyTasks.pushObject(data);
-//                     console.log(that.teamCopyTasks,"ASDF")
-//                 }
-//               }  
-//                   else
-//                 {
-//                     let now = new Date();
-// let day = ("0" + now.getDate()).slice(-2);
-// let month = ("0" + (now.getMonth() + 1)).slice(-2);
-// let today = now.getFullYear() + "-" + (month) + "-" + (day);
-//                   let newTask = {
-                      
-//                         // text:this.getProperties('input').input,
-//                         text: taskName[0],
-//                         owner: taskName[1] || that.get('session').currentUser.name,
-//                         due_date: today,
-//                         status: "New"
-//                     }
-//                     console.log(newTask,"ASD")
-//                   that.teamCopyTasks.pushObject(newTask);
-//                 }
-//                     })
-//                } 
-//       }
-//       var now = new Date();
-//       var day = ("0" + now.getDate()).slice(-2);
-//       var month = ("0" + (now.getMonth() + 1)).slice(-2);
-//       var today = now.getFullYear() + "-" + (month) + "-" + (day);
-//       let that = this;
-//       let data = {
-//         createdAt: today,
-//         initiativeId: that.get('session').initiative.initiativeId,
-//         task: that.teamCopyTasks
-//       }
-//       this.teamCopy.addToTeamCopy(data);
-//       this.get('model').payload.data.tasks.pushObject(data.task);
-//       let l = this.get('model').payload.data.tasks.length;
-//       set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
-//       this.set('input','');
-//     }     
   
-// }
+}
 });
 
 

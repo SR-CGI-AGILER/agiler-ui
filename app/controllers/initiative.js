@@ -6,7 +6,6 @@ export default Controller.extend({
    
     actions: {
         navigateToHome() {
-            console.log('this is working', this.get('route'))
             this.transitionToRoute('home')
         }
     }

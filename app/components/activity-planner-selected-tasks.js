@@ -8,7 +8,6 @@ export default Component.extend({
     renderView: 'updates',
     actionComponent: computed('tabIndex', function() {
         let tab = this.get('tabIndex');
-        // console.log(tab,"HEREEEE");
         switch(tab) {
             case 0: this.set('renderView','updates');
                     break;
@@ -41,17 +40,12 @@ export default Component.extend({
     session: Ember.inject.service(),
         actions: {
         raisedButton() {
-            console.log(this.showSprintViewAction,"atreya");
             this.set('showSprintViewAction','true');
-            console.log(this.showSprintViewAction,"atreya");
-            console.log(this.get('todayTeamCopy'));
             this.get('todayTeamCopy').pushObjects(this.get('selectedTasks'));
         },
 
         addToActivityPlan() {
-            // console.log(this.get('todayTeamCopy'));
             this.get('task').pushObjects(this.get('selectedTasks'));
-            // console.log(this.get('todayTeamCopy'));
         },
         assignOwners(){
             

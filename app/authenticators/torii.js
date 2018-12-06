@@ -11,7 +11,6 @@ export default ToriiAuthenticator.extend({
           
         return this.get('torii').open(provider, options)
         .then((authData) => {
-            // console.log(authData, "this is the torii autheticator")
                                      
             return new Promise((resolve, reject) =>  {
                      

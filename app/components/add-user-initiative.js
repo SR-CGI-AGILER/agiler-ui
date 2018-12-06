@@ -29,7 +29,6 @@ export default Component.extend({
                 initiativeName: this.get('selectedItem').initiativeName,
                 email: this.get('name')
             }
-            console.log(this.get('selectedItem'))
             if(data.initiativeId !== ""&& data.initiativeId !== undefined && data.email !== "") {
 
                 this.userInitiative.postNewUser(data).then(function (data) {
@@ -40,7 +39,6 @@ export default Component.extend({
             }
         },
         deleteUser() {
-            console.log("exectuing, delete")
         },
         closeSuccessful() {
 

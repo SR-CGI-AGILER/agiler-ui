@@ -1,4 +1,3 @@
-{{!-- {{#paper-content flex-layout="column" flex=true}} --}}
 
 {{#paper-sidenav-container class="inner-sidenav"}}
 {{#paper-sidenav
@@ -20,7 +19,6 @@
 
 <div class="sidenav-container">
 {{#paper-list}}
-	{{!-- {{#link-to  "my-projects"}} --}}
 	{{#paper-item class="md-2-line"}}
       <div class="md-list-item-text nav-route">
         <img src = {{image}} alt="no image" class="md-avatar" style="width:80px; height:80px">
@@ -29,9 +27,7 @@
   {{#paper-item class="md-2-line"}}
     {{username}}
   {{/paper-item}}
-  {{!-- {{/link-to}} --}}
 	{{paper-divider}}
-	{{!-- {{#link-to  "my-teams"}} --}}
   {{#if showView}}
 	 {{activity-planner-sidenav-initiatives
    showUsers=(action "showUsers")
@@ -43,22 +39,7 @@
     navigate=(action 'navigateToMembers')}}
    {{/if}}
 
-	{{!-- {{paper-divider}} --}}
-	{{!--
-	{{#paper-item class="md-2-line"}}
-      <div class="md-list-item-text" >
-        <h3 class="nav-route">User Profile</h3>
-      </div>
-  {{/paper-item}}
-	{{paper-divider}}
-	{{#link-to "index"}}
-	{{#paper-item class="md-2-line"}}
-      <div class="md-list-item-text">
-        <h3>Logout</h3>
-      </div>
-  {{/paper-item}}
-	{{/link-to}}
-	{{paper-divider}}--}}
+
   {{#paper-item class="md-1-line"}}
     Backlogs
   {{/paper-item}}
@@ -84,7 +65,6 @@
 				{{/paper-sidenav-toggle}}
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
-{{!-- {{/paper-content}} --}}
 
 
 {{/paper-sidenav-container}}

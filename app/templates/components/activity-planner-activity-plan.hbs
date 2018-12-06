@@ -1,19 +1,5 @@
 {{yield}}
-   {{!-- {{#paper-list}} --}}
 
-   {{!-- {{#each projects as |project|}}
-   {{#paper-subheader}}{{project.projectName}}{{/paper-subheader}}
-     {{#each project.tasks as |task|}}
-       {{#paper-item class="md-1-line"}}
-       <div class="md-list-item-text">
-         <p>{{task.text}}</p>
-       </div>
-       <div class="md-secondary-container">
-         {{paper-icon "navigate_next"}}
-       </div>
-     {{/paper-item}}
-     {{/each}}
-   {{/each}} --}}
 
   {{#paper-list}}
     {{#each task as |tasks|}}
@@ -26,11 +12,7 @@
     {{/each}}
   {{/paper-list}}
   
-  {{!-- {{#each todayTeamCopy as |tasks|}}
-    <p>{{tasks.text}}</p>
-  {{/each}} --}}
-
- {{!-- {{/paper-list}} --}}
+ 
  
  <div style="height:80vh"></div>
 
@@ -61,19 +43,6 @@
 {{/if}}
 
 
-{{!-- <div class="layout layout-sm-column">
-  {{#paper-input
-  class="flex"
-  value=text
-  onChange=(action (mut text))
-  label="Type here."
-  type="email" as |input|}}
-    {{#unless input.hasValue}}
-      <div class="hint">Refer to shorthand guides</div>
-    {{/unless}}
-  {{/paper-input}}
-  {{#paper-button onClick=(action 'addTask')}}Send{{/paper-button}}
-</div>  --}}
 <div class="layout-row layout-align-start-end">
    {{#paper-button iconButton=true onClick = (action "publish")}}
     {{paper-icon "eject"}}

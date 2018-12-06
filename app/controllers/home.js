@@ -22,7 +22,6 @@ export default Controller.extend({
 
   isMobile: computed('yes', function () {
     let x = window.screen.availWidth;
-    // console.log(window.screen.availWidth);
     if (x > 760) {
       return false
     } else {
@@ -31,6 +30,9 @@ export default Controller.extend({
   }),
 
   actions: {
+    logout(){
+      this.transitionToRoute("login");
+    },
     publish(todayTeamCopy) {
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
@@ -38,14 +40,12 @@ export default Controller.extend({
       })
     },
     gotoSprint() {
-        // this.transitionToRoute('sprintView');
         
     },
     submit() {
       this.transitionToRoute('sprintView');
     },
     navigateToInitiaive(route){
-      console.log("in controller??")
       this.transitionToRoute(`initiative`, {queryParams: { route: route }})
     },
     navigateTomembers(route){

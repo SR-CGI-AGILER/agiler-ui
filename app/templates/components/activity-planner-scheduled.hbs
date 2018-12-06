@@ -15,11 +15,9 @@
 {{/paper-tabs}}
 
 {{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
-  {{!-- <h1 class="md-display-2">Tab {{current.tab}}</h1> --}}
   {{#paper-list}}
     {{#paper-subheader}}
       {{#if current.tab}}
-        {{!-- Scheduled for Today --}}
         {{#each scheduled as |category|}}
       {{#paper-item class="md-1-line"  as |controls|}}
         <div class="md-list-item-text">
@@ -40,7 +38,6 @@
           {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
 {{#paper-button primary=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
       {{else}}
-        {{!-- Scheduled Today --}}
         {{#each scheduledfor as |category|}}
           {{#paper-item class="md-1-line"  as |controls|}}
             <div class="md-list-item-text">

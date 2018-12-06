@@ -7,7 +7,6 @@ export default Component.extend({
   session:Ember.inject.service(),
   websockets : service('socket-io'),
   mutiComp: false,
-//   projectName: "default",
   session: Ember.inject.service(),
   initiatives: "default",
   io:null,
@@ -20,16 +19,12 @@ export default Component.extend({
     io.on('message',this.addTaskEventHandler, this)
   },
   openEventHandler(event){
-    debugger
   },
   addTaskEventHandler(event){
-    console.log(this.get('task'),"get task")
     this.get('task').pushObject(event)
-    console.log(this.get('task'),"after pushing obj")
   },
   actions: {
     publish() {
-      console.log(this.get('task'));
       this.publish(this.get('task'));
     },
     newTask() {
@@ -65,8 +60,7 @@ export default Component.extend({
           initiativeId : this.get('session').initiative.initiativeId,
           text : newTask.text
       }
-        // this.get('task').pushObject(newTask);
-        // console.log(this.get('task'));
+      
         this.set('projectName','')
         this.set('taskName','');
         this.toggleProperty('showPromptDialog');

@@ -6,15 +6,10 @@ import {
 export default Component.extend({
   init() {
     this._super(...arguments);
-    console.log("HELLO")
-    // this.completedTasks.setEach('checked', false)
-    // this.newTasks.setEach('checked', false)
-    // this.pendingTasks.setEach('checked', false)
+    
   },
 
   willDestroyElement() {
-    console.log("COMPONENET DESTROYED")
-    console.log(this.get('todayTeamCopy'));
 
     this._super(...arguments);
   },
@@ -27,55 +22,42 @@ export default Component.extend({
   
   actions: {
     selectCategory(category) {
-      console.log('Updated Category:', category);
       this.set('currentView', category);
     },
     showCategories() {
-      console.log('Back to Category View');
       this.set('currentView', 'Categories');
     },
     selectBand(event) {
 
-        console.log('selectBand', this.get('category'));
         this.set('startTime', new Date().getTime())
         if (!event.checked) {
           this.selectedTasks.pushObject(event.tasks);
-          console.log(this.selectedTasks, "on touch staart ..!!!");
         } else {
   
           this.selectedTasks.removeObject(event.tasks);
-          console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
         }
   
       },
       unselectBand(item) {
-        console.log('unselect Band', "on touch end ");
         if ((this.startTime + 500) < new Date().getTime()) {
           this.set('selectedTasks', []);
-          console.log("Long Press condition true")
           if (this.selected){
             this.set('selected', false)
-            console.log(this.selected);
             }
           else{
             this.set('selected', true)
-            console.log(this.selected);
           }
             
   
         } else {
-          console.log('else', "happened on the touch end!!!");
           if (!this.selected) {
   
-            console.log('NOT SELECTED', "checkbox not invoked!!");
             this.set('selectedTasks', []);
           }
   
         }
-        console.log(this.selectedTasks, "end state of the arr on touch end");
       },
       myuserdefined(x) {
-        console.log(x, "onChange for the checkbox is triggred")
         x.checked = true;
         return x
   

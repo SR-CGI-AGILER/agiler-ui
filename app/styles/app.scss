@@ -7,20 +7,16 @@ body{
 
 .content {
     display: flex;
-    // flex-direction: column;
+    margin-top: 35vh;
     align-content: center;
     justify-content: center;
 }
 
 .fix-toolbar{
-    // display: flex;
-    // flex-direction: column;
     height: 5vh;
 }
 
 .view-content{
-    // display: flex;
-    // flex-direction: column;
     flex: 1;
     overflow: auto;
 }
@@ -45,9 +41,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
-// .dropdown{
-//     right: 50vw;
-// }
+
 
 .fix-toolbar{
     box-shadow: 0px 2.5px 2.5px rgba(1,1,1,1);
@@ -74,12 +68,6 @@ body{
     
     
 }
-// .md-list-item-text .nav-route{
-// .md-avatar{
-//     width: 100px;
-//     height : 100px
-// }
-// }
 
 
 .sprint-plan-view-mobile {
@@ -99,7 +87,6 @@ body{
                                    
                                     display: flex;
                                     justify-content: flex-end;
-                                    // margin: 0;
                                     margin-left: 20px;
                                     width: 20px;
                                     md-icon {
@@ -111,7 +98,6 @@ body{
                     }
                 }
             }
-            // background-color: black
     }
     .strikeOff{
              text-decoration: line-through;
@@ -134,4 +120,9 @@ body{
 
 .layout-align-start-start{
         overflow-y: scroll
+}
+.standups {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

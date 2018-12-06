@@ -3,16 +3,12 @@ import { computed } from '@ember/object';
 
 
 export default Component.extend({
-    // mutiComp: false,
     session: Ember.inject.service(),
     
     init(){
         this._super(...arguments);
-        // this.set('calledFromInit', )
         if(this.backlogs) {
-            console.log(this.backlogs,"ahs");
             this.backlogs.tasks.forEach(element => {                  
-                    console.log(this.get('backlogProjects'))
                     this.get('backlogProjects').pushObject(element.projectName);
             })
             let allProjects = this.get('backlogProjects').filter((v,i)=>this.get('backlogProjects').indexOf(v) === i);
@@ -21,8 +17,6 @@ export default Component.extend({
     },
    
       willDestroyElement(){
-        console.log("COMPONENET DESTROYED")
-        console.log(this.get('todayTeamCopy'));
        
         this._super(...arguments);
       },
@@ -30,8 +24,6 @@ export default Component.extend({
       startTime: null,
       endTime: null,
       selectedBands: [],
-      // isChecked = true, 
-      // selected: false,
       selectedCount: Ember.computed.reads('selectedBands.length'),
       scheduleds: Ember.inject.service('scheduled'),
     currentView: 'Projects',
@@ -42,24 +34,19 @@ export default Component.extend({
     actions: {
         selectBand(event) {
 
-            console.log('selectBand', this.get('category'));
             this.set('startTime', new Date().getTime())
             if(!event.checked){
               this.selectedTasks.pushObject(event);
-              console.log(this.selectedTasks, "on touch staart ..!!!");
             }
             else{
       
               this.selectedTasks.removeObject(event);
-              console.log(this.selectedTasks, "removing the object !! on touch start @@@@@@");
             }
       
          },   
          unselectBand(item) {
-              console.log('unselect Band', "on touch end ");
               if((this.startTime + 500) < new Date().getTime()){
                   this.set('selectedTasks', []);
-                  console.log("Long Press condition true")
                   if(this.selected) {
                     this.set('selected',false)
                       
@@ -68,25 +55,20 @@ export default Component.extend({
                   }
                   else{
                     this.set('selected', true)
-                    console.log(this.selected);
   
                   }
                     
   
               }
               else{
-                console.log('else', "happened on the touch end!!!");
                 if(!this.selected){
       
-                  console.log('NOT SELECTED', "checkbox not invoked!!");
                   this.set('selectedTasks',[]);
                 }
       
               }
-              console.log(this.selectedTasks, "end state of the arr on touch end");
          },
          myuserdefined(x) {
-             console.log(x, "onChange for the checkbox is triggred")
              x.checked = true;
              return x
           
@@ -108,8 +90,6 @@ export default Component.extend({
         },
         add(){
             let project = this.get('projectName')
-            // let task = this.get('taskName')
-            console.log(project)
             let newData = {
                 initiativeName: this.get('session').initiative.initiativeName,
                 tasks : [
@@ -123,7 +103,6 @@ export default Component.extend({
                 ]
             }
             this.backlog.postBacklog(newData)            
-            console.log(this.backlogTasks,"backlogtasksfromparent")
             this.backlogTasks.pushObject({
                 text: this.get('taskName'),
                 projectName: this.get('projectName'),
@@ -134,7 +113,6 @@ export default Component.extend({
             if(this.get('backlogProjects').indexOf(project) === -1) {
                 this.get('backlogProjects').pushObject(project);
             }
-            console.log(this.backlogTasks,"computed property in child.js")
             this.toggleProperty('showDialog')
 
 
@@ -163,14 +141,11 @@ export default Component.extend({
       backlogTasks: computed('backlogs', function () {
         let btasks = [];
         this.backlogs.forEach(element => {
-          console.log(element.tasks, "hhgugh");
           element.tasks.forEach(task=>{
             btasks.pushObject(task);  
           });
         })
-        console.log(btasks,"I AM BTASKS");
-        // let temp = this.activityPlan.filter((backlogTasks => backlogTasks.tasks.backlog===true) && (backlogTasks.tasks.);
-        // return this.activityPlan.filter(task => task.backlog);
+
         return btasks;
       })
 
