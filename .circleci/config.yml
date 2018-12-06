@@ -28,7 +28,7 @@ jobs:
           name: do dir
           command: ls -la
       - run:
-          name: connect AWS
+          name: connection AWS
           command: ssh ruchik@13.233.75.155
       - run:
           name: command check in AWS VM
