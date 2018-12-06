@@ -7,8 +7,10 @@ jobs:
     steps: 
       - checkout 
       - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: npm install
       - run: npm install
       - save_cache:
           paths:
@@ -20,8 +22,8 @@ jobs:
       enable: true
      steps:
       - run: 
-          - name: do dir
-          - command: ls -la
+          name: do dir
+          command: ls -la
 
 workflows:
   version: 2
