@@ -21,10 +21,18 @@ jobs:
      machine:
       enable: true
      steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c6:54:a6:8e:7e:8c:1f:33:27:a2:14:3d:ac:40:d2:f1"
       - run: 
           name: do dir
           command: ls -la
-
+      - run:
+          name: connect AWS
+          commmand: ssh ruchik@13.233.75.155
+      - run:
+          name: command check in AWS VM
+          command: ls 
 workflows:
   version: 2
   build_and_test: 
