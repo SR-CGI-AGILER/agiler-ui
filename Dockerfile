@@ -10,8 +10,6 @@ RUN npm run build
 
 RUN npm install -g http-server
 
-RUN  
+WORKDIR /app/dist
 
-  
-
-
+CMD ["http-server", "-c1"]
