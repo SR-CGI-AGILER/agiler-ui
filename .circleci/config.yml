@@ -19,8 +19,9 @@ jobs:
      machine:
       enable: true
      steps:
-      - name: do dir
-      - command: ls -la
+      - run: 
+          - name: do dir
+          - command: ls -la
 
 workflows:
   version: 2
