@@ -58,17 +58,19 @@
 
 {{!-- {{#paper-subheader}}Categories{{/paper-subheader}} --}}
 {{#each projectBacklogTasks as |category|}}
+<div ontouchStart={{action "selectBand" category}} 
+ontouchEnd={{action "unselectBand" category}} class="md-list-item-text">
     {{#paper-item class="md-1-line" as |controls|}}
-    <div class="md-list-item-text">
-        <p ontouchStart={{action "selectBand" category}} 
-            ontouchEnd={{action "unselectBand" category}}>{{category.text}}</p>
-    </div>
+    
+        <p >{{category.text}}</p>
+    
     {{#if selected}}
         <div class="md-secondary-container ">
           {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
         </div>
         {{/if}}
     {{/paper-item}}
+    </div>
     {{#liquid-if showMultiComp}}
         {{#paper-item}}
             {{#multi-task-select}}

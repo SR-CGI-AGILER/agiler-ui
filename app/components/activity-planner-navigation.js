@@ -62,6 +62,9 @@ export default Component.extend({
         navigateToMembers(route){
             console.log(route)
             this.navigateToInitiativeMembers(route)
+        },
+        sprintView(){
+            this.sprintView();
         }
     }
 });

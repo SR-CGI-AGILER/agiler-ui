@@ -34,11 +34,6 @@
  
  <div style="height:80vh"></div>
 
-<div class="layout-row layout-align-end-end">
- {{#paper-button fab=true iconButton=true onClick=(action "newTask")}}
-   {{paper-icon "add"}}
- {{/paper-button}}
- </div>
 
 {{#if showPromptDialog}}
   {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") clickOutsideToClose=true origin=dialogOrigin}}
@@ -74,8 +69,11 @@
   {{/paper-input}}
   {{#paper-button onClick=(action 'addTask')}}Send{{/paper-button}}
 </div>  --}}
-<div class="layout-row layout-align-start-end">
-   {{#paper-button iconButton=true onClick = (action "publish")}}
+<div class="layout-row layout-align-end-end">
+ {{#paper-button fab=true raised=true iconButton=true onClick=(action "newTask")}}
+   {{paper-icon "add"}}
+ {{/paper-button}}
+ {{#paper-button fab=true primary=true raised=true iconButton=true onClick = (action "publish")}}
     {{paper-icon "eject"}}
    {{/paper-button}}
 </div>

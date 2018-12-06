@@ -7,38 +7,27 @@
             {{tasks.text}}
         {{/paper-item}}
     {{/each}} --}}
-    {{!-- {{actionComponent}} --}}
+    {{actionComponent}}
     {{#paper-list}}
     {{#if showUpdatesAction}}
     {{!-- <p>SELECTED TASKS {{tabIndex}} {{actionComponent}} {{renderView}}</p> --}}
     
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
+    {{!-- {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
         ADD TO ACTIVITY PLAN
-    {{/paper-button}}
+    {{/paper-button}} --}}
  
     {{/if}}
 
     {{#if showScheduledAction}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO ACTIVITY PLAN
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO COMPLETED
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "reschedule")}}
-        reschedule
+    {{#paper-button primary=true fab=true raised=true onClick=(action "addToActivityPlan")}}
+        AP
     {{/paper-button}}
     {{/if}}
+
     
     {{#if showBacklogsAction}}
-    {{#paper-button raised=true onClick=(action "addToActivityPlan")}}
-        ADD TO ACTIVITY PLAN
-    {{/paper-button}}
-    {{#paper-button raised=true }}
-        ADD TO SCHEDULED
-    {{/paper-button}}
-    {{#paper-button raised=true onClick=(action "assignOwners")}}
-        ASSIGN OWNERS
+    {{#paper-button primary=true fab=true raised=true onClick=(action "addToActivityPlan")}}
+        AP
     {{/paper-button}}
     {{/if}}
 

@@ -96,6 +96,9 @@ export default Component.extend(RecognizerMixin, {
     },
   
   actions: {
+    sprintView(){
+      this.sprintView();
+    },
     reRenderView() {
       // this.reRenderView();
     },

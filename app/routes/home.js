@@ -1,8 +1,17 @@
 import Route from '@ember/routing/route';
 import Ember from 'ember';
 import {set} from '@ember/object';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Route.extend({
+export default Route.extend(AuthenticatedRouteMixin,{
+
+    beforeModel(){
+        let token = this.get('session').userToken;
+        if(!token){
+            this.transitionTo('login');
+        }
+    },
+
     teamCopy: Ember.inject.service(),
     scheduled:Ember.inject.service(),
     activityPlan: Ember.inject.service(),

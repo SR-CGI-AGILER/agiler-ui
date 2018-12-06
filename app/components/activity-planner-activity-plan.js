@@ -20,7 +20,7 @@ export default Component.extend({
     io.on('message',this.addTaskEventHandler, this)
   },
   openEventHandler(event){
-    debugger
+    
   },
   addTaskEventHandler(event){
     console.log(this.get('task'),"get task")

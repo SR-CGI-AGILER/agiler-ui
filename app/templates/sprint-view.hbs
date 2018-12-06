@@ -85,14 +85,12 @@
 
 
 {{#each model.payload.data.tasks as |task|}}
-
+<div ontouchStart={{action "selectBand" task}}
+           ontouchEnd={{action "unselectBand" task}} >
    {{#paper-item class="md-1-line" as |controls|}}
 
    <div class="md-list-item-text">
-
-       <p ontouchStart={{action "selectBand" task}}
-           ontouchEnd={{action "unselectBand" task}}>
-               
+           <p> 
        
        
        <div class="{{if task.isComplete 'strikeOff'}}">
@@ -131,13 +129,14 @@
 
 
        </p>
-       </div>
+       
+</div>
 
 
 
 
    {{/paper-item}}
-
+</div>
        {{/each}}
 
    {{#if showSprintViewAction}}

@@ -6,9 +6,10 @@
     reRenderView = (action "reRenderView")
     navigateToInitiative=(action 'navigateToInitiaiveRoute')
     navigateToInitiativeMembers=(action 'navigateTomembers')
+    sprintView=(action "sprintView")
     }}
 
-
+<div class="my-container">
 {{#liquid-if showUpdatesView}}
     {{#activity-planner-updates
         selected=selected
@@ -62,7 +63,7 @@
 {{!-- {{#if sprint}}
     {{activity-planner-sprint-view}}
 {{/if}} --}}
-
+</div>
 {{#activity-planner-selected-tasks
     tabIndex=tabIndex
     task=task
