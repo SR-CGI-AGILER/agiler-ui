@@ -23,7 +23,7 @@ jobs:
      steps:
       - add_ssh_keys:
           fingerprints:
-            - "c6:54:a6:8e:7e:8c:1f:33:27:a2:14:3d:ac:40:d2:f1"
+            - "89:18:ce:5f:4a:a7:de:37:77:7e:bb:51:dc:74:14:e4"
       - run: 
           name: do dir
           command: ls -la
