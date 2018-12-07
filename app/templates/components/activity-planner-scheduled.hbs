@@ -26,7 +26,7 @@
           <p >
             {{category.text}}
              
-             scheduled_For:{{category.scheduled_For}}</p>
+             </p>{{category.scheduled_For}}
          
         
         {{#if selected}}
@@ -37,10 +37,10 @@
       {{/paper-item}}
       </div>
     {{/each}}
-          {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
+          {{paper-input class="flex" label="Reschedule Date" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
 {{#paper-button  raised=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
       {{else}}
-        {{#each scheduledfor as |category|}}
+        {{#each scheduled_For_Render as |category|}}
         <div ontouchStart={{action "selectBand" category}} 
               ontouchEnd={{action "unselectBand" category}} class="md-list-item-text">
           {{#paper-item class="md-1-line"  as |controls|}}
@@ -48,7 +48,7 @@
               <p >
                 {{category.text}}
                 
-               scheduled_For: {{category.scheduled_For}}</p>
+               </p> {{category.scheduled_For}}
                 
             
             {{#if selected}}
@@ -62,7 +62,7 @@
         {{/each}}
 
             <div class="layout-row layout-align-center-end">
-  {{paper-input class="flex" label="scheduled_For1" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
+  {{paper-input class="flex" label="Reschedule Date" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
 {{#paper-button raised=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
 {{#paper-button raised=true fab=true onClick=(action "showPromptDialogAction")}}+{{/paper-button}}
 {{#if showPromptDialog}}
@@ -70,7 +70,7 @@
     {{#paper-dialog-content}}
       {{paper-input placeholder="text"  value=text onChange=(action (mut text))}}
       {{paper-input placeholder="projectName"  value=projectName onChange=(action (mut projectName))}}
-      {{paper-input class="flex" label="scheduled_For" type="date" value=scheduled_For onChange=(action (mut scheduled_For))}}
+      {{paper-input class="flex" label="Schedule Date" type="date" value=scheduled_For onChange=(action (mut scheduled_For))}}
 
     {{/paper-dialog-content}}
     {{#paper-dialog-actions class="layout-row"}}

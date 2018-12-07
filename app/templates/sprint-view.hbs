@@ -10,8 +10,6 @@
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
 {{#paper-list}}
-
-
     {{#each model.payload.data.tasks as |task|}}
         {{#paper-item class="md-1-line"}}
             <div class="md-list-item-text">
@@ -28,7 +26,6 @@
         
                 {{paper-divider}}
             </div>
-           
             {{#paper-menu as |menu|}}
   {{#menu.trigger}}
     {{#paper-button iconButton=true}}
@@ -79,6 +76,8 @@
 <h2>Today's Sprint</h2>
 {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
+
+{{#if all}}
 {{#paper-list}}
 
 
@@ -136,12 +135,26 @@
    {{#paper-button raised=true onClick=(action "raisedButtonPending")}}
        MARK AS PENDING
    {{/paper-button}}
+   {{#paper-button raised=true onClick=(action "raisedButtonAssignOwner")}}
+       ASSIGN OWNER
+   {{/paper-button}}
    {{/if}}
        {{/paper-list}}
-
+{{else}}
+  {{#paper-list}}
+  {{#each filteredTasks as |task|}}
+    {{#paper-item}}
+       {{task.text}}
+    {{/paper-item}}
+  {{/each}}
+  {{/paper-list}}
+{{/if}}
 <div class="layout-row layout-align-end-end">
  {{#paper-button fab=true iconButton=true onClick=(action "newTask")}}
    {{paper-icon "add"}}
+ {{/paper-button}}
+ {{#paper-button fab=true iconButton=true onClick=(action "switchTasks")}}
+   {{paper-icon "person"}}
  {{/paper-button}}
  </div>
 
@@ -164,6 +177,23 @@
 
   {{/paper-dialog}}
 {{/if}}
+
+
+{{#if showUsersDialog}}
+  {{#paper-dialog class="flex-77" onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
+    
+    {{#paper-dialog-content}}
+       {{#paper-list}}
+          {{#each users as |user|}}
+              {{#paper-item onClick=(action "cancel1" user.email)}}
+                {{user.email}}
+              {{/paper-item}}
+          {{/each}} 
+       {{/paper-list}} 
+    {{/paper-dialog-content}}
+  {{/paper-dialog}}
+{{/if}}
+
 
 </div>
 {{/if}}

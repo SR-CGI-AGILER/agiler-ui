@@ -29,7 +29,6 @@ export default Controller.extend({
 
             await this.userInitiative.getInitiatives(that.get('session').currentUser.email).then(function(data){
             if(!data.data){
-                
                 let newData={
                     name:"default",
                     members : that.get('session').currentUser
@@ -41,7 +40,6 @@ export default Controller.extend({
 
             }
             else {
-                
                 that.get('session').set('initiative',data.data.initiative[0])
             }
             
@@ -55,7 +53,7 @@ export default Controller.extend({
                     initiativeId:data.payload.data.initiative.id,
                     initiativeName:data.payload.data.initiative.name
                 })
-                
+                that.set('createDefault',false);
             }).catch(err=>{
             });
             

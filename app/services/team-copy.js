@@ -27,5 +27,13 @@ export default Service.extend({
             contentType: 'application/json',
             data: JSON.stringify(task_data.task)
             })
+    },
+    assignOwnerToTasks(tasks,initiativeId) {
+        return Ember.$.ajax({
+            url: `http://${ENV.serverhost}/api/v1/updateTeamCopy/owner/${initiativeId}`,
+            type: 'PATCH',
+            contentType: 'application/json',
+            data: JSON.stringify(tasks)
+        })
     }
 });

@@ -10,9 +10,11 @@ import Ember from 'ember';
 export default Controller.extend({
 teamCopy: Ember.inject.service(),
 session: Ember.inject.service(),
+initiativeUser: Ember.inject.service(),
 startTime: null,
 endTime: null,
 showPromptDialog: false,
+showUsersDialog: false,
 teamCopyTasks:[],
 selectedTasks: [],
 showSprintViewAction: false,
@@ -22,6 +24,7 @@ selectedCount: computed.reads('selectedBands.length'),
 isCompleted: false,
 isPending: false,
 yes: true,
+all: true,
 isDesktopSprint: computed('yes', function () {
   let x = window.screen.availWidth;
   if (x < 760) {
@@ -30,7 +33,12 @@ isDesktopSprint: computed('yes', function () {
     return true
   }
 }),
-
+async init() {
+  let that=this
+  await this.initiativeUser.getUsers(this.get('session').initiative.initiativeId).then(function(data) {
+    that.set('users',data.data)      
+  })
+},
 actions: {
   newTask() {
     this.set('showPromptDialog', true);
@@ -40,10 +48,28 @@ actions: {
     this.set('projectName', '');
     this.set('taskName', '');
   },
+  closeDialog(){
+    this.toggleProperty('showUsersDialog')
+  },
   cancel() {
     this.toggleProperty('showPromptDialog');
     this.set('projectName', '');
     this.set('taskName', '');
+  },
+  cancel1(email){
+    let taskArray = []
+    this.get('selectedTasks').map(function(e){
+      let data = {
+        taskId : e._id
+      }
+      taskArray.pushObject(data)
+    })
+    let reqData = {
+      owner : email,
+      tasks : taskArray
+    }
+    this.teamCopy.assignOwnerToTasks(reqData,this.get('session').initiative.initiativeId,);
+    this.toggleProperty('showUsersDialog')
   },
   ok() {
     var now = new Date();
@@ -63,6 +89,7 @@ actions: {
       }
     };
 
+
     this.teamCopy.addToTeamCopy(data);
     this.get('model').payload.data.tasks.pushObject(data.task);
     let l = this.get('model').payload.data.tasks.length;
@@ -72,12 +99,13 @@ actions: {
     this.set('projectName', '');
     this.set('taskName', '');
     this.set('showPromptDialog', false);
+    this.set('showUsersDialog',false)
   },
-  // add() {
-  //   if (this.getProperties('input').input) {
-  //     let a = this.getProperties('input').input;
-  //   }
-  // },
+  switchTasks(){
+      this.toggleProperty('all')
+      console.log("happeneing",this.get('all') , this.get('filteredTasks'))  
+  },
+  
   raisedButtonComplete() {
     let taskArray = [];
     let that =  this;
@@ -159,7 +187,15 @@ actions: {
     });
     this.set('selected', false);
   },
-
+  raisedButtonAssignOwner(){
+    // let taskArray=[]
+    // this.get('selectedTasks').map(function(e){
+    //   let data = {
+    //     owner :  
+    //   }
+this.toggleProperty('showUsersDialog')
+    
+  },
 
 
 

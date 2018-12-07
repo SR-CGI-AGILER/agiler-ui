@@ -3,6 +3,7 @@ import Ember from 'ember';
 import { set } from '@ember/object';
 
 export default Component.extend({
+  scheduled_For_Render: [],
   session: Ember.inject.service(),
   init() {
    
@@ -10,7 +11,14 @@ export default Component.extend({
     if(this.futureTasks) {
       this.futureTasks.setEach('checked',false)
     }
-       
+    // this.set('scheduled_For_Render',this.get(''))
+    // console.log(this.get('scheduledfor'), "INIT is the statsu")
+    let that = this
+    this.get('scheduledfor').map(function(e) {
+      
+      that.get('scheduled_For_Render').pushObject(e)
+    })
+    console.log(this.get('scheduled_For_Render'), "ldfksjdkfj")
   },
   
   willDestroyElement() {
@@ -103,9 +111,18 @@ export default Component.extend({
         tasks: { text: (this.getProperties('text')).text, projectName: (this.getProperties('projectName')).projectName, scheduled_For: date }
 
       };
-
+      var d1 = d
+      var day = ("0" + d1.getDate()).slice(-2);
+      var month = ("0" + (d1.getMonth()+ 1)).slice(-2);
+      var act_Date = d1.getFullYear() + "-" + (month) + "-" + (day);
       this.scheduleds.postScheduled(newdata);
-      this.get('scheduledfor').pushObject(newdata);
+      let render_object = {
+        projectName: this.getProperties('projectName').projectName,
+        scheduled_For: act_Date,
+        text: this.getProperties('text').text
+      }
+      this.get('scheduled_For_Render').pushObject(render_object);
+      console.log(this.get('scheduled_For_Render'), "what is the statsu")
       this.toggleProperty('showPromptDialog');
 
 

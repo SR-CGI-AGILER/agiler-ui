@@ -1,7 +1,10 @@
 import Component from '@ember/component';
 import Ember from 'ember';
-
+import service from 'ember-service/inject';
+import getOwner from 'ember-owner/get';
 export default Component.extend({
+    routing: service("-routing"),
+
     initiativeUser : Ember.inject.service(),
     session: Ember.inject.service(),
     image:"",
@@ -17,6 +20,9 @@ export default Component.extend({
     },
     actions: {
         logout(){
+            const currentRouteName = this.get("routing.currentRouteName");
+            const currentRouteInstant = getOwner(this).lookup(`route:${currentRouteName}`);
+            currentRouteInstant.refresh();
             this.logout();
         },
         reRenderView(){

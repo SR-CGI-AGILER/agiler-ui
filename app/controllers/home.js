@@ -5,8 +5,11 @@ import Ember from 'ember';
 import {
   computed
 } from '@ember/object';
+import service from 'ember-service/inject';
+import getOwner from 'ember-owner/get';
 
 export default Controller.extend({
+  routing: service("-routing"),
   queryParams: ['ifPublished'],
   activityPlan: Ember.inject.service(),
   userInitiative : Ember.inject.service(),
@@ -34,7 +37,16 @@ export default Controller.extend({
   actions: {
     logout(){
       // console.log(this.get('session').usertoken)
-      this.transitionToRoute("login");
+      // this.get('seshsion').invalidate('authenticator:torii', 'google-oauth2');
+      // const currentRouteName = this.get("routing.currentRouteName");
+      // const currentRouteInstant = getOwner(this).lookup(`route:${currentRouteName}`);
+      // currentRouteInstant.refresh();
+      // this.transitionToRoute('login');
+      let that=this;
+      this.get('session').invalidate().then(()=>{
+        that.transitionToRoute('login');
+      });
+      console.log(this.get('session').currentUser,this.get('session').userToken);
     },
     sprintView(){
       this.transitionToRoute("sprintView")

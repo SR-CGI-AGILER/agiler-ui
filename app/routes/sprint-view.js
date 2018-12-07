@@ -21,8 +21,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
         var month = ("0" + (d.getMonth()+ 1)).slice(-2);
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         var initiativeId = this.get('session').initiative.initiativeId;
-       await  this.teamCopy.getTeamCopy(today,initiativeId).then(data => {
-        
+        await  this.teamCopy.getTeamCopy(today,initiativeId).then(data => {
+
+        let that = this;
         data.payload.data.tasks.map(function(e){
                 if(e.status === 'Completed'){
                     e.isComplete = true;
@@ -43,11 +44,21 @@ export default Route.extend(AuthenticatedRouteMixin, {
             })
             
             response = data;
+            let filterTask = data.payload.data.tasks.filter(function(eachTask) {
+                 console.log(eachTask, that.get('session').currentUser)
+                if(eachTask.owner === that.get('session').currentUser.email) {
+                    return eachTask
+                }
+            })
+            debugger
+            this.set('filteredTasks', filterTask);
         })
-        
+
         let a =  new Promise(function(resolve, reject) {
             resolve(response)
         })
+
+
         return response;
 
         
@@ -55,6 +66,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     setupController(controller, model){
         this._super(controller, model);
         controller.set('model',model);
+        controller.set('filteredTasks', this.get('filteredTasks'))
     }
     
 });
