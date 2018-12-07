@@ -37,10 +37,12 @@
       {{/paper-item}}
       </div>
     {{/each}}
+    <div class="layout-row layout-align-center-end">
           {{paper-input class="flex" label="Reschedule Date" type="date" value=scheduled_For1 onChange=(action (mut scheduled_For1))}}
 {{#paper-button  raised=true fab=true onClick=(action "reschedule")}}@{{/paper-button}}
+      </div>
       {{else}}
-        {{#each scheduled_For_Render as |category|}}
+        {{#each scheduledfor as |category|}}
         <div ontouchStart={{action "selectBand" category}} 
               ontouchEnd={{action "unselectBand" category}} class="md-list-item-text">
           {{#paper-item class="md-1-line"  as |controls|}}

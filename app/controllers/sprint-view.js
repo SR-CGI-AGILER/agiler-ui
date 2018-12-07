@@ -34,11 +34,13 @@ isDesktopSprint: computed('yes', function () {
   }
 }),
 async init() {
+  // debugger
   let that=this
   await this.initiativeUser.getUsers(this.get('session').initiative.initiativeId).then(function(data) {
     that.set('users',data.data)      
   })
 },
+
 actions: {
   newTask() {
     this.set('showPromptDialog', true);
@@ -193,7 +195,8 @@ actions: {
     //   let data = {
     //     owner :  
     //   }
-this.toggleProperty('showUsersDialog')
+
+    this.toggleProperty('showUsersDialog')
     
   },
 

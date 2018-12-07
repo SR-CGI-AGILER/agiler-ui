@@ -13,7 +13,7 @@ export default Component.extend({
         let that = this
         this._super(...arguments);
         let user = this.session.currentUser.email
-
+        this.set('initiativeSuggestion',[]);
         await this.userInitiative.getInitiatives(user).then(function(data) {
             data.data.initiative.map(function(e) {
                 that.initiativeSuggestion.pushObject(e)

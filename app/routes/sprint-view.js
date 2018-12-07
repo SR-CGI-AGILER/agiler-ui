@@ -11,9 +11,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
             this.transitionTo('login');
         }
     },
+    initiativeUser: Ember.inject.service(),
     teamCopy: Ember.inject.service(),
     session: Ember.inject.service(),
+    users: {},
     async model(){
+        let that=this;
+        await this.initiativeUser.getUsers(this.get('session').initiative.initiativeId).then(function(data) {
+            that.set('users',data.data)      
+        })
         let response;
 
         var d = new Date();
@@ -66,7 +72,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     setupController(controller, model){
         this._super(controller, model);
         controller.set('model',model);
-        controller.set('filteredTasks', this.get('filteredTasks'))
+        controller.set('filteredTasks', this.get('filteredTasks'));
+        controller.set('users', this.get('users'));
     }
     
 });

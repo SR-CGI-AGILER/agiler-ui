@@ -11,14 +11,6 @@ export default Component.extend({
     if(this.futureTasks) {
       this.futureTasks.setEach('checked',false)
     }
-    // this.set('scheduled_For_Render',this.get(''))
-    // console.log(this.get('scheduledfor'), "INIT is the statsu")
-    let that = this
-    this.get('scheduledfor').map(function(e) {
-      
-      that.get('scheduled_For_Render').pushObject(e)
-    })
-    console.log(this.get('scheduled_For_Render'), "ldfksjdkfj")
   },
   
   willDestroyElement() {
@@ -121,11 +113,9 @@ export default Component.extend({
         scheduled_For: act_Date,
         text: this.getProperties('text').text
       }
-      this.get('scheduled_For_Render').pushObject(render_object);
-      console.log(this.get('scheduled_For_Render'), "what is the statsu")
+      this.get('scheduled').pushObject(render_object);
+      this.get('scheduledfor').pushObject(render_object);
       this.toggleProperty('showPromptDialog');
-
-
     }
 
   }

@@ -4,12 +4,31 @@ body{
     margin: 0;
     padding: 0;
 }
+.whole_View{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: space-between;
+    align-items: flex-start;
+    .tag {
+        padding: 6%;
+        border-left: solid;
+        margin: 2%;
+    }
+}
 
 .content {
-    display: flex;
-    margin-top: 35vh;
-    align-content: center;
-    justify-content: center;
+   display: flex;
+   width: 100%;
+   button: {
+       flex-grow: 1;
+   }
+}
+.tag{
+    order: 0;
+    flex: 0 1 auto;
+    align-self: center;
 }
 
 .fix-toolbar{
