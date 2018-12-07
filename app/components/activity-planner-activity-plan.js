@@ -41,6 +41,7 @@ export default Component.extend({
     
   },
   addTaskEventHandler(event){
+    debugger
     this.get('task').pushObject(event)
     this.set('event',{});
   },

@@ -53,6 +53,7 @@ export default Controller.extend({
     },
     publish(todayTeamCopy) {
       let that=this;
+      console.log(todayTeamCopy, "this should get logged!!!!", new Date().getTime, "so that we can check the time in docker container")
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
         that.transitionToRoute('sprintView');
