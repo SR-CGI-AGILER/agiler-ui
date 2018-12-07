@@ -15,14 +15,17 @@ body{
         padding: 6%;
         border-left: solid;
         margin: 2%;
+        width: 70%;
     }
 }
 
 .content {
-   display: flex;
-   width: 100%;
-   button: {
-       flex-grow: 1;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+   button {
+       width: 83%;
    }
 }
 .tag{

@@ -30,7 +30,7 @@ export default Component.extend({
             let data = {
                 initiativeId: this.get('selectedItem').initiativeId,
                 initiativeName: this.get('selectedItem').initiativeName,
-                email: this.get('name')
+                email: this.get('name').toLowerCase()
             }
             if(data.initiativeId !== ""&& data.initiativeId !== undefined && data.email !== "") {
 
