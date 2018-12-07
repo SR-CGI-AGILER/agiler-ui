@@ -16,7 +16,35 @@ export default Component.extend({
     notPublished: true,
     activityPlan: Ember.inject.service('activity-plan'),
     productBacklogs: Ember.inject.service(),
+    scheduleds: Ember.inject.service('scheduled'),
     session: Ember.inject.service(),
+    showButton: true,
+    teamCopy: Ember.inject.service(),
+
+    
+    async init(){
+        this._super()
+        let that=this;
+        var d = new Date();
+        var day = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth()+ 1)).slice(-2);
+        var today = d.getFullYear() + "-" + (month) + "-" + (day);
+        await this.teamCopy.getTeamCopy(today,this.get('session').initiative.initiativeId).then(function(data){
+          if(data.payload.data === "NO DATA FOUND"){
+              
+              that.set('showButton',true)
+          }
+          else{
+              
+              that.set('showButton',false)
+          }
+        }); 
+        // const io=this.websockets.socketFor(`http://${ENV.serverhost}`)
+        // this.set('io',io)
+        // io.on('connect',this.openEventHandler,this)
+        // io.on('message',this.addTaskEventHandler, this)
+      },
+      
     actions: {
 
         publishActivityPlan(){
@@ -36,10 +64,9 @@ export default Component.extend({
            
            this.set('isPublished',true);
            this.set('notPublished', false);
+           this.set('showButton',false);
         },
-        submit() {
-            this.get('submit')();
-          },
+        
         addTask(x){
             let that = this;
            
@@ -49,7 +76,9 @@ export default Component.extend({
             let month = ("0" + (now.getMonth() + 1)).slice(-2);
             let today = now.getFullYear() + "-" + (month) + "-" + (day);
             x.due_date = today;
-            x.owner = that.get('session').currentUser.name
+            x.owner = that.get('session').currentUser.email;
+            x.status = "Standup";
+            console.log(x,"x")
             this.activityPlanTasks.pushObject(x);
             
 
@@ -62,93 +91,135 @@ export default Component.extend({
             var today = now.getFullYear() + "-" + (month) + "-" + (day);
             if (this.getProperties('input').input) {
                 let s = this.getProperties('input').input;
-                       
+                
                         let multi = s.split('+');
-                        
                        if(multi.length>=0){
                            let that = this;
-                           
                             multi.map(function(e){
-                                let taskName = e.split('#');
-                                
-                              
-                                let taskName1 = e.split('@');
-                                if(taskName.length>1){
-                                    let l = taskName[1].substring(0);
-                                    let q = l.toUpperCase();
-                                    let x = q.trim();
-                                    if(x==="BACKLOGS"){
-                                        let newTask = {
-                                            
-                                                text: taskName[0]
-                     
+                                if(e!==""){
+                                    let taskName = e.split('#');
+                                    console.log(taskName,"taskName#");
+                                    // let taskName1 = e.split('@');
+                                    // let taskName1 =  e.split('@').slice(1).join('@');
+
+                                    let taskName1 =e.replace(/\@/,'&').split('&');
+                                    console.log(taskName1,"taskName1@")
+                                    let taskName2;
+                                    if(taskName.length>=2){
+
+                                         taskName2 = taskName[1].split('@');
+                                        console.log(taskName2,"taskName2");
+                                    }
+                                    
+                                    if(taskName.length>1){
+                                        let l = taskName[1].substring(0);
+                                        let q = l.toUpperCase();
+                                        let x = q.trim();
+                                        if(x==="BACKLOGS"){
+                                            let newTask = {
+                                                
+                                                    text: taskName[0]
+                                                    
+                                             
+                                            }
+                                            that.backlogTasks.pushObject(newTask);
+                                            let backlogData = {
+                                                createdAt: today,
+                                                initiativeId: that.get('session').initiative.initiativeId,
+                                              tasks: []
+                                            };
+                                             backlogData.tasks= that.backlogTasks;
+                                            that.productBacklogs.postBacklog(backlogData);
                                         }
-                                        that.backlogTasks.pushObject(newTask);
-                                        let backlogData = {
-                                            createdAt: today,
-                                            initiativeId: that.get('session').initiative.initiativeId,
-                                          tasks: []
-                                        };
-                                         backlogData.tasks= that.backlogTasks
-                                        that.productBacklogs.postBacklog(backlogData);
-                                    }
-                                    else if(x==="NEW"){
+                                        else if(x==="NEW"){
+                                            let z ={
+                                                text: taskName[0],
+                                            status:x
+                                            }
+                                          
+                                            that.newTasks.pushObject(z);
+                                        }
+                                        else if(x==="PENDING"){
+                                            let newTask = {
                                         
-                                        let z = {
-                                            text: taskName[0],
-                                            status: x
-                                        };
-                                        that.newTasks.pushObject(z);
-                                    }
-                                    else if(x==="PENDING"){
-                                        let newTask = {
+                                    
+                                        text: taskName[0],
+                                        status:x
+                                
+                                }
+                                that.pendingTasks.pushObject(newTask);
+                            }
+                            else if(taskName2[0].toUpperCase()==="SCHEDULE"){
+                                
+                                let newTask = {
                                     text: taskName[0],
-                                    status: x
+                                    scheduled_On:today,
+                                    scheduled_For:taskName2[1] || today
+                                };
+                            console.log(newTask,"newTask")
+                                that.scheduledFutureTasks.pushObject(newTask);
+                                that.scheduledTodayTasks.pushObject(newTask);
+                                let data = {
+                                    initiative: that.get('session').initiative.initiativeId,
+                                    tasks : newTask
+                                };
+                                console.log(data,"Data sche")
+                                that.scheduleds.postScheduled(data);
+
                             }
-                            that.pendingTasks.pushObject(newTask);
-                        }
-                        
-                        else {
-                            let now = new Date();
-                            let day = ("0" + now.getDate()).slice(-2);
-        let month = ("0" + (now.getMonth() + 1)).slice(-2);
-        let today = now.getFullYear() + "-" + (month) + "-" + (day);
-                            let data = {
-                                text : taskName[0],
-                                owner : taskName[1] || that.get('session').currentUser.name,
-                                due_date: today,
-                                status:"Standup"
-                            };
-                            that.activityPlanTasks.pushObject(data);
-                        }
-                      }  
-                          else
-                        {
-                            let now = new Date();
-        let day = ("0" + now.getDate()).slice(-2);
-        let month = ("0" + (now.getMonth() + 1)).slice(-2);
-        let today = now.getFullYear() + "-" + (month) + "-" + (day);
-                          let newTask = {
-                              
-                                text: taskName[0],
-                                owner: taskName[1],
-                                due_date: today,
-                                status: "Standup"
+                            
+                            else if(x!==""){
+                                let now = new Date();
+                                let day = ("0" + now.getDate()).slice(-2);
+                                let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                                let today = now.getFullYear() + "-" + (month) + "-" + (day);
+                                
+                                console.log(taskName,"taskName")
+        
+                                let newTask = {
+                                    
+                                      text: taskName1[0],
+                                      owner: taskName1[1] || that.get('session').currentUser.email,
+                                      due_date: today,
+                                      status: "Standup"
+                                  }
+                                  console.log(newTask,"newTask");
+                                  that.activityPlanTasks.pushObject(newTask);
                             }
-                          that.activityPlanTasks.pushObject(newTask);
-                        }
+                          }  
+                              else
+                            {
+                                let now = new Date();
+                                let day = ("0" + now.getDate()).slice(-2);
+                                let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                                let today = now.getFullYear() + "-" + (month) + "-" + (day);
+                         console.log(taskName,"taskName")
+        
+                              let newTask = {
+                                
+                                    text: taskName1[0],
+                                    owner: taskName1[1] || that.get('session').currentUser.email,
+                                    due_date: today,
+                                    status: "Standup"
+                                }
+                                console.log(newTask,"newTask");
+        
+                              that.activityPlanTasks.pushObject(newTask);
+                            }
+                                }
+         
                             })
                        } 
-              }
-              this.set('input',' ')
-            
-
+                    }
+                    set(this,'input',' ');
+        
             }     
     },
 
 
     
 add1(){
+    
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -162,7 +233,19 @@ add1(){
                     multi.map(function(e){
                         if(e!==""){
                             let taskName = e.split('#');
-                            let taskName1 = e.split('@');
+                            console.log(taskName,"taskName#");
+                            // let taskName1 = e.split('@');
+                            // let taskName1 =  e.split('@').slice(1).join('@');
+
+                            let taskName1 =e.replace(/\@/,'&').split('&');
+                            console.log(taskName1,"taskName1@")
+                            let taskName2;
+                            if(taskName.length>=2){
+
+                                 taskName2 = taskName[1].split('@');
+                                console.log(taskName2,"taskName2");
+                            }
+                            
                             if(taskName.length>1){
                                 let l = taskName[1].substring(0);
                                 let q = l.toUpperCase();
@@ -201,19 +284,41 @@ add1(){
                         }
                         that.pendingTasks.pushObject(newTask);
                     }
+                    else if(taskName2[0].toUpperCase()==="SCHEDULE"){
+                        
+                        let newTask = {
+                            text: taskName[0],
+                            scheduled_On:today,
+                            scheduled_For:taskName2[1] || today
+                        };
+                    console.log(newTask,"newTask")
+                        that.scheduledFutureTasks.pushObject(newTask);
+                        that.scheduledTodayTasks.pushObject(newTask);
+                        let data = {
+                            initiative: that.get('session').initiative.initiativeId,
+                            tasks : newTask
+                        };
+                        console.log(data,"Data sche")
+                        that.scheduleds.postScheduled(data);
+
+                    }
                     
                     else if(x!==""){
                         let now = new Date();
                         let day = ("0" + now.getDate()).slice(-2);
                         let month = ("0" + (now.getMonth() + 1)).slice(-2);
                         let today = now.getFullYear() + "-" + (month) + "-" + (day);
+                        
+                        console.log(taskName,"taskName")
+
                         let newTask = {
                             
                               text: taskName1[0],
-                              owner: taskName1[1],
+                              owner: taskName1[1] || that.get('session').currentUser.email,
                               due_date: today,
                               status: "Standup"
                           }
+                          console.log(newTask,"newTask");
                           that.activityPlanTasks.pushObject(newTask);
                     }
                   }  
@@ -223,13 +328,17 @@ add1(){
                         let day = ("0" + now.getDate()).slice(-2);
                         let month = ("0" + (now.getMonth() + 1)).slice(-2);
                         let today = now.getFullYear() + "-" + (month) + "-" + (day);
+                 console.log(taskName,"taskName")
+
                       let newTask = {
                         
                             text: taskName1[0],
-                            owner: taskName1[1],
+                            owner: taskName1[1] || that.get('session').currentUser.email,
                             due_date: today,
                             status: "Standup"
                         }
+                        console.log(newTask,"newTask");
+
                       that.activityPlanTasks.pushObject(newTask);
                     }
                         }
@@ -238,7 +347,6 @@ add1(){
                } 
             }
             set(this,'input',' ');
-
 
     },
     keyDown(event) {

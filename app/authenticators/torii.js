@@ -25,5 +25,11 @@ export default ToriiAuthenticator.extend({
                 })
             })
         })
+    },
+    invalidate(){
+        let that=this;
+        return new Promise((resolve,reject)=>{
+            resolve(this.get('session'))
+        });
     }
 })

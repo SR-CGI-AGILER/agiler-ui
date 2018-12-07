@@ -40,17 +40,14 @@
    {{/if}}
 
 
-  {{#paper-item class="md-1-line"}}
-    Backlogs
-  {{/paper-item}}
-  {{#paper-item class="md-1-line"}}
-    Scheduled Tasks
-  {{/paper-item}}
-  {{#link-to "sprintView"}}
-  {{#paper-item class="md-1-line"}}
+
+ {{#paper-item onClick=(action "sprintView") class="md-1-line"}}
     Sprint Plan
   {{/paper-item}}
-  {{/link-to}}  
+
+    {{#paper-item onClick=(action "logout")}}
+  Logout
+  {{/paper-item}}  
 {{/paper-list}}	 
 </div>		
 	{{/paper-sidenav}}

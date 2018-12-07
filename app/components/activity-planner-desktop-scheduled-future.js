@@ -6,29 +6,29 @@ import { set } from '@ember/object';
 
 export default Component.extend({
     taskData: Ember.inject.service(),
-    // scheduledFutureTasks:['Task 1','Task 2', 'Task 3'],
-    // removeTask: "this is check string",
-    // actions : {
-    //     removeTask (taskObject) {
+    scheduledFutureTasks:['Task 1','Task 2', 'Task 3'],
+    removeTask: "this is check string",
+    actions : {
+        removeScheduledFutureTask (taskObject) {
             
             
-    //         // console.log(taskObject, "is this getting triggered ??")
-    //     let arr = taskObject.that.scheduledFutureTasks.filter(task=> task._id !== taskObject.data._id);
-    //     console.log(arr,"what is this?")
-    //     // taskObject.that.scheduledFutureTasks = arr.splice(0);
-    //     set(taskObject.that,'scheduledFutureTasks',arr);
-    //         // taskObject.that.scheduledFutureTasks.removeObject(taskObject.data);
+            // console.log(taskObject, "is this getting triggered ??")
+        let arr = taskObject.that.scheduledFutureTasks.filter(task=> task._id !== taskObject.data._id);
+        console.log(arr,"what is this?")
+        // taskObject.that.scheduledFutureTasks = arr.splice(0);
+        set(taskObject.that,'scheduledFutureTasks',arr);
+            // taskObject.that.scheduledFutureTasks.removeObject(taskObject.data);
         
-    //     }
-    // },
+        }
+    },
     init(){
         this._super(...arguments)
         let that = this
         
-        this.get('taskData').on('data-comming', function(data) {
+        this.get('taskData').on('data-commingScheduledFuture', function(data) {
             // console.log(data,"init data")
             // console.log("sdfsdfsdf",that.scheduledFutureTasks,"this has reached the parent")
-            that.actions.removeTask({that: that, data: data})
+            that.actions.removeScheduledFutureTask({that: that, data: data})
             
             
         })

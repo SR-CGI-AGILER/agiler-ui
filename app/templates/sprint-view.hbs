@@ -6,10 +6,20 @@
     {{#paper-button iconButton=true onClick=(action "goToHome")}}
       {{paper-icon "keyboard_backspace"}}
       {{/paper-button}}
-      <h2>Today's Sprint</h2>
+      <h2>Today's Scrum  Plan</h2>
     {{/paper-toolbar-tools}}
   {{/paper-toolbar}}
+{{#if blank}}
+
+ {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToastWithout") as |toast|}}
+   {{#toast.text}}Activity Plan not yet published for today{{/toast.text}}
+ {{/paper-toast}}
+
+{{else}}
+
 {{#paper-list}}
+
+
 
 
     {{#each model.payload.data.tasks as |task|}}
@@ -50,12 +60,17 @@
         <span>Mark Pending</span>
         {{/paper-button}}
         {{/content.menu-item}}
+        {{!-- {{#content.menu-item onClick=(action "scheduleTask" task)}}
+        {{#paper-button}}
+        {{paper-icon "date_range"}}
+        <span>Schedule Task</span>
+        {{/paper-button}}
+        {{/content.menu-item}} --}}
   {{/menu.content}}
 {{/paper-menu}}
         {{/paper-item}}
     
     {{/each}}
-
 
 {{/paper-list}}
 
@@ -64,6 +79,7 @@
   {{#paper-button iconButton=true onClick=(action "add1")}}
   {{paper-icon "send"}}
   {{/paper-button}}
+{{/if}}
 
 {{else}}
 
@@ -79,6 +95,12 @@
 <h2>Today's Sprint</h2>
 {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
+{{#if blank}}
+ {{#paper-toast duration=duration position=(concat positionY " " positionX) capsule=capsule swipeToClose=swipeToClose onClose=(action "closeToastWithout") as |toast|}}
+   {{#toast.text}}Activity Plan not yet published for today{{/toast.text}}
+ {{/paper-toast}}
+{{else}}
+
 {{#paper-list}}
 
 
@@ -165,6 +187,7 @@
   {{/paper-dialog}}
 {{/if}}
 
+{{/if}}
 </div>
 {{/if}}
 

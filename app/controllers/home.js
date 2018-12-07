@@ -33,8 +33,10 @@ export default Controller.extend({
 
   actions: {
     logout(){
-      // console.log(this.get('session').usertoken)
-      this.transitionToRoute("login");
+      let that = this;
+      this.get('session').invalidate().then(()=>{
+        that.transitionToRoute("login");
+      });
     },
     sprintView(){
       this.transitionToRoute("sprintView")
@@ -43,6 +45,12 @@ export default Controller.extend({
       let that=this;
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
+        that.transitionToRoute('sprintView');
+      })
+    },
+    publishDesktop(todayTeamCopy) {
+      let that = this;
+      this.activityPlan.publishActivityPlan(todayTeamCopy).then(function(data){
         that.transitionToRoute('sprintView');
       })
     },

@@ -1,7 +1,7 @@
 {{yield}}
 
-<div style="width:98vw">
-  {{#if notPublished}}
+<div class="activity-plan-desktop" style="width:98vw">
+  {{#if showButton}}
  {{#draggable-dropzone dropped="addTask"}}
 {{#paper-card class="a" as |card|}}
       {{#card.title as |title|}}
@@ -12,7 +12,7 @@
 
         {{#paper-list}}
         {{#each activityPlanTasks as |task|}}
-  {{#paper-item}}{{task.text}}{{/paper-item}} 
+  {{#paper-item}}{{task.text}} <p>@{{task.owner}}</p>{{/paper-item}} 
           {{/each}}
         {{/paper-list}}
 
@@ -26,6 +26,7 @@
   {{paper-icon "publish"}}
   {{/paper-button}}
 
+ 
 
         {{/title.text}}
       {{/card.title}}

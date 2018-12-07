@@ -10,6 +10,8 @@ import Ember from 'ember';
 export default Controller.extend({
 teamCopy: Ember.inject.service(),
 session: Ember.inject.service(),
+productBacklogs: Ember.inject.service(),
+scheduleds: Ember.inject.service('scheduled'),
 startTime: null,
 endTime: null,
 showPromptDialog: false,
@@ -32,6 +34,9 @@ isDesktopSprint: computed('yes', function () {
 }),
 
 actions: {
+  closeToastWithout(){
+
+  },
   newTask() {
     this.set('showPromptDialog', true);
   },
@@ -280,6 +285,26 @@ actions: {
       }
     });
   },
+  
+  scheduleTask(task){
+    let taskArray = [];
+    let that =  this;
+    let d =new Date((this.getProperties('scheduled_For1')).scheduled_For1)
+    let date = d.getTime()
+    this.get('selectedTasks').map(function (e) {
+      let data = {
+        taskId: e._id,
+        scheduled_For: date,
+      };
+      taskArray.pushObject(data);
+    })
+    let data = {
+      initiativeId: that.get('session').initiative.initiativeId,
+      arr: []
+    };
+    data.arr = taskArray;
+    this.scheduleds.patchScheduled(data);
+  },
   goToHome() {
     this.transitionToRoute("home")
   
@@ -294,6 +319,23 @@ actions: {
 let f = this.getProperties('input').input;
 let s = f.trim();
 let taskName = s.split('#');
+let d = taskName[1].toUpperCase();
+if(d==="BACKLOGS"   && d!=="")
+{
+  let data = {
+    createdAt: today,
+    initiativeId: that.get('session').initiative.initiativeId,
+    task: {
+      text: taskName[0],
+      status: "Backlogs"
+    }
+  };
+  this.productBacklogs.postBacklog(data);
+  this.get('model').payload.data.tasks.pushObject(data.task);
+  let l = this.get('model').payload.data.tasks.length;
+  set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
+}
+else  {
   let data = {
     createdAt: today,
     initiativeId: that.get('session').initiative.initiativeId,
@@ -306,11 +348,12 @@ let taskName = s.split('#');
     }
   };
   this.teamCopy.addToTeamCopy(data);
-// }
-
+  
   this.get('model').payload.data.tasks.pushObject(data.task);
   let l = this.get('model').payload.data.tasks.length;
   set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
+}
+  
   }
   // this.set('input','');
   this.set('input',' ')
@@ -330,6 +373,26 @@ add2(){
 let f = this.getProperties('input').input;
 let s = f.trim();
 let taskName = s.split('#');
+let d = taskName[1].toUpperCase();
+if(d==="BACKLOGS")
+{
+let data = {
+  createdAt: today,
+  initiativeId: that.get('session').initiative.initiativeId,
+  task: {
+    text: taskName[0],
+    projectName: taskName[1],
+    due_date: today,
+    owner: that.get('session').currentUser.name,
+    status: "Backlogs"
+  }
+};
+this.productBacklogs.postBacklog(data);
+this.get('model').payload.data.tasks.pushObject(data.task);
+let l = this.get('model').payload.data.tasks.length;
+set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
+}
+else  {
 let data = {
   createdAt: today,
   initiativeId: that.get('session').initiative.initiativeId,
@@ -342,12 +405,14 @@ let data = {
   }
 };
 this.teamCopy.addToTeamCopy(data);
-// }
 
 this.get('model').payload.data.tasks.pushObject(data.task);
 let l = this.get('model').payload.data.tasks.length;
 set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
 }
+
+}
+// this.set('input','');
 this.set('input',' ')
 
 },
@@ -356,11 +421,7 @@ keyDown(event) {
   let a = this.getProperties('input');
   let c =a.input;
   if (event.keyCode === 13) {
-      let b = {
-          tasks:{
-              text:c
-          }
-      }
+      
       this.add2();
       
       this.set('input',' ')

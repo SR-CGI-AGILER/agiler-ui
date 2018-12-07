@@ -36,7 +36,7 @@ export default Component.extend({
           var day = ("0" + now.getDate()).slice(-2);
           var month = ("0" + (now.getMonth() + 1)).slice(-2);
           var today = now.getFullYear() + "-" + (month) + "-" + (day);
-          return this.scheduledfor.filter(task => task.scheduled === today);
+          return this.scheduledfor.filter(task => task.scheduled_For === today);
         }
       }),
     
@@ -60,7 +60,16 @@ export default Component.extend({
         return btasks;
       }),
       actions : {
+        publishActivityPlan(){
+          this.publishActivityPlan();
+        },
         reRenderView() {
+        },
+        logout(){
+          this.logout();
+        },
+        sprintView(){
+          this.sprintView();
         },
         navigateToInitiaiveRoute(route){
           this.navigateToInitiaive(route)

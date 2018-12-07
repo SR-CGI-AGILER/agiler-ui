@@ -1,5 +1,12 @@
 {{yield}}
-{{activity-planner-desktop-navigation userData=userData reRenderView = (action "reRenderView") navigateToInitiative=(action 'navigateToInitiaiveRoute')  navigateToInitiativeMembers=(action 'navigateTomembers')}}
+{{activity-planner-desktop-navigation 
+userData=userData 
+reRenderView = (action "reRenderView") 
+navigateToInitiative=(action 'navigateToInitiaiveRoute') 
+navigateToInitiativeMembers=(action 'navigateTomembers')
+logout=(action "logout")
+sprintView=(action "sprintView")
+}}
 
 <div class="layout-row layout-align-start-start">
 {{activity-planner-desktop-completed completedTasks=completedTasks}}
@@ -9,4 +16,10 @@
 {{activity-planner-desktop-scheduled-future scheduledFutureTasks=scheduledFutureTasks}}
 {{activity-planner-desktop-scheduled-today scheduledTodayTasks=scheduledTodayTasks}}
 </div>
-{{activity-planner-desktop-activity-plan backlogTasks=backlogTasks newTasks=newTasks pendingTasks=pendingTasks checkPublish = checkPublish}}
+{{activity-planner-desktop-activity-plan 
+backlogTasks=backlogTasks 
+newTasks=newTasks 
+pendingTasks=pendingTasks 
+scheduledFutureTasks=scheduledFutureTasks
+scheduledTodayTasks=scheduledTodayTasks
+checkPublish = checkPublish}}

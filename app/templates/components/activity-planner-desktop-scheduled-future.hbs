@@ -2,13 +2,13 @@
 {{#paper-card class="a" as |card|}}
       {{#card.title as |title|}}
         {{#title.text as |text|}}
-          {{#text.headline}}Future Tasks{{/text.headline}}
+          {{#text.headline}}Scheduled For Future{{/text.headline}}
          {{paper-divider}}
         {{#paper-list}}
-          <div style="height:200px; width:200px">
+          <div style="height:168px; width:200px">
             {{#ember-scrollable}}
         {{#each scheduledFutureTasks as |category|}}
-        {{#draggable-item  remove=(action 'removeTask') content=category}}
+        {{#draggable-item  remove=(action 'removeScheduledFutureTask') content=category}}
             {{#paper-item}}{{category.text}}{{/paper-item}}
             {{/draggable-item}}
             {{paper-divider}}

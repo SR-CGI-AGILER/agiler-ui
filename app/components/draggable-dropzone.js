@@ -51,14 +51,11 @@ export default Component.extend({
         this.taskData.sendDataPending(rawData);
         else if(a==="BACKLOGS")
         this.taskData.sendDataBacklogs(rawData);
-        else if(rawData.scheduled_On){
-          let c = Date.parse(rawData.scheduled_On);
-          let day = ("0" + c.getDate()).slice(-2);
-          let month = ("0" + (c.getMonth() + 1)).slice(-2);
-          let d = c.getFullYear() + "-" + (month) + "-" + (day);
-          if(d === today){
-            this.taskData.sendDataScheduledToday(rawData);
-          }
+        else if(rawData.scheduled_For){
+          this.taskData.sendDataScheduledFuture(rawData);
+          // console.log(date,date.parse(),"date hia ya nai?")
+          // let c = Date.parse(rawData.scheduled_On);
+            
         }        
         set(this, 'dragClass', 'deactivated');
       }

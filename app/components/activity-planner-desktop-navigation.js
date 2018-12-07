@@ -18,6 +18,12 @@ export default Component.extend({
         reRenderView(){
             
         },
+        sprintView(){
+            this.sprintView();
+        },
+        logout(){
+            this.logout();
+        },
         showUsers(init){
             let that = this;
             this.initiativeUser.getUsers(init.initiativeId).then(function(data){

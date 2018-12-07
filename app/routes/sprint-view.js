@@ -13,6 +13,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     teamCopy: Ember.inject.service(),
     session: Ember.inject.service(),
+    blank:false,
     async model(){
         let response;
 
@@ -21,8 +22,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
         var month = ("0" + (d.getMonth()+ 1)).slice(-2);
         var today = d.getFullYear() + "-" + (month) + "-" + (day);
         var initiativeId = this.get('session').initiative.initiativeId;
-       await  this.teamCopy.getTeamCopy(today,initiativeId).then(data => {
-        
+        await  this.teamCopy.getTeamCopy(today,initiativeId).then(data => {
+        // console.log(data);
+        if(data.payload.data !== "NO DATA FOUND") {
+            this.set('blank',false);
         data.payload.data.tasks.map(function(e){
                 if(e.status === 'Completed'){
                     e.isComplete = true;
@@ -43,8 +46,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
             })
             
             response = data;
+        }
+        else {
+            this.set('blank',true);
+        }
         })
-        
+    
         let a =  new Promise(function(resolve, reject) {
             resolve(response)
         })
@@ -55,6 +62,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     setupController(controller, model){
         this._super(controller, model);
         controller.set('model',model);
+        controller.set('blank', this.get('blank'));
     }
     
 });
