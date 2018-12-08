@@ -319,23 +319,6 @@ actions: {
 let f = this.getProperties('input').input;
 let s = f.trim();
 let taskName = s.split('#');
-let d = taskName[1].toUpperCase();
-if(d==="BACKLOGS"   && d!=="")
-{
-  let data = {
-    createdAt: today,
-    initiativeId: that.get('session').initiative.initiativeId,
-    task: {
-      text: taskName[0],
-      status: "Backlogs"
-    }
-  };
-  this.productBacklogs.postBacklog(data);
-  this.get('model').payload.data.tasks.pushObject(data.task);
-  let l = this.get('model').payload.data.tasks.length;
-  set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
-}
-else  {
   let data = {
     createdAt: today,
     initiativeId: that.get('session').initiative.initiativeId,
@@ -343,17 +326,16 @@ else  {
       text: taskName[0],
       projectName: taskName[1],
       due_date: today,
-      owner: that.get('session').currentUser.name,
+      owner: that.get('session').currentUser.email,
       status: "New"
     }
   };
   this.teamCopy.addToTeamCopy(data);
-  
+// }
+
   this.get('model').payload.data.tasks.pushObject(data.task);
   let l = this.get('model').payload.data.tasks.length;
   set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
-}
-  
   }
   // this.set('input','');
   this.set('input',' ')
@@ -361,7 +343,6 @@ else  {
 
   }
 },
-
 
 add2(){
   var now = new Date();
@@ -373,9 +354,6 @@ add2(){
 let f = this.getProperties('input').input;
 let s = f.trim();
 let taskName = s.split('#');
-let d = taskName[1].toUpperCase();
-if(d==="BACKLOGS")
-{
 let data = {
   createdAt: today,
   initiativeId: that.get('session').initiative.initiativeId,
@@ -383,51 +361,41 @@ let data = {
     text: taskName[0],
     projectName: taskName[1],
     due_date: today,
-    owner: that.get('session').currentUser.name,
-    status: "Backlogs"
-  }
-};
-this.productBacklogs.postBacklog(data);
-this.get('model').payload.data.tasks.pushObject(data.task);
-let l = this.get('model').payload.data.tasks.length;
-set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
-}
-else  {
-let data = {
-  createdAt: today,
-  initiativeId: that.get('session').initiative.initiativeId,
-  task: {
-    text: taskName[0],
-    projectName: taskName[1],
-    due_date: today,
-    owner: that.get('session').currentUser.name,
+    owner: that.get('session').currentUser.email,
     status: "New"
   }
 };
 this.teamCopy.addToTeamCopy(data);
+// }
 
 this.get('model').payload.data.tasks.pushObject(data.task);
 let l = this.get('model').payload.data.tasks.length;
 set(this.get('model').payload.data.tasks[l - 1], 'isNew', true);
 }
-
-}
 // this.set('input','');
 this.set('input',' ')
+          
 
 },
 
+
 keyDown(event) {
+  debugger
+  let self = this;
   let a = this.getProperties('input');
   let c =a.input;
-  if (event.keyCode === 13) {
-      
+  if (event.which === 13 || event.keyCode === 13) {
+      let b = {
+          tasks:{
+              text:c
+          }
+      }
+     
       this.add2();
-      
       this.set('input',' ')
       return false;
-  }
   
+}
 }
 });
 

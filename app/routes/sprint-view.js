@@ -63,6 +63,24 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this._super(controller, model);
         controller.set('model',model);
         controller.set('blank', this.get('blank'));
+    },
+    keyDown(event) {
+        debugger
+        let self = this;
+        let a = this.getProperties('input');
+        let c =a.input;
+        if (event.which === 13 || event.keyCode === 13) {
+            let b = {
+                tasks:{
+                    text:c
+                }
+            }
+           
+            this.add2();
+            this.set('input',' ')
+            return false;
+        
+      }
     }
     
 });
