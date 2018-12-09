@@ -183,7 +183,6 @@ export default Component.extend(RecognizerMixin, {
         createdAt: today,
         tasks: task
       }
-      console.log(obj);
       this.set('todayTeamCopy',obj);
       // this.set('sprint',true);
       this.publish(this.get('todayTeamCopy'));

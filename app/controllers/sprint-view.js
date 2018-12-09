@@ -104,8 +104,7 @@ actions: {
     this.set('showUsersDialog',false)
   },
   switchTasks(){
-      this.toggleProperty('all')
-      console.log("happeneing",this.get('all') , this.get('filteredTasks'))  
+      this.toggleProperty('all')  
   },
   
   raisedButtonComplete() {

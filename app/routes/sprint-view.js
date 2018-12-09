@@ -51,12 +51,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
             
             response = data;
             let filterTask = data.payload.data.tasks.filter(function(eachTask) {
-                 console.log(eachTask, that.get('session').currentUser)
                 if(eachTask.owner === that.get('session').currentUser.email) {
                     return eachTask
                 }
             })
-            debugger
+            
             this.set('filteredTasks', filterTask);
         })
 

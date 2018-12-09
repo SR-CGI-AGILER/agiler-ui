@@ -36,24 +36,16 @@ export default Controller.extend({
 
   actions: {
     logout(){
-      // console.log(this.get('session').usertoken)
-      // this.get('seshsion').invalidate('authenticator:torii', 'google-oauth2');
-      // const currentRouteName = this.get("routing.currentRouteName");
-      // const currentRouteInstant = getOwner(this).lookup(`route:${currentRouteName}`);
-      // currentRouteInstant.refresh();
-      // this.transitionToRoute('login');
       let that=this;
       this.get('session').invalidate().then(()=>{
         that.transitionToRoute('login');
       });
-      console.log(this.get('session').currentUser,this.get('session').userToken);
     },
     sprintView(){
       this.transitionToRoute("sprintView")
     },
     publish(todayTeamCopy) {
       let that=this;
-      console.log(todayTeamCopy, "this should get logged!!!!", new Date().getTime, "so that we can check the time in docker container")
       this.activityPlan.createActivityPlanMobile(todayTeamCopy).then(function(data){
   
         that.transitionToRoute('sprintView');
